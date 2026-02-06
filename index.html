@@ -10,6 +10,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Force fixes for persistent layout issues */
+        @media (max-width: 600px) {
+            .command-console {
+                flex-direction: column !important;
+                gap: 15px !important;
+            }
+
+            .lightsaber-btn {
+                width: 100% !important;
+                max-width: none !important;
+            }
+        }
+
+        .badge.yellow {
+            color: #000000 !important;
+            font-weight: 900 !important;
+        }
+
+        .projects-grid {
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+        }
+
+        @media (max-width: 1050px) {
+            .projects-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
