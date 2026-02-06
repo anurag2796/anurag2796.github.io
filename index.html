@@ -45,6 +45,30 @@
             color: #000000 !important;
         }
 
+        /* Force badge text visibility */
+        .projects-grid span.badge {
+            color: #000000 !important;
+            visibility: visible !important;
+            display: inline-flex !important;
+        }
+
+        .projects-grid {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr)) !important;
+            gap: 30px !important;
+        }
+
+        @media (max-width: 1150px) {
+            .projects-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        }
+
+        .badge.green {
+            background-color: #2EF8A0 !important;
+            color: #000000 !important;
+        }
+
         .projects-grid {
             grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr)) !important;
             gap: 30px !important;
