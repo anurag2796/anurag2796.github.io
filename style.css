@@ -306,107 +306,109 @@ footer {
     padding: 2px 8px;
     border-radius: 4px;
     color: #000000 !important;
-    /* Absolute black */
     font-weight: 900;
     text-transform: uppercase;
     white-space: nowrap;
+    flex-shrink: 0;
+    min-height: 24px;
+    line-height: 1;
+}
 
+/* Badge Specific Colors */
+.badge.red {
+    background: var(--saber-red) !important;
+    box-shadow: 0 0 8px var(--saber-red);
+}
 
-    /* Badge Specific Colors */
-    .badge.red {
-        background: var(--saber-red) !important;
-        box-shadow: 0 0 8px var(--saber-red);
+.badge.blue {
+    background: var(--saber-blue) !important;
+    box-shadow: 0 0 8px var(--saber-blue);
+}
+
+.badge.green {
+    background: var(--saber-green) !important;
+    box-shadow: 0 0 8px var(--saber-green);
+}
+
+.badge.yellow {
+    background: var(--sw-yellow) !important;
+    box-shadow: 0 0 8px var(--sw-yellow);
+    color: #000 !important;
+}
+
+/* Responsive Media Queries - High Precedence */
+@media (max-width: 950px) {
+
+    .projects-grid,
+    .skills-grid {
+        grid-template-columns: 1fr !important;
+        gap: 25px;
     }
 
-    .badge.blue {
-        background: var(--saber-blue) !important;
-        box-shadow: 0 0 8px var(--saber-blue);
+    .section-container {
+        width: 95%;
+        padding: 25px 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .intro-crawl {
+        width: 100%;
+        height: 400px;
+    }
+}
+
+@media (max-width: 600px) {
+    .command-console {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 15px !important;
     }
 
-    .badge.green {
-        background: var(--saber-green) !important;
-        box-shadow: 0 0 8px var(--saber-green);
+    .lightsaber-btn {
+        width: 100% !important;
+        max-width: 350px !important;
+        min-width: 0 !important;
     }
 
-    .badge.yellow {
-        background: var(--sw-yellow) !important;
-        box-shadow: 0 0 8px var(--sw-yellow);
-        color: #000 !important;
+    h1 {
+        font-size: 2.5rem !important;
+    }
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+        color: black;
     }
 
-    /* Responsive Media Queries - High Precedence */
-    @media (max-width: 950px) {
-
-        .projects-grid,
-        .skills-grid {
-            grid-template-columns: 1fr !important;
-            gap: 25px;
-        }
-
-        .section-container {
-            width: 95%;
-            padding: 25px 15px;
-        }
+    .stars,
+    .twinkling,
+    .intro-crawl,
+    .command-console {
+        display: none;
     }
 
-    @media (max-width: 768px) {
-        .intro-crawl {
-            width: 100%;
-            height: 400px;
-        }
+    .section-container {
+        border: none;
+        box-shadow: none;
+        color: black;
     }
 
-    @media (max-width: 600px) {
-        .command-console {
-            flex-direction: column !important;
-            align-items: center !important;
-            gap: 15px !important;
-        }
-
-        .lightsaber-btn {
-            width: 100% !important;
-            max-width: 350px !important;
-            min-width: 0 !important;
-        }
-
-        h1 {
-            font-size: 2.5rem !important;
-        }
+    .section-title {
+        color: black;
+        border-bottom: 2px solid black;
     }
 
-    /* Print Styles */
-    @media print {
-        body {
-            background: white;
-            color: black;
-        }
-
-        .stars,
-        .twinkling,
-        .intro-crawl,
-        .command-console {
-            display: none;
-        }
-
-        .section-container {
-            border: none;
-            box-shadow: none;
-            color: black;
-        }
-
-        .section-title {
-            color: black;
-            border-bottom: 2px solid black;
-        }
-
-        .skill-card,
-        .project-card {
-            border: 1px solid #ccc;
-            break-inside: avoid;
-        }
-
-        .project-card h3,
-        .skill-card h3 {
-            color: black;
-        }
+    .skill-card,
+    .project-card {
+        border: 1px solid #ccc;
+        break-inside: avoid;
     }
+
+    .project-card h3,
+    .skill-card h3 {
+        color: black;
+    }
+}

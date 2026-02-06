@@ -25,15 +25,32 @@
         }
 
         .badge.yellow {
+            background-color: #FFE81F !important;
             color: #000000 !important;
             font-weight: 900 !important;
         }
 
-        .projects-grid {
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+        .badge.blue {
+            background-color: #2E67F8 !important;
+            color: #000000 !important;
         }
 
-        @media (max-width: 1050px) {
+        .badge.red {
+            background-color: #EB212E !important;
+            color: #000000 !important;
+        }
+
+        .badge.green {
+            background-color: #2EF8A0 !important;
+            color: #000000 !important;
+        }
+
+        .projects-grid {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr)) !important;
+            gap: 30px !important;
+        }
+
+        @media (max-width: 1100px) {
             .projects-grid {
                 grid-template-columns: 1fr !important;
             }
