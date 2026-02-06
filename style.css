@@ -134,17 +134,7 @@ h1 {
     padding: 0 15px;
 }
 
-@media (max-width: 500px) {
-    .command-console {
-        flex-direction: column;
-        align-items: center;
-    }
 
-    .lightsaber-btn {
-        width: 100%;
-        max-width: 100%;
-    }
-}
 
 .lightsaber-btn {
     position: relative;
@@ -167,6 +157,41 @@ h1 {
 .lightsaber-btn .btn-text {
     z-index: 2;
     position: relative;
+    pointer-events: none;
+}
+
+/* Lightsaber Base Glow Styles */
+.lightsaber-btn.blue {
+    border-color: var(--saber-blue);
+    box-shadow: 0 0 10px var(--saber-blue), inset 0 0 10px var(--saber-blue);
+    text-shadow: 0 0 5px var(--saber-blue);
+}
+
+.lightsaber-btn.blue:hover {
+    box-shadow: 0 0 25px var(--saber-blue), inset 0 0 15px var(--saber-blue);
+    background: rgba(46, 103, 248, 0.25);
+}
+
+.lightsaber-btn.green {
+    border-color: var(--saber-green);
+    box-shadow: 0 0 10px var(--saber-green), inset 0 0 10px var(--saber-green);
+    text-shadow: 0 0 5px var(--saber-green);
+}
+
+.lightsaber-btn.green:hover {
+    box-shadow: 0 0 25px var(--saber-green), inset 0 0 15px var(--saber-green);
+    background: rgba(46, 248, 160, 0.25);
+}
+
+.lightsaber-btn.red {
+    border-color: var(--saber-red);
+    box-shadow: 0 0 10px var(--saber-red), inset 0 0 10px var(--saber-red);
+    text-shadow: 0 0 5px var(--saber-red);
+}
+
+.lightsaber-btn.red:hover {
+    box-shadow: 0 0 25px var(--saber-red), inset 0 0 15px var(--saber-red);
+    background: rgba(235, 33, 46, 0.25);
 }
 
 /* Footer */
@@ -249,82 +274,108 @@ footer {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* Better Header for Cards to handle long titles */
+/* Card Header Logic */
 .card-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     flex-wrap: wrap;
-    /* Allow badge to drop down if title is too long */
+    /* Ensure badges wrap on small cards */
     gap: 10px;
     margin-bottom: 15px;
     width: 100%;
+    min-height: 40px;
 }
 
 .card-header h3 {
     margin: 0;
-    flex: 1 1 150px;
-    /* Allow title to take space but shrink/wrap */
+    flex: 1 1 120px;
     word-break: break-word;
+    /* Handle long project names */
+}
+
+/* Badge Styling - Restoring missing definitions */
+.badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    color: #000 !important;
+    /* Force high contrast */
+    font-weight: 800;
+    text-transform: uppercase;
+    white-space: nowrap;
+    align-self: flex-start;
+    margin-top: 2px;
 }
 
 
 
-/* Lightsaber Glow Effects (Shared) */
-.lightsaber-btn.blue {
-    border-color: var(--saber-blue);
-    box-shadow: 0 0 10px var(--saber-blue), inset 0 0 5px var(--saber-blue);
-    text-shadow: 0 0 8px var(--saber-blue);
-}
 
-.lightsaber-btn.blue:hover {
-    box-shadow: 0 0 25px var(--saber-blue), inset 0 0 15px var(--saber-blue);
-    background: rgba(46, 103, 248, 0.25);
-}
 
-.lightsaber-btn.green {
-    border-color: var(--saber-green);
-    box-shadow: 0 0 10px var(--saber-green), inset 0 0 5px var(--saber-green);
-    text-shadow: 0 0 8px var(--saber-green);
-}
 
-.lightsaber-btn.green:hover {
-    box-shadow: 0 0 25px var(--saber-green), inset 0 0 15px var(--saber-green);
-    background: rgba(46, 248, 160, 0.25);
-}
 
-.lightsaber-btn.red {
-    border-color: var(--saber-red);
-    box-shadow: 0 0 10px var(--saber-red), inset 0 0 5px var(--saber-red);
-    text-shadow: 0 0 8px var(--saber-red);
-}
-
-.lightsaber-btn.red:hover {
-    box-shadow: 0 0 25px var(--saber-red), inset 0 0 15px var(--saber-red);
-    background: rgba(235, 33, 46, 0.25);
-}
-
+/* Badge Specific Colors */
 .badge.red {
-    background: var(--saber-red);
+    background: var(--saber-red) !important;
     box-shadow: 0 0 8px var(--saber-red);
 }
 
 .badge.blue {
-    background: var(--saber-blue);
+    background: var(--saber-blue) !important;
     box-shadow: 0 0 8px var(--saber-blue);
 }
 
 .badge.green {
-    background: var(--saber-green);
+    background: var(--saber-green) !important;
     box-shadow: 0 0 8px var(--saber-green);
 }
 
 .badge.yellow {
-    background: var(--sw-yellow);
+    background: var(--sw-yellow) !important;
     box-shadow: 0 0 8px var(--sw-yellow);
+    color: #000 !important;
 }
 
+/* Responsive Media Queries - High Precedence */
+@media (max-width: 950px) {
 
+    .projects-grid,
+    .skills-grid {
+        grid-template-columns: 1fr !important;
+        gap: 25px;
+    }
+
+    .section-container {
+        width: 95%;
+        padding: 25px 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .intro-crawl {
+        width: 100%;
+        height: 400px;
+    }
+}
+
+@media (max-width: 600px) {
+    .command-console {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 15px !important;
+    }
+
+    .lightsaber-btn {
+        width: 100% !important;
+        max-width: 350px !important;
+        min-width: 0 !important;
+    }
+
+    h1 {
+        font-size: 2.5rem !important;
+    }
+}
 
 /* Print Styles */
 @media print {
