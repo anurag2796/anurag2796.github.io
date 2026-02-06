@@ -12,6 +12,7 @@
     padding: 0;
 }
 
+/* Global Styles */
 body {
     background-color: var(--sw-black);
     color: var(--sw-yellow);
@@ -21,9 +22,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
 }
 
-/* Background Stars using CSS gradients */
+/* Background Stars - Using CSS gradients slightly optimized */
 body::before {
     content: "";
     position: fixed;
@@ -38,49 +40,47 @@ body::before {
     background-size: 550px 550px, 350px 350px, 250px 250px;
     background-position: 0 0, 40px 60px, 130px 270px;
     z-index: -2;
+    animation: twinkle 5s infinite ease-in-out;
 }
 
-/* Optional: Subtle animation for "twinkling" effect via opacity or position */
 @keyframes twinkle {
-    0% {
+
+    0%,
+    100% {
         opacity: 0.8;
     }
 
     50% {
         opacity: 1;
     }
-
-    100% {
-        opacity: 0.8;
-    }
 }
 
 /* Header */
 header {
     text-align: center;
-    margin-top: 50px;
+    margin: clamp(20px, 5vh, 60px) 0;
     z-index: 10;
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: clamp(2rem, 8vw, 4rem);
     letter-spacing: 0.2rem;
     text-shadow: 0 0 10px var(--sw-yellow);
+    margin-bottom: 10px;
 }
 
 .subtitle {
-    font-size: 1.2rem;
+    font-size: clamp(0.9rem, 2.5vw, 1.3rem);
     color: #ddd;
-    margin-top: 10px;
 }
 
-/* Intro Crawl */
+/* Intro Crawl - Highly optimized for responsiveness */
 .intro-crawl {
-    perspective: 400px;
-    height: 400px;
+    perspective: clamp(200px, 50vw, 400px);
+    height: clamp(300px, 60vh, 500px);
     overflow: hidden;
     position: relative;
-    width: 60%;
+    width: min(90%, 800px);
     margin: 20px auto;
 }
 
@@ -95,7 +95,7 @@ h1 {
 
 .crawl-text {
     text-align: justify;
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 3vw, 1.6rem);
     line-height: 1.5;
     font-weight: bold;
     color: var(--sw-yellow);
@@ -115,35 +115,53 @@ h1 {
     }
 
     100% {
-        top: -200%;
+        top: -250%;
         transform: rotateX(25deg) translateZ(-1000px);
         opacity: 0;
     }
 }
 
-/* Navigation & Buttons */
+/* Command Console / Nav Buttons */
 .command-console {
     display: flex;
-    gap: 30px;
-    margin-top: 20px;
-    margin-bottom: 50px;
+    flex-direction: row;
+    gap: 15px;
+    margin: 40px 0;
     z-index: 10;
     flex-wrap: wrap;
     justify-content: center;
+    width: min(100%, 1000px);
+    padding: 0 15px;
+}
+
+@media (max-width: 500px) {
+    .command-console {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .lightsaber-btn {
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 .lightsaber-btn {
     position: relative;
-    display: inline-block;
-    padding: 15px 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
     text-decoration: none;
     color: white;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
     border-radius: 5px;
     transition: all 0.3s ease;
     background: rgba(255, 255, 255, 0.05);
     border: 2px solid transparent;
+    min-width: 200px;
+    flex: 1 1 200px;
 }
 
 .lightsaber-btn .btn-text {
@@ -151,89 +169,50 @@ h1 {
     position: relative;
 }
 
-/* Lightsaber Glow Effects */
-.lightsaber-btn.blue {
-    border-color: var(--saber-blue);
-    box-shadow: 0 0 10px var(--saber-blue), inset 0 0 10px var(--saber-blue);
-    text-shadow: 0 0 5px var(--saber-blue);
-}
-
-.lightsaber-btn.blue:hover {
-    box-shadow: 0 0 20px var(--saber-blue), inset 0 0 20px var(--saber-blue);
-    background: rgba(46, 103, 248, 0.2);
-}
-
-.lightsaber-btn.green {
-    border-color: var(--saber-green);
-    box-shadow: 0 0 10px var(--saber-green), inset 0 0 10px var(--saber-green);
-    text-shadow: 0 0 5px var(--saber-green);
-}
-
-.lightsaber-btn.green:hover {
-    box-shadow: 0 0 20px var(--saber-green), inset 0 0 20px var(--saber-green);
-    background: rgba(46, 248, 160, 0.2);
-}
-
-.lightsaber-btn.red {
-    border-color: var(--saber-red);
-    box-shadow: 0 0 10px var(--saber-red), inset 0 0 10px var(--saber-red);
-    text-shadow: 0 0 5px var(--saber-red);
-}
-
-.lightsaber-btn.red:hover {
-    box-shadow: 0 0 20px var(--saber-red), inset 0 0 20px var(--saber-red);
-    background: rgba(235, 33, 46, 0.2);
-}
-
+/* Footer */
 footer {
+    width: 100%;
     margin-top: auto;
-    padding: 20px;
-    color: #666;
-    font-size: 0.8rem;
+    padding: 30px 20px;
+    text-align: center;
+    color: #888;
+    font-size: 0.85rem;
     z-index: 10;
-}
-
-@media (max-width: 768px) {
-    .intro-crawl {
-        width: 90%;
-    }
-
-    .command-console {
-        flex-direction: column;
-        align-items: center;
-    }
 }
 
 /* Sections */
 .section-container {
-    width: 80%;
-    max-width: 1000px;
+    width: min(95%, 1200px);
     margin: 40px auto;
-    padding: 20px;
+    padding: clamp(15px, 4vw, 40px);
     border: 1px solid rgba(255, 232, 31, 0.3);
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+    position: relative;
+    z-index: 5;
 }
 
 .section-title {
     color: var(--sw-yellow);
     text-align: center;
-    font-size: 2rem;
-    margin-bottom: 30px;
+    font-size: clamp(1.6rem, 5vw, 2.5rem);
+    margin-bottom: clamp(25px, 6vw, 50px);
     text-transform: uppercase;
     letter-spacing: 0.2rem;
     border-bottom: 2px solid var(--sw-yellow);
-    padding-bottom: 10px;
-    display: inline-block;
+    padding-bottom: 12px;
+    display: block;
+    width: fit-content;
+    margin: 0 auto clamp(25px, 6vw, 50px);
 }
 
-/* Grids */
+/* Grids - Optimized with improved minmax and gap to prevent overlaps */
 .skills-grid,
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: clamp(20px, 4vw, 35px);
 }
 
 /* Cards */
@@ -242,64 +221,144 @@ footer {
     background: rgba(255, 255, 255, 0.05);
     padding: 20px;
     border: 1px solid #333;
-    border-radius: 5px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .skill-card:hover,
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 15px rgba(255, 232, 31, 0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(255, 232, 31, 0.15);
     border-color: var(--sw-yellow);
 }
 
 .project-card h3,
 .skill-card h3 {
     color: var(--sw-yellow);
-    margin-bottom: 10px;
-    font-size: 1.3rem;
+    margin-bottom: 12px;
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
 }
 
 .project-card p,
 .skill-card p {
-    color: #ccc;
+    color: #e0e0e0;
     line-height: 1.6;
-    font-family: sans-serif;
-    /* Readable font for dense text */
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* Project Specifics */
+/* Better Header for Cards to handle long titles */
 .card-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    /* Allow badge to drop down if title is too long */
+    gap: 10px;
+    margin-bottom: 15px;
+    width: 100%;
 }
 
-.badge {
-    font-size: 0.8rem;
-    padding: 3px 8px;
-    border-radius: 3px;
-    color: #000;
-    font-weight: bold;
+.card-header h3 {
+    margin: 0;
+    flex: 1 1 150px;
+    /* Allow title to take space but shrink/wrap */
+    word-break: break-word;
+}
+
+
+
+/* Lightsaber Glow Effects (Shared) */
+.lightsaber-btn.blue {
+    border-color: var(--saber-blue);
+    box-shadow: 0 0 10px var(--saber-blue), inset 0 0 5px var(--saber-blue);
+    text-shadow: 0 0 8px var(--saber-blue);
+}
+
+.lightsaber-btn.blue:hover {
+    box-shadow: 0 0 25px var(--saber-blue), inset 0 0 15px var(--saber-blue);
+    background: rgba(46, 103, 248, 0.25);
+}
+
+.lightsaber-btn.green {
+    border-color: var(--saber-green);
+    box-shadow: 0 0 10px var(--saber-green), inset 0 0 5px var(--saber-green);
+    text-shadow: 0 0 8px var(--saber-green);
+}
+
+.lightsaber-btn.green:hover {
+    box-shadow: 0 0 25px var(--saber-green), inset 0 0 15px var(--saber-green);
+    background: rgba(46, 248, 160, 0.25);
+}
+
+.lightsaber-btn.red {
+    border-color: var(--saber-red);
+    box-shadow: 0 0 10px var(--saber-red), inset 0 0 5px var(--saber-red);
+    text-shadow: 0 0 8px var(--saber-red);
+}
+
+.lightsaber-btn.red:hover {
+    box-shadow: 0 0 25px var(--saber-red), inset 0 0 15px var(--saber-red);
+    background: rgba(235, 33, 46, 0.25);
 }
 
 .badge.red {
     background: var(--saber-red);
-    box-shadow: 0 0 5px var(--saber-red);
+    box-shadow: 0 0 8px var(--saber-red);
 }
 
 .badge.blue {
     background: var(--saber-blue);
-    box-shadow: 0 0 5px var(--saber-blue);
+    box-shadow: 0 0 8px var(--saber-blue);
 }
 
 .badge.green {
     background: var(--saber-green);
-    box-shadow: 0 0 5px var(--saber-green);
+    box-shadow: 0 0 8px var(--saber-green);
 }
 
 .badge.yellow {
     background: var(--sw-yellow);
-    box-shadow: 0 0 5px var(--sw-yellow);
+    box-shadow: 0 0 8px var(--sw-yellow);
+}
+
+
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .stars,
+    .twinkling,
+    .intro-crawl,
+    .command-console {
+        display: none;
+    }
+
+    .section-container {
+        border: none;
+        box-shadow: none;
+        color: black;
+    }
+
+    .section-title {
+        color: black;
+        border-bottom: 2px solid black;
+    }
+
+    .skill-card,
+    .project-card {
+        border: 1px solid #ccc;
+        break-inside: avoid;
+    }
+
+    .project-card h3,
+    .skill-card h3 {
+        color: black;
+    }
 }
