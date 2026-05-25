@@ -15,13 +15,28 @@ dist/
 *.swp
 *.swo
 
-# OS
+# OS — macOS
 .DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# OS — Windows
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 
 # Logs
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # TypeScript
 *.tsbuildinfo
+
+# Generated export files
+notebookllm_source.txt
+
+# Tooling / scaffolding
+.superpowers/
