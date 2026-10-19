@@ -117,7 +117,15 @@ export function WorkPage() {
               {index.map((p) => (
                 <li className="proj reveal" key={p.slug}>
                   <div className="proj-name">
-                    <h3>{p.name}</h3>
+                    <h3>
+                      {p.href ? (
+                        <Go to={p.href} className="proj-link">
+                          {p.name}
+                        </Go>
+                      ) : (
+                        p.name
+                      )}
+                    </h3>
                     <Status kind={p.status} />
                     <span className="owner">{p.owner}</span>
                   </div>
@@ -135,7 +143,7 @@ export function WorkPage() {
                   </div>
                   {p.image && (
                     <figure className="proj-thumb">
-                      <Shot image={p.image} small />
+                      <Shot image={p.image} small to={p.href} decorative={!!p.href} />
                     </figure>
                   )}
                 </li>

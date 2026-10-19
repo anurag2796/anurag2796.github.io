@@ -18,7 +18,7 @@ Single-page React 18 + TypeScript + Vite app deployed to GitHub Pages at `anurag
 **Entry / routing flow**
 - `src/main.tsx` → `App.tsx` → `RouterProvider` with `routes.ts`.
 - `routes.ts` uses **`createHashRouter`** — this is deliberate, not legacy. Hash routing is the only thing that makes deep links survive a refresh on GitHub Pages without a `404.html` redirect hack. Do not switch to `createBrowserRouter`.
-- Routes: `/`, `/work` (filter via `?area=`), `/work/fedlearn`, `/work/tigerresearchbuddy`, `/work/financial-services`, `/experience`, `/about`, `*` (404).
+- Routes: `/`, `/work` (filter via `?area=`), `/work/fedlearn`, `/work/tigerresearchbuddy`, `/work/financial-services`, `/work/:slug` (data-driven project pages from `src/content/studies.ts`), `/experience`, `/about`, `*` (404).
 - `components/Layout.tsx` is the shell: skip link, `SiteHeader` (desktop nav + accessible mobile menu), `<main>`, `SiteFooter`. It resets scroll and moves focus to `<main>` on pathname changes (not on query-string changes).
 - Because the URL hash belongs to the router, **never use `href="#id"` for in-page links**. Use `JumpLink` (`components/links.tsx`) or `jumpTo()` (`lib/nav.ts`). Internal navigation uses `Go` (a `Link` with `viewTransition`).
 
