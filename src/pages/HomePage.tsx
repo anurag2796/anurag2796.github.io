@@ -93,27 +93,31 @@ const ROLES = [
   },
 ];
 
-const MORE: { name: string; status: StatusKind; statusLabel?: string; blurb: string; image: ImageKey }[] = [
+const MORE: { name: string; slug: string; status: StatusKind; statusLabel?: string; blurb: string; image: ImageKey }[] = [
   {
     name: "Hybrid ML Scheduler",
+    slug: "hybrid-ml-scheduler",
     status: "simulator",
     blurb: "Heuristic, Random Forest and DQN schedulers scored against a brute-force Oracle.",
     image: "hybrid",
   },
   {
     name: "LeafMD",
+    slug: "leafmd",
     status: "coursework",
     blurb: "Plant-disease detection studying the gap between lab images and field photos.",
     image: "leafmd",
   },
   {
     name: "CrimeCastNYC",
+    slug: "crimecastnyc",
     status: "coursework",
     blurb: "Two decades of NYPD 911 data in a partitioned PostgreSQL star schema.",
     image: "crimecast",
   },
   {
     name: "Smart Betting System",
+    slug: "smart-betting-system",
     status: "simulator",
     statusLabel: "◇ Simulator · virtual money",
     blurb: "XGBoost edge, Kelly sizing and settlement, with no real wagering.",
@@ -461,9 +465,9 @@ export function HomePage() {
         <ul className="more-grid">
           {MORE.map((m) => (
             <li key={m.name}>
-              <Shot image={m.image} to={ROUTES.work} decorative small />
+              <Shot image={m.image} to={`${ROUTES.work}/${m.slug}`} decorative small />
               <Status kind={m.status} plain label={m.statusLabel} />
-              <Go className="name" to={ROUTES.work}>
+              <Go className="name" to={`${ROUTES.work}/${m.slug}`}>
                 {m.name}
               </Go>
               <span className="blurb">{m.blurb}</span>

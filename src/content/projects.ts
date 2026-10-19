@@ -93,6 +93,8 @@ export const PROJECTS: Project[] = [
     evidence: "All policies see identical synthetic task streams; energy and cost are modeled, not measured on hardware.",
     tech: "Python · FastAPI · PostgreSQL · Redis · WebSocket · React",
     image: "hybrid",
+    href: `${ROUTES.work}/hybrid-ml-scheduler`,
+    cta: "Read the project page →",
   },
   {
     tier: "index",
@@ -105,6 +107,8 @@ export const PROJECTS: Project[] = [
     evidence:
       "Audited · not production-ready. Known integration defects are published with the code, and synthetic development data is kept separate from real conclusions.",
     tech: "Python · XGBoost · HDBSCAN · FastAPI · Streamlit",
+    href: `${ROUTES.work}/faminesight`,
+    cta: "Read the project page →",
   },
   {
     tier: "index",
@@ -117,6 +121,8 @@ export const PROJECTS: Project[] = [
     evidence: "Built a dedicated lab-to-field evaluator; comparison results are not yet published.",
     tech: "Python · YOLO11n · YOLO26n · FastAPI",
     image: "leafmd",
+    href: `${ROUTES.work}/leafmd`,
+    cta: "Read the project page →",
   },
   {
     tier: "index",
@@ -129,6 +135,8 @@ export const PROJECTS: Project[] = [
     evidence: "Virtual money only · no real wagering · no profitability claim. A walk-forward backtest is future work.",
     tech: "Python · XGBoost · FastAPI · SQLAlchemy · React",
     image: "smart",
+    href: `${ROUTES.work}/smart-betting-system`,
+    cta: "Read the project page →",
   },
   {
     tier: "index",
@@ -136,11 +144,13 @@ export const PROJECTS: Project[] = [
     name: "CrimeCastNYC",
     areas: ["Data", "Backend"],
     status: "coursework",
-    owner: "Sole author",
+    owner: "Project lead, version 2.0 · original phases built with three classmates",
     desc: "A compact ETL and analytics pipeline for two decades of NYPD 911 data, using Parquet, a partitioned PostgreSQL star schema, vectorized Apriori, and classical predictive models.",
     evidence: "The pipeline runs on pandas; the star schema and year partitioning are the main engineering work.",
     tech: "Python · pandas · Parquet · PostgreSQL · Docker",
     image: "crimecast",
+    href: `${ROUTES.work}/crimecastnyc`,
+    cta: "Read the project page →",
   },
   {
     tier: "archive",
