@@ -7,7 +7,7 @@ import type { StatusKind } from "@/components/ui-bits";
 
 const METRICS = [
   { value: "1M+", label: "transactions per day", how: "Production APIs at 99.9% uptime", where: "TCS" },
-  { value: "70%", label: "lower response time", how: "Redis-backed distributed caching", where: "EY" },
+  { value: "<500 ms", label: "screening SLA, from 5,000 ms", how: "Redis-backed distributed caching", where: "EY" },
   { value: "75%", label: "lower manual-review time", how: "Fraud-decisioning workflow", where: "EY" },
   { value: "40%", label: "shorter deployment lead time", how: "CI/CD and containerized delivery", where: "TCS" },
 ];
@@ -62,9 +62,9 @@ const ROLES = [
       "Verification of a Java/Spark re-architecture against the legacy system before migration",
     ],
     results: [
-      ["70%", "lower average response time · Redis-backed caching"],
+      ["<500 ms", "screening SLA, down from 5,000 ms · Redis-backed caching"],
       ["75%", "lower manual-review time · automated triage queues"],
-      ["30%", "lower reconciliation effort · event-driven pipelines"],
+      ["25%", "lower pipeline latency · profiling-driven fixes"],
       ["15%", "better data accuracy · validation at ingestion"],
       ["100K+", "client artifacts a month from high-throughput services"],
     ],
@@ -88,7 +88,6 @@ const ROLES = [
       ["40%", "shorter deployment lead time · CI/CD and containers"],
       ["35%", "lower MTTR · monitoring and root-cause fixes"],
       ["50%", "faster queries · indexing and data-model tuning"],
-      ["20%", "lower retrieval latency · Kafka and Cassandra integration"],
     ],
     how: "Carried on-call support and turned incidents into permanent fixes through root-cause analysis and better monitoring.",
   },
@@ -430,8 +429,8 @@ export function HomePage() {
             <h3 id="fs-h">Real-time decisioning for financial services</h3>
             <div className="stat-strip">
               <div>
-                <strong>70%</strong>
-                <span>lower response time</span>
+                <strong>&lt;500 ms</strong>
+                <span>SLA, from 5,000 ms</span>
               </div>
               <div>
                 <strong>75%</strong>

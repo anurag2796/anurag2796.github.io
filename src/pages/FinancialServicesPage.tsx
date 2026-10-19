@@ -55,7 +55,7 @@ const THREE = [
 ];
 
 const OUTCOMES = [
-  ["70% lower response time", "Redis-backed distributed caching", "EY"],
+  ["Screening SLA from 5,000 ms to under 500 ms", "Redis-backed distributed caching on hot read paths", "EY"],
   ["75% lower manual-review time", "Automated triage in the fraud-decisioning workflow", "EY"],
   ["1M+ transactions a day at 99.9% uptime", "Spring Boot APIs on Kafka and OpenShift", "TCS"],
   ["40% shorter deployment lead time", "CI/CD and containerized delivery", "TCS"],

@@ -63,7 +63,7 @@ export const PROJECTS: Project[] = [
     owner: "EY Senior Technology Consultant and TCS Software Engineer, inside client engagements",
     desc: "Real-time fraud decisioning, portfolio data and consumer-lending services, built and supported in production for financial-services clients.",
     evidence:
-      "70% lower response time with Redis-backed caching · 75% lower manual-review time · 1M+ transactions a day at 99.9% uptime.",
+      "Screening SLA cut from 5,000 ms to under 500 ms with Redis-backed caching · 75% lower manual-review time · 1M+ transactions a day at 99.9% uptime.",
     tech: "Java · Scala · Spring Boot · Kafka · Redis · MongoDB · OpenShift",
     href: ROUTES.finserv,
     cta: "Read the case study",

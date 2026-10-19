@@ -51,7 +51,7 @@ const ROLES: Role[] = [
         heading: "FRAUD SCREENING",
         items: [
           "Owned three services in the real-time transaction-screening pipeline: persistence, core enricher and additional enricher.",
-          "Profiled hot read paths and added Redis-backed distributed caching, lowering average response time 70%.",
+          "Profiled hot read paths and added Redis-backed distributed caching, cutting the screening SLA from 5,000 ms to under 500 ms.",
           "Built automated triage queues for the fraud-decisioning workflow, lowering manual-review time 75%.",
           "Delivered profiling-driven fixes that lowered pipeline latency 25%.",
         ],
@@ -60,7 +60,7 @@ const ROLES: Role[] = [
         heading: "PORTFOLIO DATA",
         items: [
           "Built high-throughput backend services generating 100,000+ client artifacts a month, with streaming validation and automated quality checks.",
-          "Designed event-driven pipelines on Kafka that cut reconciliation effort 30%.",
+          "Designed event-driven pipelines on Kafka for the portfolio platform.",
           "Built validation and cleansing into the pipeline instead of correcting records downstream, improving data accuracy 15%.",
           "Verified a Java/Spark re-architecture against the legacy baseline across nested portfolio hierarchies, catching correctness gaps and regressions before migration.",
         ],
@@ -90,7 +90,7 @@ const ROLES: Role[] = [
         heading: "APIS AND DATA",
         items: [
           "Built core-banking and consumer-lending REST APIs on Spring Boot over MySQL and MongoDB, serving 1M+ transactions a day at 99.9% uptime.",
-          "Integrated Kafka event streams and Cassandra, lowering data-retrieval latency 20% for high-concurrency workloads.",
+          "Integrated Kafka event streams and Cassandra for high-concurrency workloads.",
           "Tuned relational and NoSQL schemas and indexes, making queries 50% faster.",
         ],
       },
