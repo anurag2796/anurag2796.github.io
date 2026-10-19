@@ -13,28 +13,24 @@ No test runner, linter, or formatter is configured. Don't add ESLint/Prettier co
 
 ## Architecture
 
-Single-page React 18 + TypeScript + Vite app deployed to GitHub Pages at `anurag2796.github.io`. The site is a Star Wars–themed portfolio that pulls project data live from the GitHub REST API.
+Single-page React 18 + TypeScript + Vite app deployed to GitHub Pages at `anurag2796.github.io`. An editorial "engineering dossier" portfolio: warm off-white canvas, Instrument Sans + IBM Plex Mono, one blue accent.
 
 **Entry / routing flow**
 - `src/main.tsx` → `App.tsx` → `RouterProvider` with `routes.ts`.
-- `routes.ts` uses **`createHashRouter`** — this is deliberate, not legacy. Hash routing is the only thing that makes deep links (`#/project/:name`) survive a refresh on GitHub Pages without a `404.html` redirect hack. Do not switch to `createBrowserRouter`.
-- `pages/Root.tsx` is the layout shell: mounts `IntroSplash` (first load only), `CustomCursor`, `StarField`, `ScrollToTop`, `Navigation`, then `<Outlet />` wrapped in a Framer Motion `AnimatePresence` keyed on `location.pathname`.
-- Two routes: `HomePage` (index) and `ProjectPage` (`/project/:name`).
+- `routes.ts` uses **`createHashRouter`** — this is deliberate, not legacy. Hash routing is the only thing that makes deep links survive a refresh on GitHub Pages without a `404.html` redirect hack. Do not switch to `createBrowserRouter`.
+- Routes: `/`, `/work` (filter via `?area=`), `/work/fedlearn`, `/work/tigerresearchbuddy`, `/work/financial-services`, `/experience`, `/about`, `*` (404).
+- `components/Layout.tsx` is the shell: skip link, `SiteHeader` (desktop nav + accessible mobile menu), `<main>`, `SiteFooter`. It resets scroll and moves focus to `<main>` on pathname changes (not on query-string changes).
+- Because the URL hash belongs to the router, **never use `href="#id"` for in-page links**. Use `JumpLink` (`components/links.tsx`) or `jumpTo()` (`lib/nav.ts`). Internal navigation uses `Go` (a `Link` with `viewTransition`).
 
-**Data layer**
-- All project data is fetched at runtime from `api.github.com` via `src/services/github.ts`. There is no backend, no build-time data fetch, no caching layer.
-- Username is hardcoded (`USERNAME = "anurag2796"`). Fork repos are filtered out client-side.
-- README fetch base64-decodes via `atob` and a UTF-8 round-trip — preserve that decoder when editing; naive `atob` will mangle non-ASCII.
-- Unauthenticated GitHub API is capped at **60 req/hr per IP**. Failures degrade silently (return `[]` / `null`). If touching this layer, consider a `VITE_GITHUB_TOKEN` Bearer token path before adding retries/loops.
+**Content**
+- No runtime data fetching. Project list lives in `src/content/projects.ts`; page copy lives in the page components. Contact links and image metadata are in `src/site.ts`.
+- Images are WebP in `public/images/`, referenced through `IMAGES` in `site.ts` (always with width/height and alt text).
+- Copy rules: no invented claims, no em dashes, no vanity metrics. Keep status labels (glyph + text) honest.
 
-**Styling**
-- TailwindCSS 4 via `@tailwindcss/vite` plugin (no `tailwind.config.js` — v4 is config-less by default).
-- Global styles split across `src/styles/{index,theme,tailwind,fonts}.css`. `main.tsx` only imports `index.css`, which fans out to the rest.
-- shadcn/radix primitives are vendored into `src/components/ui/` — edit them directly rather than wrapping.
-- `src/lib/utils.ts` exports `cn()` for class merging (tailwind-merge + clsx). Use it for conditional class composition.
-
-**Path alias**
-- `@/*` → `./src/*`, defined in both `vite.config.ts` (runtime resolution) and `tsconfig.app.json` (type resolution). Both must stay in sync.
+**Styling and motion**
+- All styles are in `src/styles/index.css`: tokens on `:root`, then base, components, pages, responsive (899px and 599px breakpoints), motion.
+- Motion is CSS only: `.enter` (hero stagger), `.enter-late`, `.reveal` (scroll-driven via `animation-timeline: view()`, behind `@supports`), `.draw` (diagram lines), view transitions on navigation. Everything is disabled under `prefers-reduced-motion: reduce`.
+- Tailwind's Vite plugin is still registered but no Tailwind CSS is imported. `components/ui/` (vendored shadcn) is unused by the current pages.
 
 **Build / deploy**
 - `.github/workflows/deploy.yml` builds on push to `dev`, `main`, or `master` and deploys `dist/` to GitHub Pages via `actions/deploy-pages@v4`. **Current working branch is `dev`** — pushing to `dev` ships to production.
@@ -44,7 +40,5 @@ Single-page React 18 + TypeScript + Vite app deployed to GitHub Pages at `anurag
 ## Project-specific gotchas
 
 - The `react()` and `tailwindcss()` Vite plugins are both required even if Tailwind looks unused — there's a comment in `vite.config.ts` saying so. Leave both in.
-- `HomePage.tsx` and `ProjectPage.tsx` are intentionally monolithic right now (noted as tech debt in `docs/wiki/06_current_challenges.md`). Don't refactor into sub-components as a drive-by — only when asked.
-- The repo carries both MUI (`@mui/material`) and shadcn/radix. shadcn is the default; MUI is present but not the primary UI system. Prefer shadcn/radix + Tailwind for new UI.
 - `public/resume.pdf` is referenced from the UI — keep it at that path.
-- The `v2/` and `docs/wiki/` directories contain historical/architectural notes; treat as documentation, not active code.
+- The `docs/wiki/` directory describes the previous Star Wars-themed site; treat as history, not current architecture.

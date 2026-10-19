@@ -1,13 +1,12 @@
 # Anurag Lnu | Software Engineer Portfolio
 
-Welcome to the source code for my personal portfolio, live at `anurag2796.github.io`. This project showcases my journey, technical skills, and public GitHub projects in an interactive, Star Wars-themed, single-page application.
+Welcome to the source code for my personal portfolio, live at `anurag2796.github.io`. An editorial, evidence-first portfolio: a home page that summarizes production experience and research, a project index, three case studies (FedLearn, TigerResearchBuddy, financial-services delivery), and Experience and About pages.
 
 ## Technologies Used
 
 - **Framework:** React 18, TypeScript, Vite
-- **Styling:** TailwindCSS 4, Framer Motion
-- **UI Components:** shadcn/radix primitives
-- **Data:** Live data via GitHub REST API
+- **Styling:** one hand-written stylesheet with design tokens (`src/styles/index.css`); motion is pure CSS (view transitions, scroll-driven reveals) and respects reduced motion
+- **Content:** typed data in `src/content/` and the page components; no runtime API calls
 - **Routing:** Hash routing (`react-router`) for GitHub Pages compatibility
 
 ## Quick Start
@@ -27,7 +26,7 @@ Welcome to the source code for my personal portfolio, live at `anurag2796.github
 
 ## Documentation Brain
 
-Comprehensive documentation has been generated for this repository. It details the architecture, workflows, troubleshooting steps, and the history of how this project evolved.
+The wiki below describes the previous (Star Wars-themed) version of the site and is kept for history. It details the architecture, workflows, troubleshooting steps, and the history of how this project evolved.
 
 **Explore the Wiki:**
 - [Project Wiki & Table of Contents](docs/wiki/README.md)
