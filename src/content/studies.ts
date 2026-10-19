@@ -42,7 +42,7 @@ export const STUDIES: Study[] = [
       "Everything here is simulated: the cluster is a virtual model of four GPUs and a CPU, and energy and cost come from a fixed power model rather than hardware measurements.",
     meta: [
       { label: "ROLE", value: "Sole author" },
-      { label: "TYPE", value: "Simulation framework with a live dashboard" },
+      { label: "CONTEXT", value: "Parallel Computing coursework, RIT" },
       { label: "STATUS", value: "Simulator; energy and cost are modeled" },
       { label: "STACK", value: "Python · PyTorch · scikit-learn · FastAPI · PostgreSQL · Redis · React", mono: true },
     ],
@@ -115,6 +115,20 @@ export const STUDIES: Study[] = [
         ],
       },
       {
+        kind: "defs",
+        title: "Built in phases",
+        intro:
+          "The backend grew in six planned phases, each closed with a written completion report, ending in a v2.0.0 release.",
+        items: [
+          ["1 · Database", "PostgreSQL schema for tasks, scheduler results and training data"],
+          ["2 · Persistence", "Simulation results and decisions written through a repository layer"],
+          ["3 · Modular API", "Routes split into health, metrics, observability, simulation and WebSocket"],
+          ["4 · Performance", "Redis caching for high-frequency reads"],
+          ["5 · Observability", "Structured logging, request tracing and Prometheus metrics"],
+          ["6 · Security", "Rate limiting, security headers and input validation"],
+        ],
+      },
+      {
         kind: "decisions",
         title: "Decisions and trade-offs",
         items: [
@@ -138,11 +152,14 @@ export const STUDIES: Study[] = [
       {
         kind: "limits",
         limits: [
-          "Energy and cost come from a fixed power model, not hardware measurements.",
+          "It simulates rather than schedules: no kernel runs on a real GPU, so absolute times are properties of the model.",
+          "Energy and cost come from fixed constants, not measured power draw.",
+          "The Oracle is optimal only to its grid resolution and within the cost model.",
           "The DQN makes poor choices early in exploration; heuristic pre-training only partly hides this.",
           "The cost weighting pushes the learned policies toward the CPU, which hurts makespan.",
           "Tasks are independent; there are no dependency graphs between them.",
           "Large WebSocket payloads slow the dashboard on long runs.",
+          "The pytest suite is not run in CI.",
         ],
         next: [
           "Expose the reward and cost weights as settings instead of hard-coded values.",
@@ -250,7 +267,7 @@ export const STUDIES: Study[] = [
     name: "LeafMD",
     status: "coursework",
     areas: "AI Systems",
-    lede: "An offline plant-disease detection pipeline that studies why models trained on clean lab photos struggle on real field images, and which training changes narrow that gap.",
+    lede: "An offline, edge-first plant-disease detection pipeline built around one problem: models trained on clean lab photos struggle on real field images. It measures that gap and tests training changes meant to narrow it.",
     context:
       "Built for Advanced Computer Vision at RIT. The pipeline and evaluator are in the repository; cross-domain comparison results are not yet published.",
     meta: [
@@ -261,14 +278,14 @@ export const STUDIES: Study[] = [
     ],
     image: "leafmd",
     caption: "Figure 0. From PlantVillage lab images to PlantDoc field images, then export for offline use.",
-    repo: "https://github.com/anurag2796/leafMD",
+    repo: "https://github.com/anurag2796/leafMD/tree/fix/pipeline-updates",
     blocks: [
       {
         kind: "prose",
         title: "Problem",
         paras: [
           "PlantVillage photographs single leaves on plain backgrounds under even light. Real field photos have clutter, overlapping leaves, shadows and glare. A detector that looks excellent on lab data can fail badly in a field.",
-          "LeafMD measures that lab-to-field gap directly and tests ways to close it, while keeping the model small enough to run offline on a laptop or phone.",
+          "LeafMD measures that lab-to-field gap directly instead of reporting only in-domain accuracy, and tests ways to close it while keeping models small enough for offline use on ordinary devices.",
         ],
       },
       {
@@ -277,10 +294,10 @@ export const STUDIES: Study[] = [
         steps: [
           ["1 · DATA", "Mix PlantVillage lab images with PlantDoc field images, with sanitization and split checks."],
           ["2 · CURRICULUM", "Learn disease features on clean data first, then fine-tune on mixed data with field images oversampled and the backbone frozen for the first half."],
-          ["3 · AUGMENT", "Field-style augmentations applied only to lab images, plus mosaic, HSV and MixUp."],
+          ["3 · AUGMENT", "Field-style augmentations applied only to lab images, CLAHE contrast normalization for lighting, plus mosaic, HSV and MixUp."],
           ["4 · PSEUDO-LABEL", "Run the model on unlabeled field images and keep high-confidence detections for the next training cycle."],
           ["5 · COMPARE", "A/B test YOLO11n against YOLO26n under the same settings."],
-          ["6 · EVALUATE", "A dedicated evaluator reports lab mAP@50, field mAP@50 and the gap between them."],
+          ["6 · EVALUATE", "A dedicated evaluator reports lab mAP@50, field mAP@50 and the gap; confusion-matrix analysis shows errors per disease class."],
           ["7 · EXPORT", "CoreML with INT8 quantization and ONNX, with accuracy re-checked after quantization."],
         ],
       },
@@ -295,17 +312,35 @@ export const STUDIES: Study[] = [
         ],
       },
       {
+        kind: "cols",
+        title: "What I built",
+        groups: [
+          {
+            title: "Package",
+            items: ["Installable Python package with a CLI", "Config, dataset, environment, trainer and exporter modules", "Model registry and A/B comparison tooling"],
+          },
+          {
+            title: "Training",
+            items: ["Curriculum training and pseudo-labeling", "Field augmentations and CLAHE", "Threshold grid search and a fix for a validation-split bug"],
+          },
+          {
+            title: "Serving",
+            items: ["FastAPI inference backend", "Web interface with CLAHE and test-time augmentation as user toggles", "CoreML INT8 and ONNX export"],
+          },
+        ],
+      },
+      {
         kind: "decisions",
         title: "Decisions and trade-offs",
         items: [
           {
             title: "Measure the gap, not just accuracy",
             why: "A single lab score hides the failure that matters; reporting lab and field side by side makes it visible.",
-            tradeoff: "Field labels are scarcer and noisier, so field scores move more between runs.",
+            tradeoff: "Field images are far fewer than lab images, so the field score rests on a smaller test set.",
           },
           {
             title: "Small models and INT8 export",
-            why: "The target is offline use on ordinary devices, so nano models and quantization come first.",
+            why: "The target is offline use where there is no connection and no per-inference cost, so nano models and quantization come first.",
             tradeoff: "Some accuracy is traded for size and speed, so every export is re-validated.",
           },
         ],
@@ -313,7 +348,8 @@ export const STUDIES: Study[] = [
       {
         kind: "limits",
         limits: [
-          "Cross-domain comparison results are not yet published.",
+          "Cross-domain comparison results are not yet published, so the improvement is not yet demonstrated.",
+          "On-device deployment is a target; the exporter exists, but no model has been shown running on a phone.",
           "Augmentations are static; there is no dynamic lighting or shadow synthesis yet.",
           "The MPS workarounds slow training and validation.",
         ],
@@ -342,7 +378,7 @@ export const STUDIES: Study[] = [
     ],
     image: "smart",
     caption: "Figure 0. From match data to a sized virtual position, with a skip path when the gate fails.",
-    repo: "https://github.com/anurag2796/smart-betting-system",
+    repo: "https://github.com/anurag2796/smart-betting-system/tree/dev/automated-betting-system",
     blocks: [
       {
         kind: "prose",
@@ -356,7 +392,7 @@ export const STUDIES: Study[] = [
         kind: "steps",
         title: "Pipeline",
         steps: [
-          ["1 · DATA", "16,000+ historical Premier League matches from Football-Data.co.uk, plus odds and team features."],
+          ["1 · DATA", "16,000+ historical Premier League matches from Football-Data.co.uk, plus odds, player ratings and team valuations."],
           ["2 · PREDICT", "XGBoost estimates outcome probabilities."],
           ["3 · COMPARE", "Market odds are converted to implied probabilities to measure the model's edge."],
           ["4 · GATE", "Act only when edge is at least 2% and confidence at least 55%; otherwise skip."],
@@ -378,8 +414,22 @@ export const STUDIES: Study[] = [
         kind: "cols",
         title: "What I built",
         groups: [
-          { title: "Modeling", items: ["XGBoost training on historical matches", "Edge and confidence gating against market-implied odds"] },
-          { title: "Backend", items: ["FastAPI service with live odds over WebSocket", "Scheduled evaluation runs, settlement and SQLAlchemy models with Alembic migrations"] },
+          {
+            title: "Modeling",
+            items: [
+              "XGBoost training on historical matches",
+              "Feature package for player ratings and team value, with a scraper for data the main source lacks",
+              "Edge and confidence gating against market-implied odds",
+            ],
+          },
+          {
+            title: "Backend",
+            items: [
+              "FastAPI service with a modular betting router and live odds over WebSocket",
+              "Evaluation every six hours, separate settlement logic",
+              "SQLAlchemy models with versioned Alembic migrations, Docker packaging",
+            ],
+          },
           { title: "Dashboard", items: ["React views for live odds, bet slip, history and performance", "Latency indicator and kill switch"] },
         ],
       },
@@ -388,9 +438,11 @@ export const STUDIES: Study[] = [
         limits: [
           "Virtual money only; no real wagering.",
           "No committed backtest or calibration record, so no profitability claim.",
+          "Kelly sizing assumes calibrated probabilities; calibration is not yet checked.",
+          "Guards against look-ahead leakage in features are not yet documented or tested.",
           "Live odds use a placeholder provider.",
         ],
-        next: ["Run a walk-forward backtest and publish calibration curves.", "Add player-level features such as injuries and squad value."],
+        next: ["Run a walk-forward backtest and publish reliability curves and Brier scores.", "Document and test leakage guards in feature construction."],
       },
     ],
   },
@@ -416,7 +468,7 @@ export const STUDIES: Study[] = [
         kind: "prose",
         title: "Problem",
         paras: [
-          "Twenty years of 911 call records are too large to explore comfortably in memory, and most questions are scoped to a time range. The goal was a pipeline that ingests the full history reproducibly and keeps time-bounded queries fast.",
+          "Twenty years of 911 call records are too large to explore comfortably in memory, and most questions are scoped to a time range. The goal was a compact pipeline that ingests the full history reproducibly and keeps time-bounded queries fast.",
         ],
       },
       {
@@ -429,6 +481,7 @@ export const STUDIES: Study[] = [
           ["4 · MINE", "Vectorized co-occurrence mining finds association rules between call types."],
           ["5 · MODEL", "Logistic regression classifies call priority; ridge regression predicts call volume per precinct and hour."],
           ["6 · REPORT", "Time series, heatmaps and prediction plots are generated as static reports."],
+          ["RUN", "One entry point runs the whole pipeline or any single stage; PostgreSQL runs in Docker Compose."],
         ],
       },
       {
@@ -447,8 +500,8 @@ export const STUDIES: Study[] = [
           },
           {
             title: "pandas over Spark",
-            why: "The full pipeline runs on one machine without a cluster.",
-            tradeoff: "Scaling beyond city-level data would need a distributed engine.",
+            why: "The full pipeline runs on one machine without a cluster. A Spark cleaner is written but not wired in.",
+            tradeoff: "Scaling beyond city-level data would need the distributed path finished.",
           },
         ],
       },
@@ -459,6 +512,7 @@ export const STUDIES: Study[] = [
           "The downloader does not resume after an API timeout.",
           "The record-limit flag is not passed through every stage.",
           "Some older timestamps fail to parse and are left empty.",
+          "No tests yet, and no mined rules or model scores are committed.",
         ],
         next: ["Move rule mining to a distributed FP-Growth.", "Make downloads resumable."],
       },
