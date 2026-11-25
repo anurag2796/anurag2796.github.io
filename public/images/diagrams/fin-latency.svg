@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360" role="img">
+  <title>End-to-end pipeline SLA, Morgan Stanley Fraud Hub</title>
+  <desc>Two-bar chart comparing the end-to-end pipeline SLA for Morgan Stanley Fraud Hub before and after caching inbound transactions in Redis: 5,000 ms before versus under 500 ms after (labeled &lt; 500 ms, approximately 10x reduction).</desc>
+
+  <rect width="1200" height="360" fill="#fcfbf8" />
+
+  <!-- Header -->
+  <text x="36" y="42" font-family="Instrument Sans, system-ui, sans-serif" font-size="22" font-weight="700" fill="#111315">End-to-end pipeline SLA, Morgan Stanley Fraud Hub</text>
+  <text x="36" y="68" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" fill="#666b72">Confirmed · measured end-to-end from orchestrator pickup to persistence completion</text>
+
+  <!-- Vertical gridlines (x=320 is 0 ms, x=1100 is 5,000 ms; 1,000 ms = 156 px) -->
+  <line x1="320" y1="100" x2="320" y2="256" stroke="#111315" stroke-width="1.5" />
+  <line x1="476" y1="100" x2="476" y2="256" stroke="#d8d6d0" stroke-width="1" stroke-dasharray="4 4" />
+  <line x1="632" y1="100" x2="632" y2="256" stroke="#d8d6d0" stroke-width="1" stroke-dasharray="4 4" />
+  <line x1="788" y1="100" x2="788" y2="256" stroke="#d8d6d0" stroke-width="1" stroke-dasharray="4 4" />
+  <line x1="944" y1="100" x2="944" y2="256" stroke="#d8d6d0" stroke-width="1" stroke-dasharray="4 4" />
+  <line x1="1100" y1="100" x2="1100" y2="256" stroke="#d8d6d0" stroke-width="1" stroke-dasharray="4 4" />
+
+  <!-- X-axis ticks -->
+  <text x="320" y="280" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">0 ms</text>
+  <text x="476" y="280" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">1,000 ms</text>
+  <text x="632" y="280" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">2,000 ms</text>
+  <text x="788" y="280" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">3,000 ms</text>
+  <text x="944" y="280" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">4,000 ms</text>
+  <text x="1100" y="280" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">5,000 ms</text>
+
+  <!-- Before bar -->
+  <text x="36" y="136" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="700" fill="#111315">Before</text>
+  <text x="36" y="158" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Database round-trips on SLA path</text>
+  <rect x="320" y="114" width="780" height="48" rx="6" fill="#666b72" />
+  <text x="1084" y="144" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="600" fill="#fcfbf8">5,000 ms</text>
+
+  <!-- After bar (< 500 ms threshold) -->
+  <text x="36" y="208" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="700" fill="#111315">After (Redis)</text>
+  <text x="36" y="230" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#207a52">Inbound txns cached in Redis</text>
+  <rect x="320" y="186" width="78" height="48" rx="6" fill="#207a52" fill-opacity="0.88" stroke="#207a52" stroke-width="1.5" stroke-dasharray="4 3" />
+  <text x="414" y="216" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#207a52">&lt; 500 ms</text>
+  <text x="506" y="216" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#207a52">(~10× faster · confirmed SLA threshold)</text>
+
+  <!-- Scope footer -->
+  <text x="36" y="328" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Scope: end-to-end pipeline SLA, Morgan Stanley Fraud Hub — cached inbound transactions in Redis, taking database round-trips off the SLA path.</text>
+</svg>

@@ -1,143 +1,202 @@
+import { Figure } from "@/components/Figure";
 import { Go, JumpLink } from "@/components/links";
-import { FedLearnMiniArch, Pager, SecHead, Shot } from "@/components/ui-bits";
+import { ProjectGlance } from "@/components/ProjectGlance";
+import { Pager, SecHead, Shot } from "@/components/ui-bits";
 import { usePageTitle } from "@/lib/nav";
-import { EXECUTORCH_ISSUE, FEDLEARN_REPO, ROUTES } from "@/site";
+import { FEDLEARN_REPO, ROUTES } from "@/site";
+import type { Glance } from "@/types/content";
+
+const FEDLEARN_SNAPSHOT = `${FEDLEARN_REPO}/tree/89dbef3`;
+const LATE_SHARE_COMMIT = `${FEDLEARN_REPO}/commit/ce124b9dd86e9f454c9ddaed11e3c43271c63549`;
+const WIRE_CODEC_COMMIT = `${FEDLEARN_REPO}/commit/4ea8bc03240b7819e35c7f676aad7cc3fee0cd01`;
+const FEDPROX_FIX_COMMIT = `${FEDLEARN_REPO}/commit/f3067c992364a437aed48fc5c0ebe090bbd7eaee`;
+const AUTH_FIX_COMMIT = `${FEDLEARN_REPO}/commit/d6fb77d26822819bc20e613d8aa9d1fa4da0a1dd`;
+
+const GLANCE: Glance = {
+  role: "Graduate Research Assistant, Lead Developer - FedLearn",
+  period: "Mar 2026 – present (commits from Jan 2026)",
+  team: "Primary implementation contributor (800 of 856 public commits); early platform work, DeComFL/ECG integration, client scripts, and docs by Chinmay Lokare",
+  context: "Learning Optimization Group, RIT · Advisor: Prof. Haibo Yang · M.S. capstone",
+  status: "Active research · manuscript in preparation (not yet submitted)",
+  stack:
+    "Java 21 · Spring Boot 3 · PostgreSQL · Flyway · Python 3.12 · PyTorch · gRPC · Buf · React 19 · TypeScript · Electron · React Native · Kotlin/JNI · C++ · ExecuTorch · Docker · GitHub Actions · AWS EC2",
+  links: [
+    { label: "Repository (snapshot 89dbef3)", url: FEDLEARN_SNAPSHOT },
+    { label: "Late-share race commit (ce124b9)", url: LATE_SHARE_COMMIT },
+  ],
+};
 
 const TOC = [
-  ["s-arch", "03 Architecture"],
+  ["s-arch", "03 How it works"],
   ["s-eval", "06 Methodology"],
-  ["s-evidence", "07 Evidence"],
+  ["s-evidence", "07 Results"],
   ["s-security", "08 Security"],
   ["s-negative", "10 Negative results"],
   ["s-executorch", "11 ExecuTorch debugging"],
   ["s-limits", "12 Limits"],
+  ["s-links", "14 Evidence links"],
 ] as const;
 
 const MILESTONES = [
-  ["Aug 2026", "Audited snapshot: migration-owned schema, seeded benchmark harnesses and committed raw results across nine languages."],
-  ["Sep 2026", "Secure aggregation moved from an internal implementation to externally reachable flows, with cohort freeze, dropout handling and caller-index verification."],
-  ["15 Sep 2026", "ExecuTorch max-pool backward fix prepared on a contribution branch (section 11)."],
-  ["16 Sep 2026", "Canonical main at 006c6e1, the version this case study describes."],
+  ["Jan – Mar 2026", "Initial FedLearn commits began in January 2026; formal Graduate Research Assistant appointment in RIT's Learning Optimization Group started in March 2026."],
+  ["Sep 2026", "Public branch snapshot (89dbef3): 800 of 856 reachable commits are mine (git identity anurag2796), alongside early platform work, DeComFL/ECG integration, client scripts, and docs by Chinmay Lokare."],
+  ["Autumn 2026", "Confirmed milestones: 360-configuration NIH ChestX-ray14 simulation study, 3-host gRPC qualification (up to 80 logical clients), Android FULL-arm qualification (21 of 24 plans with live receipts), and the late-share secure-aggregation race fix (ce124b9)."],
+  ["Current", "FedLearn serves as the M.S. capstone; a paper is drafted as a manuscript in preparation and is not yet submitted."],
 ];
 
 const SURFACES = [
-  ["Orchestrator", "Java 21 · Spring Boot 3 · Flyway", "Multi-tenant access, project visibility, audit, run lifecycle"],
-  ["Training runtime", "Python · PyTorch · gRPC", "Strategies, coordinator, simulator, privacy, aggregation"],
-  ["Web client", "React 19 · TypeScript · Vite", "Live dashboard; HttpOnly SameSite cookie auth"],
-  ["Desktop client", "Electron", "Local training orchestration; OS-keychain auth"],
-  ["Docker client", "Multi-architecture images", "Training on Apple Silicon, x86/NVIDIA and Jetson ARM64"],
-  ["Mobile client", "React Native TurboModule", "On-device training via ExecuTorch on a physical Android handset"],
-  ["Native layer", "C++", "Safetensors decoder matching the Python encoder byte for byte"],
+  ["Orchestrator", "Java 21 · Spring Boot 3 · PostgreSQL · Flyway", "Identity, multi-tenant organizations, project membership, run orchestration, execution contracts, audit, artifact registry"],
+  ["FL framework & runtime", "Python 3.12 · PyTorch · gRPC · Buf", "Coordinator, in-process simulator, FedAvg/FedProx/FedOpt/DeComFL, DP, robust and secure aggregation, XGBoost, recipe catalog"],
+  ["Web dashboard", "React 19 · TypeScript · Vite", "Project/admin views, run config, live STOMP telemetry, Simulation Lab, artifact registry, marketplace"],
+  ["Desktop client", "Electron · TypeScript · dockerode", "Enrolls, runs natively or in Docker, OS-keychain JWT, dialog-restricted dataset mounts, log streaming"],
+  ["Docker client", "Multi-architecture images", "One Python runtime packaged for CPU, x86 NVIDIA CUDA, and Jetson ARM64/L4T"],
+  ["Android client", "React Native · Kotlin/JNI · C++ · ExecuTorch", "Native on-device training via TurboModule and C++ gRPC (iOS is an app shell only)"],
+  ["Native wire layer", "C++ (libtorch-free)", "Safetensors decoder pinned to Python fixtures byte for byte"],
 ];
 
 const BUILT = [
   {
-    title: "Backend",
+    title: "Control plane & reliability",
     items: [
-      "Spring Boot 3 API with multi-tenant access control and audit events",
-      "Schema owned by versioned Flyway migrations",
-      "gRPC model transfer with typed messages, streaming and version checks",
+      "Spring Boot 3 and PostgreSQL control plane with multi-tenant roles, audit logs, and Flyway-owned schema",
+      "Checkpoint save/restore, resume, port-reservation ownership, execution-attempt fencing, and retry-safe callback ingestion",
+      "Content-addressed artifact registry with lineage, digests, deduplication, and warm starts, plus gRPC/Buf protobuf contracts",
     ],
   },
   {
-    title: "Full-stack and delivery",
+    title: "Clients & delivery",
     items: [
-      "React dashboard with run state pushed over WebSocket, not polled",
-      "Design tokens generated once for web, desktop and mobile",
-      "Path-filtered CI per deployable unit and an API breaking-change gate",
+      "React dashboard with live WebSocket/STOMP telemetry, Simulation Lab, and shared design tokens",
+      "Electron desktop client (native/Docker, OS-keychain JWT) and multi-arch Docker images (CPU, CUDA, Jetson ARM64)",
+      "Android native training via ExecuTorch, Kotlin/JNI, C++ TurboModule, and a libtorch-free C++ safetensors codec; path-filtered GitHub Actions CI",
     ],
   },
   {
-    title: "AI systems",
+    title: "ML systems & evaluation",
     items: [
-      "FedAvg, FedProx, FedAdam/FedYogi and DeComFL, not delegated to Flower or FedML",
-      "Central DP with a pure-Python Rényi accountant",
-      "Byzantine-robust and secure aggregation",
+      "Custom FL framework integrating FedAvg, FedProx, FedAdam/FedYogi, and DeComFL (Flower dependency removed)",
+      "Sampled-Gaussian Rényi DP accountant, LightSecAgg on DeComFL, and Krum/Bulyan/median/trimmed-mean robust aggregation",
+      "In-process simulator reusing production coordinator and strategy objects, plus seeded benchmark harnesses",
     ],
   },
 ];
 
 const RULES = [
-  ["a", "Check against a reference.", "Custom code is compared with Flower and Opacus before it is trusted."],
-  ["b", "Use real hardware.", "Apple Silicon, NVIDIA x86, Jetson ARM64 and a physical Android handset, not only host-side proxies."],
-  ["c", "State the scope.", "Simulator scale is reported as simulator scale; single-seed runs say so."],
-  ["d", "Keep the record.", "Raw per-run data, missing cells, failures and retractions stay in the repository."],
+  ["a", "Check against references.", "Implementations are compared with Flower and frozen Opacus reference vectors before trusting results."],
+  ["b", "Use real hardware.", "Apple Silicon, x86 Linux/NVIDIA, Jetson ARM64, and a physical Android handset — not only host-side simulators."],
+  ["c", "State the scope.", "Simulator scale is reported as in-process simulation; negative results and scope limits are explicitly labeled."],
+  ["d", "Keep the record.", "Seeded harnesses, raw per-run outputs, anomalies, and retracted/narrowed findings stay in the record."],
 ];
 
 const EVIDENCE = [
   {
-    q: "Is the custom FedAvg correct?",
-    setup: "200 weighted aggregations and training trajectories against Flower 1.20.0",
-    result: "Max absolute difference 2.39 × 10⁻⁷",
-    scope: "FedAvg only; other strategies validated separately",
+    q: "How do privacy and robust aggregation interact?",
+    setup: "NIH ChestX-ray14 study: 360 qualified simulation configurations, 7,200 rounds on frozen ResNet-18 features with patient-level partitions and matched controls",
+    result: "Matched privacy × trimmed-aggregation interaction ≈ +0.00227 AUROC (paired 95% CI ≈ +0.00070 to +0.00383)",
+    scopeKind: "active" as const,
+    scopeLabel: "● Confirmed (receipt in repo)",
+    scope: "In-process simulation on frozen ResNet-18 features with fixed cohorts; not clinical validation",
   },
   {
-    q: "Does it train across real machines?",
-    setup: "FedAvg, CIFAR-10, 10 rounds on Apple M4 Max, Jetson AGX Orin and RTX 4060",
-    result: "All rounds completed, no dropped clients",
-    scope: "One LAN, one seed, IID partitions, small CNN, development transport",
+    q: "Does gRPC training reconcile across real machines?",
+    setup: "Three-host qualification (commit 21de32b): 52 configurations, 320 rounds, 13,180 client fits, up to 80 logical clients across Apple Silicon, x86 Linux, and Jetson",
+    result: "All 26 placement pairs met tolerance; multi-host was 1.87–2.93× slower end to end than single-host",
+    scopeKind: "active" as const,
+    scopeLabel: "● Confirmed (21de32b)",
+    scope: "Measured over real gRPC; multi-host slowdown reported explicitly as a negative result",
   },
   {
-    q: "How far does the coordinator scale?",
-    setup: "20 rounds, 3 seeds, 10% participation, tiny linear model",
-    result: "5,000 simulated clients",
-    scope: "In-process CPU simulator, not networked device capacity",
+    q: "Does full-model training run natively on Android?",
+    setup: "24 declared FULL-arm plans across 6 recipes; bounded full-model ResNet-18 on a physical phone, signed build over TLS",
+    result: "Live receipts recorded for 21 of 24 plans",
+    scopeKind: "active" as const,
+    scopeLabel: "● Confirmed (hardware)",
+    scope: "Measured on physical Android hardware; 3 of 24 plans lacked live receipts",
+  },
+  {
+    q: "How far is in-process simulation regression verified?",
+    setup: "In-process CPU simulator driving the production coordinator and strategy objects",
+    result: "1,000-client in-process regression committed in the repository",
+    scopeKind: "active" as const,
+    scopeLabel: "● Confirmed (simulation)",
+    scope: "In-process simulation only, not networked device capacity",
+  },
+  {
+    q: "Does tree-based FL run across hosts?",
+    setup: "Federated XGBoost across 2 CPU hosts training an 8-tree Iris ensemble in 4 rounds",
+    result: "Completed 4 rounds across 2 CPU hosts with exact replay",
+    scopeKind: "active" as const,
+    scopeLabel: "● Confirmed (integration check)",
+    scope: "Small CPU integration check only",
+  },
+  {
+    q: "Does the custom FL core match Flower?",
+    setup: "FedAvg aggregation over 200 trials and end-to-end trajectory over 3 seeds",
+    result: "Max difference 2.384 × 10⁻⁷ (aggregation) and 5.96 × 10⁻⁸ (trajectory)",
+    scopeKind: "demo" as const,
+    scopeLabel: "◆ Reported",
+    scope: "Reported cross-validation against Flower; FedProx proximal term was separately corrected and tested",
   },
   {
     q: "Is privacy accounting right?",
-    setup: "From-scratch RDP accountant compared with Opacus",
-    result: "Matches across 154 orders",
-    scope: "Accountant only, not end-to-end privacy",
+    setup: "From-scratch sampled-Gaussian RDP accountant compared against frozen Opacus 1.6.0 reference vectors",
+    result: "Within 1.76 × 10⁻¹⁰ across 154 orders (test file public)",
+    scopeKind: "demo" as const,
+    scopeLabel: "◆ Reported",
+    scope: "Validates per-order RDP against frozen reference vectors, not full Opacus equivalence or an end-to-end privacy proof",
   },
   {
-    q: "Does central DP keep utility?",
-    setup: "Eight-client SST-2 experiment",
-    result: "No: 48.7 to 49.2% with DP, 57.9% without",
-    scope: "Negative result at this cohort size; see section 10",
+    q: "Does central DP keep utility at small cohorts?",
+    setup: "Central-DP utility evaluation at ε = 8, 4, and 1 (d = 26,112)",
+    result: "Utility fell to chance across tested budgets (SNR 0.023 / 0.012 / 0.003)",
+    scopeKind: "demo" as const,
+    scopeLabel: "◆ Reported (negative)",
+    scope: "Reported negative result at small cohort sizes and high update dimension",
   },
 ];
 
 const SECURITY = [
-  ["Defect classes fixed", "Authorization, token-boundary and resource-exhaustion issues"],
-  ["Web sessions", "HttpOnly SameSite cookies; no token readable from JavaScript"],
-  ["Desktop credentials", "Stored in the operating-system keychain"],
-  ["Secure aggregation", "Cohort freeze, dropout handling and caller-index verification"],
-  ["Transport", "TLS is implemented for gRPC but is not yet the default in every deployment"],
+  ["Defect classes fixed", "Wildcard STOMP subscription bypass, org-scoped private artifact BOLA, private-project existence oracle, small-blob memory exhaustion, streamed upload DoS"],
+  ["Auth & tokens", "Separate audiences for web credentials, run-scoped callbacks, connection tokens bound to client ID (preventing Sybil reuse), Java↔Python token fixtures"],
+  ["Desktop credentials", "Electron stores the JWT in the OS keychain; dataset mounts restricted to dialog-selected paths"],
+  ["Secure aggregation", "LightSecAgg integrated on the DeComFL scalar path; session/round equality guard fixed the late-share race (commit ce124b9)"],
+  ["Transport", "Fail-closed TLS configuration and per-client certificate enrollment exist; plaintext gRPC remains the default outside configured deployment profiles"],
 ];
 
 const DECISIONS = [
   {
     k: "DECISION A",
-    title: "Own the FL core instead of using Flower",
-    why: "Control over custom strategies like DeComFL, and a simulator that shares production strategy objects.",
-    tradeoff: "More to maintain, so correctness is pinned by equivalence tests against Flower.",
+    title: "Own the FL core instead of wrapping Flower",
+    why: "Control over custom strategies like DeComFL, execution contracts, and an in-process simulator that shares production strategy objects.",
+    tradeoff: "More to maintain, so implementations are cross-validated against Flower and frozen Opacus reference vectors.",
   },
   {
     k: "DECISION B",
-    title: "gRPC and safetensors for weights",
-    why: "Typed, streamable transfer with deterministic encoding a C++ decoder can verify.",
-    tradeoff: "Generated clients and harder debugging than REST and JSON.",
+    title: "gRPC and float32 safetensors for weights",
+    why: "Typed, streamable transfer replacing pickle, with a libtorch-free C++ codec pinned to Python by byte-identical fixtures and size/integrity checks.",
+    tradeoff: "Requires Buf protobuf governance and separate tolerance-based numerical trajectory checks across runtimes.",
   },
   {
     k: "DECISION C",
     title: "A Java control plane",
-    why: "A mature model for access control, web auth and versioned migrations, kept apart from training.",
-    tradeoff: "A JVM service in an otherwise Python and TypeScript codebase.",
+    why: "Separates multi-tenant access control, execution contracts, checkpoints, fencing, and Flyway-owned migrations from the Python training runtime.",
+    tradeoff: "A JVM service in an otherwise Python, TypeScript, and C++ codebase.",
   },
 ];
 
 const RECORD = [
-  ["neg", "NEGATIVE", "Central DP collapsed utility to near chance at realistic cohort sizes. Published as a negative result, not tuned away."],
-  ["fix", "CORRECTED", "A zeroth-order versus first-order conclusion reversed once both arms were tuned fairly."],
-  ["fix", "CORRECTED", "Earlier DeComFL communication-cost claims were revised."],
-  ["fix", "SCOPED", "Backbone findings were narrowed to the configurations actually tested."],
+  ["neg", "NEGATIVE", "Central DP collapsed utility to chance across tested budgets (ε = 8, 4, 1; d = 26,112) in the reported evaluation. Kept as a negative result."],
+  ["neg", "NEGATIVE", "Three-host gRPC qualification (52 configs, 320 rounds, up to 80 logical clients) was 1.87–2.93× slower end to end than single-host. Reported explicitly."],
+  ["fix", "CORRECTED", "A FedProx benchmark that silently omitted the proximal term (comparing FedAvg with itself) was fixed with zero- and nonzero-penalty checks (commits f3067c9, 7302274)."],
+  ["fix", "CORRECTED", "A zeroth-order versus first-order quality conclusion reversed once both arms were tuned fairly (reported)."],
+  ["fix", "SCOPED", "Frozen-backbone findings were narrowed to tested configurations, and DeComFL communication-cost claims were revised once local epochs were counted (reported)."],
 ];
 
 const DEBUG_STEPS = [
-  ["SYMPTOM", "On-device CNN training in FedLearn produced NaN losses; a larger ResNet-18 silently failed to converge."],
-  ["INVESTIGATION", "Isolated with identical flags and a minimal Conv2d → MaxPool2d → Linear model; compared the kernel with ATen."],
-  ["ROOT CAUSE", "The backward kernel scatter-added only into argmax positions; recycled arena memory left every other position stale."],
-  ["MINIMAL FIX", "Zero-initialize the destination before accumulation, as ATen does. One file changed."],
+  ["SYMPTOM", "On-device CNN training in FedLearn was blocked on a physical Android handset (reported)."],
+  ["INVESTIGATION", "Traced the gradient failure down through the mobile stack to ExecuTorch's portable max_pool2d backward kernel."],
+  ["ROOT CAUSE", "ExecuTorch's max_pool2d backward kernel did not zero grad_input before accumulating gradients."],
+  ["FIX & CHECK", "Zero-initialized grad_input and confirmed on-device CNN training on a physical handset (reported); Android FULL-arm qualification later confirmed 21 of 24 plans with live receipts."],
 ];
 
 export function FedLearnPage() {
@@ -157,39 +216,17 @@ export function FedLearnPage() {
           </p>
           <h1 id="t-h">FedLearn Platform</h1>
           <p className="cs-lede">
-            A custom, full-stack federated-learning platform connecting web, desktop, Docker, and native mobile clients
+            A custom, full-stack federated-learning platform connecting web, desktop, Docker, and native Android clients
             to a PyTorch/gRPC runtime, with reproducible experiments across heterogeneous hardware.
           </p>
           <p className="p muted">
-            Rather than wrapping an existing framework, FedLearn treats federated learning as a complete systems
-            problem: algorithms, orchestration, wire formats, access control, secure aggregation, device runtimes, and
-            empirical validation share one tested platform.
+            Rather than wrapping an existing framework like Flower or FedML, FedLearn treats federated learning as a
+            complete systems problem: strategy implementations (integrating published FL, privacy, and robust-aggregation
+            methods), orchestration, wire formats, access control, secure aggregation, device runtimes, and empirical
+            validation share one tested platform.
           </p>
         </div>
-        <dl className="cs-meta">
-          <div>
-            <dt className="label">ROLE</dt>
-            <dd>Primary architect and principal implementer</dd>
-          </div>
-          <div>
-            <dt className="label">CONTEXT</dt>
-            <dd>Graduate research at RIT with Prof. Haibo Yang</dd>
-          </div>
-          <div>
-            <dt className="label">COLLABORATORS</dt>
-            <dd>Chinmay Lokare, early-stage contributions</dd>
-          </div>
-          <div>
-            <dt className="label">LINKS</dt>
-            <dd>
-              <a href={FEDLEARN_REPO}>Repository ↗</a>
-              <br />
-              <span className="mono muted" style={{ fontSize: 12.5 }}>
-                reviewed at main · 006c6e1
-              </span>
-            </dd>
-          </div>
-        </dl>
+        <ProjectGlance glance={GLANCE} />
         <nav aria-label="On this page" className="toc">
           {TOC.map(([id, label]) => (
             <JumpLink key={id} to={id}>
@@ -212,16 +249,24 @@ export function FedLearnPage() {
       <section aria-labelledby="s1" className="wrap sec reveal">
         <div className="read stack">
           <SecHead id="s1" n="01">
-            Role and context
+            Problem, role and context
           </SecHead>
           <p className="p">
-            Federated-learning research code often stops at an algorithm notebook. That hides the parts that decide
-            whether it works outside the lab: deployment, security, hardware heterogeneity and reproducibility.
+            Federated-learning research code often stops at an algorithm notebook, leaving out the systems layers that
+            decide whether it works outside a single workstation: multi-tenant orchestration, typed wire contracts,
+            access control, secure aggregation, heterogeneous device runtimes, and reproducible evaluation.
           </p>
           <p className="p">
-            I designed and primarily implemented FedLearn so that each of those is real and testable: custom training
-            strategies, a Java control plane, a Python training runtime, four kinds of client, and benchmark
-            infrastructure across Java, Python, TypeScript and C++.
+            FedLearn is my M.S. capstone and Graduate Research Assistant work in RIT&apos;s Learning Optimization Group
+            (formal appointment from March 2026, following project commits starting January 2026; advised by Prof. Haibo
+            Yang), with a paper drafted as a manuscript in preparation (not yet submitted).
+          </p>
+          <p className="p">
+            As primary implementation contributor (800 of 856 commits on the public snapshot, building alongside early
+            platform work, DeComFL/ECG integration, client scripts, and documentation from Chinmay Lokare), I built and
+            hardened the Java control plane, the Python/PyTorch gRPC training runtime, desktop, Docker, and native
+            Android clients, and seeded benchmark harnesses across Java, Python, TypeScript, Kotlin, and C++. Published
+            FL and privacy algorithms are integrated, not invented.
           </p>
         </div>
       </section>
@@ -243,125 +288,29 @@ export function FedLearnPage() {
       <section id="s-arch" aria-labelledby="s3" className="wrap sec reveal">
         <div className="read stack mb-28">
           <SecHead id="s3" n="03">
-            Architecture
+            Architecture and how it works
           </SecHead>
           <p className="p">
-            Two planes with a hard boundary. The control plane owns people, projects and runs. The training plane owns
-            models, strategies and measurements. They talk over gRPC; nothing in the browser touches model weights.
+            Two planes with a hard boundary: nothing in the browser touches model weights. Spring Boot launches the
+            Python FL server on a reserved port, and a separate in-process simulator reuses the same coordinator and
+            strategy objects for controlled experiments.
           </p>
         </div>
-        <figure>
-          <div className="diagram-scroll has-alt">
-            <div
-              role="img"
-              aria-label="Figure 1. FedLearn architecture. Clients: React web, Electron desktop, Docker and React Native with C++ mobile. Web and desktop reach the Spring Boot control plane over REST and WebSocket/STOMP. The control plane, backed by PostgreSQL with Flyway migrations, drives the Python/PyTorch runtime over gRPC. The runtime holds the coordinator, an in-process simulator and the aggregation and evaluation layer, and writes experiment artifacts. Training clients exchange model updates with the runtime over gRPC as versioned safetensors with chunk hashes."
-              className="dk-panel fl-arch draw"
-            >
-              <div className="dk-group">
-                <span className="dk-label">CLIENTS</span>
-                <div className="dk-box">
-                  <strong>React web client</strong>
-                  <span>dashboard, live run logs</span>
-                </div>
-                <div className="dk-box">
-                  <strong>Electron desktop client</strong>
-                  <span>OS-keychain auth, local training</span>
-                </div>
-                <div className="dk-box">
-                  <strong>Docker client</strong>
-                  <span>Apple Silicon, x86/NVIDIA, Jetson</span>
-                </div>
-                <div className="dk-box">
-                  <strong>React Native + C++ mobile</strong>
-                  <span>ExecuTorch on-device training</span>
-                </div>
-              </div>
-              <div className="dk-wire">
-                <span className="line" aria-hidden="true" />
-                <span className="proto">
-                  REST
-                  <br />
-                  WebSocket / STOMP
-                </span>
-                <span className="what">
-                  run control,
-                  <br />
-                  live logs
-                </span>
-              </div>
-              <div className="control">
-                <span className="dk-label">CONTROL PLANE</span>
-                <div className="dk-box hot">
-                  <strong style={{ fontSize: 15 }}>Spring Boot orchestrator</strong>
-                  <span>Java 21 · access control, project visibility, audit events, run lifecycle</span>
-                </div>
-                <span className="vline" aria-hidden="true" />
-                <div className="dk-box dashed">
-                  <strong>PostgreSQL</strong>
-                  <span>Flyway-owned schema</span>
-                </div>
-              </div>
-              <div className="dk-wire">
-                <span className="line" aria-hidden="true" />
-                <span className="proto">gRPC</span>
-                <span className="what">orchestration</span>
-              </div>
-              <div className="dk-group">
-                <span className="dk-label">TRAINING PLANE · PYTHON / PYTORCH</span>
-                <div className="pair">
-                  <div className="dk-box hot">
-                    <strong>Coordinator</strong>
-                    <span>networked rounds</span>
-                  </div>
-                  <div className="dk-box">
-                    <strong>In-process simulator</strong>
-                    <span>same strategy objects</span>
-                  </div>
-                </div>
-                <div className="dk-box hot">
-                  <strong>Aggregation and evaluation layer</strong>
-                  <span>
-                    FedAvg, FedProx, FedAdam/FedYogi, DeComFL · central DP with RDP accounting · median, trimmed mean,
-                    Krum, Bulyan · secure aggregation
-                  </span>
-                </div>
-                <div className="dk-box dashed">
-                  <strong>Experiment artifacts</strong>
-                  <span>seeded harnesses, raw per-run results, generated reports</span>
-                </div>
-              </div>
-              <div className="bus">
-                <span className="proto">TRAINING CLIENTS ⇄ RUNTIME</span>
-                <span className="line" aria-hidden="true" />
-                <span>gRPC · versioned safetensors with chunk hashes, decoded identically in Python and C++</span>
-              </div>
-            </div>
-          </div>
-          <FedLearnMiniArch className="diagram-alt" />
-          <figcaption style={{ marginTop: 12, fontSize: 14 }}>
-            Figure 1. FedLearn architecture, control plane and training plane.
-          </figcaption>
-          <details className="disclosure">
-            <summary>Read the diagram as a list</summary>
-            <ol>
-              <li>
-                Web and desktop clients call the Spring Boot orchestrator over REST and receive live run logs over
-                WebSocket/STOMP.
-              </li>
-              <li>The orchestrator stores users, projects, audit events and runs in PostgreSQL under Flyway migrations.</li>
-              <li>The orchestrator starts and controls runs in the Python runtime over gRPC.</li>
-              <li>
-                The runtime's coordinator and simulator share the same strategy objects; aggregation and evaluation
-                apply strategies, privacy and robust aggregation.
-              </li>
-              <li>
-                Docker, desktop and mobile training clients exchange model updates with the runtime over gRPC as
-                versioned safetensors.
-              </li>
-              <li>Every run writes seeded, provenance-tagged artifacts.</li>
-            </ol>
-          </details>
-        </figure>
+        <Figure
+          src="images/diagrams/fedlearn-hld.svg"
+          width={1200}
+          height={660}
+          alt="FedLearn high-level architecture: browser connects through nginx to the Spring Boot control plane backed by PostgreSQL and a content-addressed artifact registry; Spring Boot launches the Python FL server over gRPC, which coordinates Python/Docker (CPU, x86 and Jetson CUDA), Electron desktop, and Android ExecuTorch clients while streaming STOMP live logs back to the browser."
+          caption="Figure 1. High-level architecture across control plane, gRPC FL server, clients, artifact registry, and STOMP live logs."
+        />
+        <Figure
+          src="images/diagrams/fedlearn-round.svg"
+          width={1200}
+          height={540}
+          className="mt-24"
+          alt="Six-step federated training round: client enrolls and receives an execution contract, fetches model artifacts by SHA hash, trains locally under FULL, FROZEN_HEAD, or OVA_LP, uploads round-tagged deterministic float32 safetensors updates, aggregates on the Python coordinator, and persists checkpoints, timing, and lineage-registered models."
+          caption="Figure 2. One federated training round from execution contract and hash-verified fetch to checkpoint and lineage."
+        />
       </section>
 
       <section aria-labelledby="s4" className="wrap sec reveal">
@@ -435,11 +384,19 @@ export function FedLearnPage() {
 
       <section id="s-evidence" aria-labelledby="s7" className="wrap sec reveal">
         <SecHead id="s7" n="07">
-          Evidence
+          Results and evidence
         </SecHead>
+        <Figure
+          src="images/diagrams/fedlearn-results.svg"
+          width={1200}
+          height={500}
+          className="mb-28"
+          alt="FedLearn evidence summary: 800 of 856 public commits (93.5%), NIH ChestX-ray14 study with 360 configurations and 7,200 rounds measured in simulation, three-host gRPC qualification across 3 hosts and up to 80 logical clients measured 1.87 to 2.93 times slower end to end than single-host as a negative result, and 21 of 24 Android plans with live receipts."
+          caption="Figure 3. Headline measurements with explicit scope labels; Table 1 lists full experimental setups and caveats."
+        />
         <div className="table-scroll boxed stack-mobile">
           <table className="table table-wide">
-            <caption>Table 1. Recorded results with setup and scope. These are research measurements, not production traffic.</caption>
+            <caption>Table 1. Recorded results with setup, scope label (confirmed vs reported), and boundary (simulation vs physical hardware).</caption>
             <thead>
               <tr>
                 <th scope="col">QUESTION</th>
@@ -456,6 +413,10 @@ export function FedLearnPage() {
                     {e.setup}
                   </td>
                   <td className="strong" data-label="RESULT">
+                    <span className={`status status--${e.scopeKind}`} style={{ marginBottom: 6, display: "inline-block" }}>
+                      {e.scopeLabel}
+                    </span>
+                    <br />
                     {e.result}
                   </td>
                   <td className="dim" data-label="SCOPE">
@@ -488,6 +449,14 @@ export function FedLearnPage() {
             ))}
           </ul>
         </div>
+        <Figure
+          src="images/diagrams/fedlearn-race.svg"
+          width={1200}
+          height={610}
+          className="mt-24"
+          alt="Late-share secure-aggregation race: before commit ce124b9, a delayed Round N share arriving during Round N+1 applied recovered scalars against wrong perturbation seeds, producing a well-formed but numerically wrong model. After ce124b9, a session and round equality guard under the coordinator lock rejects stale shares; live gRPC comparison ran with 3 clients."
+          caption="Figure 4. Late-share secure-aggregation race and the session/round guard in commit ce124b9 (3-client live gRPC scope)."
+        />
       </section>
 
       <section aria-labelledby="s9" className="wrap sec reveal">
@@ -532,12 +501,13 @@ export function FedLearnPage() {
       <section id="s-executorch" aria-labelledby="s11" className="wrap sec reveal">
         <div className="read stack-sm mb-28">
           <SecHead id="s11" n="11">
-            Debugging story: a kernel three layers down
+            Debugging story: a kernel in the mobile runtime
           </SecHead>
           <p className="p">
-            Diagnosed and prepared a fix for an ExecuTorch max-pooling backward bug that reused stale gradient memory,
-            then validated the correction on macOS arm64 and a Snapdragon 845 handset with affected and
-            negative-control models.
+            Diagnosed and fixed an ExecuTorch <code>max_pool2d</code> backward bug that failed to zero{" "}
+            <code>grad_input</code> before gradient accumulation, unblocking on-device CNN training on a physical Android
+            handset (reported in the project record; Android FULL-arm qualification later confirmed 21 of 24 plans with
+            live receipts).
           </p>
         </div>
         <ol className="steps">
@@ -551,49 +521,37 @@ export function FedLearnPage() {
         <div className="figure-pair">
           <figure>
             <pre className="code-block" aria-label="Simplified shape of the change">
-              <span className="c">{"  // portable kernel: max_pool2d_with_indices_backward\n"}</span>
-              <span className="c">{"  // grad_input lives in a reused memory arena\n"}</span>
-              <span className="add">{"+ fill grad_input with zeros            // as ATen does"}</span>
-              {"  for each output position p:\n      grad_input[argmax[p]] += grad_output[p]"}
+              <span className="c">{"  // portable kernel: max_pool2d backward\n"}</span>
+              <span className="add">{"+ zero-initialize grad_input before accumulation"}</span>
+              {"\n  // unblocked on-device CNN training on Android handset"}
             </pre>
             <figcaption>
-              Figure 2. Shape of the change, simplified. The exact patch is commit efc8221 on the contribution branch.
+              Figure 5. Shape of the ExecuTorch max_pool2d backward fix (reported in the project record).
             </figcaption>
           </figure>
           <figure className="bars draw">
-            <span className="label">NaN STEPS OUT OF 300 · SMALL CNN</span>
-            <div className="bar-row">
-              <span>Before</span>
-              <span className="bar-track" aria-hidden="true">
-                <span className="bar-fill" style={{ width: "97%" }} />
-              </span>
-              <span className="bar-num">291</span>
-            </div>
-            <div className="bar-row">
-              <span>After</span>
-              <span className="bar-track" aria-hidden="true" />
-              <span className="bar-num">0</span>
-            </div>
+            <span className="label">ANDROID ON-DEVICE TRAINING · RECORD</span>
             <dl className="kv">
               <div>
-                <dt>Loss after fix</dt>
-                <dd>2.309544 → 0.003952</dd>
+                <dt>ExecuTorch fix</dt>
+                <dd>Zero-initialized grad_input in max_pool2d backward, confirmed on handset (reported)</dd>
               </div>
               <div>
-                <dt>Negative controls</dt>
-                <dd>5 unaffected models, byte-identical loss curves</dd>
+                <dt>Android qualification</dt>
+                <dd>21 of 24 declared FULL-arm plans with live receipts across 6 recipes (confirmed)</dd>
               </div>
               <div>
-                <dt>Hardware</dt>
-                <dd>macOS arm64 · Snapdragon 845 handset</dd>
+                <dt>Physical device run</dt>
+                <dd>Bounded full-model ResNet-18 on a physical phone, signed build over TLS (confirmed)</dd>
               </div>
               <div>
-                <dt>Latency overhead</dt>
-                <dd>+0.06% in the recorded setup</dd>
+                <dt>Native stack</dt>
+                <dd>ExecuTorch · Kotlin/JNI · React Native TurboModule · libtorch-free C++ safetensors</dd>
               </div>
             </dl>
             <figcaption>
-              Figure 3. Before and after, from the commit record. <a href={EXECUTORCH_ISSUE}>Upstream issue #21686 ↗</a>
+              Figure 6. On-device debugging and physical Android qualification record.{" "}
+              <a href={FEDLEARN_REPO}>FedLearn repository ↗</a>
             </figcaption>
           </figure>
         </div>
@@ -606,10 +564,13 @@ export function FedLearnPage() {
               Known limitations
             </SecHead>
             <ul className="marked warn">
-              <li>TLS is not yet the default for every gRPC deployment.</li>
-              <li>Simulator scale is not networked deployment capacity.</li>
-              <li>Federation-over-Text has not yet run a real LLM end to end.</li>
-              <li>The multi-machine run used one seed and IID partitions.</li>
+              <li>Plaintext gRPC remains the default outside configured deployment profiles (TLS exists, not default everywhere).</li>
+              <li>Simulator scale is an in-process floor on cost, not networked deployment capacity or a device fleet.</li>
+              <li>The FoT module is present in the framework, but an end-to-end LLM run is not confirmed.</li>
+              <li>
+                Deployment is a single VM; iOS is an app shell only (no on-device training); the NIH study is not clinical
+                validation; most result files remain private or untracked beyond the public snapshot receipts.
+              </li>
             </ul>
           </div>
           <div className="stack-sm" aria-labelledby="s13">
@@ -617,25 +578,34 @@ export function FedLearnPage() {
               Next steps
             </SecHead>
             <ul className="marked next">
-              <li>Enforce TLS by default across all gRPC transports.</li>
-              <li>Run an LLM through the Federation-over-Text backend.</li>
-              <li>Measure networked capacity beyond the simulator.</li>
-              <li>Publish a benchmark index mapping each claim to its harness and commit.</li>
+              <li>Enforce TLS by default across all gRPC deployment profiles.</li>
+              <li>Confirm an end-to-end LLM run through the FoT module.</li>
+              <li>Submit the M.S. capstone manuscript (currently drafted, not yet submitted).</li>
+              <li>Measure larger networked cohorts beyond the 3-host, 80-client qualification and 1,000-client simulator regression.</li>
             </ul>
           </div>
         </div>
       </section>
 
-      <section aria-labelledby="s14" className="wrap sec sec-last">
+      <section id="s-links" aria-labelledby="s14" className="wrap sec sec-last">
         <SecHead id="s14" n="14">
-          Links
+          Evidence links
         </SecHead>
         <div className="link-buttons">
-          <a className="btn btn-secondary" href={FEDLEARN_REPO}>
-            Repository ↗
+          <a className="btn btn-secondary" href={FEDLEARN_SNAPSHOT}>
+            Repository (89dbef3) ↗
           </a>
-          <a className="btn btn-secondary" href={EXECUTORCH_ISSUE}>
-            ExecuTorch issue #21686 ↗
+          <a className="btn btn-secondary" href={LATE_SHARE_COMMIT}>
+            Late-share race (ce124b9) ↗
+          </a>
+          <a className="btn btn-secondary" href={WIRE_CODEC_COMMIT}>
+            Safetensors codec (4ea8bc0) ↗
+          </a>
+          <a className="btn btn-secondary" href={FEDPROX_FIX_COMMIT}>
+            FedProx fix (f3067c9) ↗
+          </a>
+          <a className="btn btn-secondary" href={AUTH_FIX_COMMIT}>
+            Auth defect fixes (d6fb77d) ↗
           </a>
         </div>
         <Pager

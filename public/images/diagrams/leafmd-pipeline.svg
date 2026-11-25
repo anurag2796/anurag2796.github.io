@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" width="1200" height="540" role="img" aria-labelledby="leafmd-title leafmd-desc">
+  <title id="leafmd-title">LeafMD domain-shift detection and export pipeline</title>
+  <desc id="leafmd-desc">Data flows from PlantVillage lab images and PlantDoc field images into domain-shift training (multi-phase curriculum training, pseudo-labels, CLAHE, and augmentations with MPS-to-CPU fallback), then A/B comparison of YOLO11n versus NMS-free YOLO26n, cross-domain evaluation via evaluate_gap.py and confusion matrix analysis with no committed scores, and serving via FastAPI with runtime CLAHE and TTA toggles plus an INT8 export target for offline iOS.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#666b72" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="540" fill="#fcfbf8" />
+
+  <!-- Header -->
+  <text x="40" y="48" font-family="Instrument Sans, system-ui, sans-serif" font-size="22" font-weight="600" fill="#111315">LeafMD — Domain-Shift Detection Pipeline</text>
+  <text x="40" y="74" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">branch: fix/pipeline-updates · offline agricultural diagnostics</text>
+
+  <rect x="862" y="28" width="298" height="32" rx="6" fill="#fcfbf8" stroke="#a23a3a" stroke-width="1.5" />
+  <text x="1011" y="49" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#a23a3a">NO COMMITTED mAP OR GAP SCORES</text>
+
+  <!-- Column 1: Datasets -->
+  <text x="40" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">01 · DATASETS</text>
+
+  <rect x="40" y="130" width="200" height="106" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="58" y="160" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="600" fill="#111315">PlantVillage</text>
+  <text x="58" y="183" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">lab-controlled</text>
+  <text x="58" y="212" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Uniform bg &amp; light</text>
+
+  <rect x="40" y="256" width="200" height="118" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="58" y="286" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="600" fill="#111315">PlantDoc</text>
+  <text x="58" y="309" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">field imagery</text>
+  <text x="58" y="336" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Cluttered bg &amp; light</text>
+  <text x="58" y="357" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">preprocess_plantdoc</text>
+
+  <rect x="40" y="394" width="200" height="52" rx="6" fill="#fcfbf8" stroke="#207a52" stroke-width="1.5" />
+  <text x="140" y="425" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="500" fill="#207a52">Split-leak check fixed</text>
+
+  <!-- Column 2: Domain-Shift Training -->
+  <text x="284" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#2457d6">02 · ADAPT &amp; TRAIN</text>
+  <rect x="284" y="130" width="224" height="316" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+
+  <rect x="300" y="148" width="192" height="58" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="314" y="173" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Curriculum training</text>
+  <text x="314" y="195" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">curriculum_train.py</text>
+
+  <rect x="300" y="218" width="192" height="56" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="314" y="242" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Pseudo-labeling</text>
+  <text x="314" y="264" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Unlabeled field imgs</text>
+
+  <rect x="300" y="286" width="192" height="66" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="314" y="310" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">CLAHE + Augment</text>
+  <text x="314" y="331" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Lighting norm + TTA</text>
+
+  <rect x="300" y="366" width="192" height="62" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="314" y="391" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="600" fill="#111315">MPS safety layer</text>
+  <text x="314" y="413" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">MPS -&gt; CPU fallback</text>
+
+  <!-- Column 3: A/B Architecture Comparison -->
+  <text x="552" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#2457d6">03 · A/B COMPARE</text>
+  <rect x="552" y="130" width="204" height="316" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+
+  <rect x="568" y="152" width="172" height="68" rx="6" fill="#fcfbf8" stroke="#2457d6" stroke-width="1.5" />
+  <text x="654" y="181" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="500" fill="#111315">YOLO11n</text>
+  <text x="654" y="204" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Incumbent detector</text>
+
+  <text x="654" y="244" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="500" fill="#2457d6">vs</text>
+
+  <rect x="568" y="260" width="172" height="68" rx="6" fill="#fcfbf8" stroke="#2457d6" stroke-width="1.5" />
+  <text x="654" y="289" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="500" fill="#111315">YOLO26n</text>
+  <text x="654" y="312" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">NMS-free variant</text>
+
+  <text x="654" y="366" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">tools/comparison.py</text>
+  <text x="654" y="390" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">tools/registry.py</text>
+  <text x="654" y="414" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">+ grid search</text>
+
+  <!-- Column 4: Gap Evaluation -->
+  <text x="800" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">04 · EVALUATE</text>
+  <rect x="800" y="130" width="172" height="316" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+
+  <text x="816" y="166" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="500" fill="#111315">evaluate_gap.py</text>
+  <text x="816" y="190" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Lab vs. field</text>
+  <text x="816" y="210" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">domain gap</text>
+
+  <line x1="816" y1="234" x2="956" y2="234" stroke="#d8d6d0" stroke-width="1.5" />
+
+  <text x="816" y="266" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#111315">analyze_confusion</text>
+  <text x="816" y="286" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#111315">_matrix.py</text>
+  <text x="816" y="312" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Per-class errors</text>
+
+  <rect x="814" y="352" width="144" height="72" rx="6" fill="#fcfbf8" stroke="#a23a3a" stroke-width="1.5" stroke-dasharray="5 4" />
+  <text x="886" y="381" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#a23a3a">Output missing</text>
+  <text x="886" y="405" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a23a3a">0 scores in repo</text>
+
+  <!-- Column 5: Serve & Export -->
+  <text x="1016" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">05 · TARGETS</text>
+
+  <rect x="1016" y="130" width="144" height="140" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="1032" y="162" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">FastAPI + UI</text>
+  <text x="1032" y="186" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">src/api.py</text>
+  <text x="1032" y="216" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Runtime toggles:</text>
+  <text x="1032" y="238" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">CLAHE · TTA</text>
+
+  <rect x="1016" y="294" width="144" height="152" rx="6" fill="#fcfbf8" stroke="#a66112" stroke-width="1.5" stroke-dasharray="6 4" />
+  <text x="1032" y="326" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="500" fill="#111315">INT8 Export</text>
+  <text x="1032" y="352" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Offline edge</text>
+  <text x="1032" y="374" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">iOS target</text>
+  <text x="1032" y="408" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="500" fill="#a66112">Not run on</text>
+  <text x="1032" y="428" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="500" fill="#a66112">device</text>
+
+  <!-- Arrows -->
+  <line x1="240" y1="183" x2="282" y2="230" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="240" y1="315" x2="282" y2="295" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="508" y1="288" x2="550" y2="288" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="756" y1="288" x2="798" y2="288" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="972" y1="220" x2="1014" y2="200" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="972" y1="340" x2="1014" y2="365" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Footer Legend -->
+  <line x1="40" y1="478" x2="1160" y2="478" stroke="#d8d6d0" stroke-width="1.5" />
+  <rect x="40" y="496" width="14" height="14" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="62" y="508" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Core domain-shift path</text>
+  <rect x="240" y="496" width="14" height="14" rx="6" fill="#fcfbf8" stroke="#207a52" stroke-width="1.5" />
+  <text x="262" y="508" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Confirmed fix</text>
+  <rect x="380" y="496" width="14" height="14" rx="6" fill="#fcfbf8" stroke="#a66112" stroke-width="1.5" stroke-dasharray="3 2" />
+  <text x="402" y="508" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Target (not run on device)</text>
+  <rect x="605" y="496" width="14" height="14" rx="6" fill="#fcfbf8" stroke="#a23a3a" stroke-width="1.5" stroke-dasharray="3 2" />
+  <text x="627" y="508" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Unverified / missing metrics</text>
+</svg>

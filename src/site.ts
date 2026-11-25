@@ -16,6 +16,14 @@ export const ROUTES = {
   fedlearn: "/work/fedlearn",
   trb: "/work/tigerresearchbuddy",
   finserv: "/work/financial-services",
+  nexus: "/work/nexus",
+  tasksip: "/work/tasksip",
+  imageSimilarity: "/work/image-similarity",
+  hybridMlScheduler: "/work/hybrid-ml-scheduler",
+  faminesight: "/work/faminesight",
+  leafmd: "/work/leafmd",
+  smartBettingSystem: "/work/smart-betting-system",
+  crimecastnyc: "/work/crimecastnyc",
   experience: "/experience",
   about: "/about",
 } as const;
@@ -31,7 +39,7 @@ export const IMAGES = {
     src: "images/tigerresearchbuddy.webp",
     width: 1672,
     height: 700,
-    alt: "TigerResearchBuddy pipeline: RIT web pages and research PDFs go through VLM-validated extraction, then vector retrieval and knowledge-graph traversal, then a combined research context, then Ollama or Gemini, ending in a cited answer. The pipeline runs on a Jetson Orin.",
+    alt: "TigerResearchBuddy pipeline: RIT web pages and research PDFs go through VLM-validated extraction, then vector retrieval and knowledge-graph traversal, then a combined research context, then Ollama or Gemini, ending in an assistant response. The pipeline runs on a Jetson Orin.",
   },
   hybrid: {
     src: "images/hybrid-ml-scheduler.webp",

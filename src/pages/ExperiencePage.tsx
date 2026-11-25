@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Figure } from "@/components/Figure";
 import { Go } from "@/components/links";
 import { usePageTitle } from "@/lib/nav";
 import { RESUME, ROUTES } from "@/site";
@@ -21,95 +22,92 @@ type Role = {
 const ROLES: Role[] = [
   {
     key: "rit",
-    when: "Mar 2026 to present · Rochester, NY",
-    org: "Rochester Institute of Technology",
-    title: "Graduate Research Assistant",
-    scope: "Scope: full-stack lead, FedLearn Platform",
+    when: "Mar 2026 to present",
+    org: "Rochester Institute of Technology · Learning Optimization Group",
+    title: "Graduate Research Assistant, Lead Developer - FedLearn",
+    scope: "FedLearn Platform · 800 of 856 public commits (M.S. capstone; manuscript in preparation)",
     bullets: [
-      "Lead development across the platform's web dashboard (React 19, TypeScript, Vite), Spring Boot 3 API, and Electron and React Native clients.",
-      "Built the live dashboard: run state, results and logs pushed over WebSocket, with HttpOnly SameSite cookie auth.",
-      "Generate design tokens from one source for the web, desktop and mobile clients.",
-      "Set the test strategy: Jest, pytest and JUnit coverage floors, cross-language golden-fixture contract tests, and a CI guard that fails on skipped tests.",
-      "Own CI/CD and deployment: path-filtered GitHub Actions, an API breaking-change gate, AWS EC2 behind nginx with PostgreSQL under versioned migrations.",
+      "Primary implementation contributor on FedLearn, a federated learning platform spanning a Java 21 / Spring Boot 3 control plane, a Python/PyTorch gRPC framework, and web (React 19, TypeScript), Electron, Docker and Android clients.",
+      "Built the Spring Boot and PostgreSQL control plane orchestrating Python training servers with checkpoints, resume, execution-attempt fencing and retry-safe result ingestion, plus a content-addressed artifact registry.",
+      "Designed gRPC/Protocol Buffer execution contracts and a byte-exact Python/C++ safetensors wire format, enforced in CI with breaking-change, drift and cross-language fixture checks.",
+      "Implemented native on-device training on Android with ExecuTorch and C++ behind a React Native TurboModule, and diagnosed and fixed a delayed-share secure-aggregation race with round guards and a live gRPC comparison harness.",
+      "Fixed cross-project authorization bypasses in model-artifact access and STOMP subscriptions; ran a 360-configuration, 7,200-round NIH ChestX-ray14 study and qualified gRPC training across 3 hosts with up to 80 logical clients.",
     ],
     links: [
       { to: ROUTES.fedlearn, label: "FedLearn case study →" },
       { to: ROUTES.fedlearn, label: "ExecuTorch debugging story →" },
     ],
-    tech: "React · TypeScript · Java 21 · Spring Boot 3 · Python · PyTorch · gRPC · Electron · React Native · AWS EC2 · nginx · PostgreSQL",
+    tech: "Java 21 · Spring Boot 3 · PostgreSQL · Flyway · Python · PyTorch · C++ · ExecuTorch · gRPC · Protocol Buffers · Buf · React 19 · TypeScript · Electron · React Native · Docker · GitHub Actions · AWS EC2 · nginx",
   },
   {
     key: "ey",
     when: "Apr 2022 to Jul 2024 · Bengaluru, India",
     org: "Ernst & Young (EY)",
-    title: "Senior Technology Consultant",
-    scope: "Client engagements: Morgan Stanley (fraud screening), BlackRock (portfolio management)",
+    title: "Senior Technology Consultant (Software Engineering)",
+    scope: "Clients: Morgan Stanley (Fraud Hub, ~18 months), BlackRock (portfolio platform, ~6 months)",
     summary:
-      "Built and operated Java, Scala and Spring Boot services for two financial-services clients. For an investment bank's real-time fraud-screening platform I owned services in the transaction pipeline as it grew from one payment rail to five. For an asset manager's portfolio platform I built services behind a console used by several distinct user groups, and verified a large re-architecture before it went live.",
+      "Embedded as a software engineer with two financial-services client engineering teams. At Morgan Stanley's Fraud Hub (~18 months) I owned 3 production Scala services in the real-time fraud-screening pipeline as it expanded from 1 payment rail to 5. At BlackRock (~6 months) I worked in Java on a Spark-backed portfolio-management platform, validating a re-architecture against the legacy system and building services behind a multi-user console.",
     groups: [
       {
-        heading: "FRAUD SCREENING",
+        heading: "MORGAN STANLEY · FRAUD HUB (~18 MONTHS)",
         items: [
-          "Owned three services in the real-time transaction-screening pipeline: persistence, core enricher and additional enricher.",
-          "Profiled hot read paths and added Redis-backed distributed caching, cutting the screening SLA from 5,000 ms to under 500 ms.",
-          "Built automated triage queues for the fraud-decisioning workflow, lowering manual-review time 75%.",
-          "Delivered profiling-driven fixes that lowered pipeline latency 25%.",
+          "Embedded as a software engineer in Morgan Stanley's fraud-technology team; owned 3 production Scala services (core enrichment, additional enrichment, persistence) in Fraud Hub, a real-time fraud-screening pipeline on IBM MQ, Kafka and Redis.",
+          "Cut end-to-end transaction screening time from 5,000 ms to under 500 ms (10x) by caching inbound transactions in Redis and taking database round-trips off the SLA path.",
+          "Helped expand Fraud Hub from 1 to 5 payment rails (P2P, ACH, branch ACH, wire, branch wire), delivering changes across enrichment, rules and persistence with design documents.",
+          "Contributed to triage automation (auto-routing, pre-filled evidence, auto-clearing low-risk cases) that cut analysts' manual review time by 75%.",
         ],
       },
       {
-        heading: "PORTFOLIO DATA",
+        heading: "BLACKROCK · PORTFOLIO PLATFORM (~6 MONTHS)",
         items: [
-          "Built high-throughput backend services generating 100,000+ client artifacts a month, with streaming validation and automated quality checks.",
-          "Designed event-driven pipelines on Kafka for the portfolio platform.",
-          "Built validation and cleansing into the pipeline instead of correcting records downstream, improving data accuracy 15%.",
-          "Verified a Java/Spark re-architecture against the legacy baseline across nested portfolio hierarchies, catching correctness gaps and regressions before migration.",
+          "Validated BlackRock's re-architected portfolio platform (Java on a Spark-backed platform) against the legacy system with a comparison report separating matches, improvements and regressions across nested portfolio hierarchies.",
+          "Added validation and cleansing rules on portfolio and position data, improving data accuracy by 15% (measured by before/after reconciliation).",
+          "Built backend services behind a portfolio console used by several user groups and translated business needs into technical requirements with stakeholders.",
         ],
       },
       {
         heading: "HOW I WORKED",
         items: [
-          "Worked directly with product stakeholders to turn changing business needs into requirements.",
-          "Point of contact and code reviewer for several components; mentored junior developers.",
-          "Covered production delivery, support and design work across both engagements.",
+          "Supported production, reviewed code, maintained Jenkins CI/CD and mentored junior developers.",
+          "Point of contact and code reviewer for several components; wrote design documents across engagements.",
         ],
       },
     ],
     links: [{ to: ROUTES.finserv, label: "Financial-services case study →" }],
-    tech: "Java · Scala · Spring Boot · Kafka · MQ · Redis · Spark · SQL · Jenkins",
+    tech: "Scala · Java · Spring Boot · IBM MQ · Kafka · Redis · NoSQL · Jenkins · Java on a Spark-backed platform (BlackRock)",
   },
   {
     key: "tcs",
     when: "Jul 2019 to Apr 2022 · Hyderabad, India",
-    org: "Tata Consultancy Services",
-    title: "Software Engineer",
-    scope: "Client engagement: USAA (core banking and consumer lending)",
+    org: "Tata Consultancy Services (TCS)",
+    title: "Senior Systems Engineer (promoted from Systems Engineer)",
+    scope: "Client engagement: USAA (Consumer Lending)",
     summary:
-      "Started my career on the core-banking and consumer-lending platform of a US financial-services client. I built REST APIs that carried more than a million transactions a day, then worked on what kept them reliable: delivery pipelines, monitoring, data-model tuning and on-call support.",
+      "Started my career on USAA's Consumer Lending team, working across a 6-service Spring Boot pipeline for personal and auto loans: IBM MQ intake, cross-team enrichment (credit bureau, credit card, LDAP directory), risk checks, rule-based decisioning, MySQL and Couchbase persistence and Kafka publishing, alongside on-call production support.",
     groups: [
       {
-        heading: "APIS AND DATA",
+        heading: "LENDING PIPELINE AND DATA",
         items: [
-          "Built core-banking and consumer-lending REST APIs on Spring Boot over MySQL and MongoDB, serving 1M+ transactions a day at 99.9% uptime.",
-          "Integrated Kafka event streams and Cassandra for high-concurrency workloads.",
-          "Tuned relational and NoSQL schemas and indexes, making queries 50% faster.",
+          "Built and maintained Spring Boot microservices in USAA's 6-service consumer-lending pipeline (personal and auto loans), consuming applications from IBM MQ, enriching them through 3 cross-team integrations (credit bureau, credit card, LDAP directory) and routing each to auto-approval, underwriter review or a risk flag.",
+          "Implemented features across retrieval, risk-check and decision services, where Java rules combined with credit-bureau scores to auto-approve, refer to underwriters or flag risk.",
+          "Built the Kafka producer integration that published each persisted application record to downstream teams, and added timeouts, retries and MQ backout-queue reprocessing across services on MySQL and Couchbase.",
         ],
       },
       {
-        heading: "DELIVERY AND RELIABILITY",
+        heading: "DELIVERY AND ON-CALL SUPPORT",
         items: [
-          "Built CI/CD pipelines behind SonarQube quality gates and containerized workloads on Docker and OpenShift, shortening deployment lead time 40%.",
-          "Set up Prometheus and Grafana monitoring; the root-cause fixes it surfaced lowered MTTR 35%.",
-          "Released through UrbanCode Deploy and carried on-call production support.",
+          "Resolved recurring production incidents on call (dependency slowdowns, malformed input, release regressions) using Prometheus and Grafana; root-caused, shipped fixes, replayed backout-queue messages and wrote RCAs.",
+          "Released through UrbanCode Deploy across dev, QA and prod, running containerized services with Docker on OpenShift.",
         ],
       },
     ],
-    tech: "Java · Spring Boot · Kafka · Cassandra · MySQL · MongoDB · Docker · OpenShift · Jenkins · Prometheus · Grafana",
+    tech: "Java · Spring Boot · REST · IBM MQ · Kafka · MySQL · Couchbase · LDAP · Docker · OpenShift · UrbanCode Deploy · Prometheus · Grafana",
   },
   {
     key: "infosys",
-    when: "2019",
+    when: "Jan to Jun 2019 · Mysuru, India",
     org: "Infosys · Intern",
-    summary: "Adapted a speech-to-text proof of concept with phrase hints for domain-specific vocabulary.",
+    summary: "Adapted a speech-to-text proof of concept with phrase hints for domain-specific vocabulary; also worked with HTML5, CSS3 and JavaScript.",
   },
 ];
 
@@ -117,22 +115,22 @@ const SKILLS: { tier: string; where: string; list: ReactNode }[] = [
   {
     tier: "Production",
     where: "EY and TCS, in live systems",
-    list: "Java, Scala, Spring Boot, Kafka, MQ, Redis, MySQL, MongoDB, Docker, OpenShift (Kubernetes), Jenkins, UrbanCode Deploy, SonarQube, Prometheus, Grafana",
+    list: "Java, Scala, Spring Boot, REST, IBM MQ, Kafka, Redis, MySQL, Couchbase, NoSQL, LDAP, Docker, OpenShift, Jenkins, UrbanCode Deploy, Prometheus, Grafana",
   },
   {
     tier: "Recently shipped",
-    where: "FedLearn, TigerResearchBuddy, Hybrid ML Scheduler",
-    list: "Python, FastAPI, PyTorch, gRPC, React 19, TypeScript, Vite, Electron, React Native, WebSocket and STOMP, PostgreSQL with Flyway, GitHub Actions, AWS EC2, nginx, Jest, pytest, JUnit, Ollama, XGBoost",
+    where: "FedLearn (RIT) and coursework/lab projects",
+    list: "Python, C++, FastAPI, PyTorch, ExecuTorch, gRPC, Protocol Buffers, Buf, React 19, TypeScript, Vite, Electron, React Native, WebSocket and STOMP, PostgreSQL with Flyway, Alembic, GitHub Actions, AWS EC2, nginx, Testcontainers, pytest, Ollama, XGBoost",
   },
   {
     tier: "Research",
-    where: "Methods backed by experiments",
-    list: "Federated optimization (FedAvg, FedProx, FedAdam, DeComFL), differential privacy with RDP accounting, Byzantine-robust and secure aggregation, hybrid vector and graph retrieval, VLM-validated extraction, on-device training with ExecuTorch, domain-shift evaluation",
+    where: "FedLearn (RIT) and applied ML projects",
+    list: "Federated optimization (FedAvg, FedProx, FedAdam, DeComFL), differential privacy with RDP accounting, Byzantine-robust and secure aggregation (LightSecAgg), on-device training with ExecuTorch, hybrid vector and graph retrieval, VLM-validated extraction, domain-shift evaluation",
   },
   {
-    tier: "Familiar",
-    where: "Used, without a strong project to point to",
-    list: "AWS S3, Lambda and SQS, Cassandra, Spark, Tailwind, scikit-learn, Hugging Face Transformers",
+    tier: "Exposure and short-term",
+    where: "Platform exposure or short-term project use",
+    list: "Apache Spark (platform exposure at BlackRock), Rust (Tauri core, ~3 weeks), Next.js, Streamlit, GCP (Cloud Run, Cloud Tasks, GCS deployment scripts), scikit-learn, Hugging Face datasets, YOLO, DQN (simulated)",
   },
 ];
 
@@ -144,13 +142,13 @@ export function ExperiencePage() {
       <section aria-labelledby="x-h" className="wrap page-intro">
         <div className="enter">
           <p className="kicker">EXPERIENCE</p>
-          <h1 id="x-h">Five years in production, then a platform build at RIT.</h1>
+          <h1 id="x-h">Five years in backend production, then ML infrastructure at RIT.</h1>
         </div>
         <div className="intro-aside enter-late">
           <p>
-            Five years at EY and TCS building backend services for financial-services clients: fraud screening,
-            portfolio data and consumer lending. Design, delivery, on-call support, code review and mentoring
-            throughout.
+            Software engineer · Backend & ML infrastructure. Five years at TCS and EY building backend services for
+            financial-services clients (2019–2024), followed by AI/ML research and platform engineering at RIT from Aug
+            2024. Moving to Sunnyvale, CA on Dec 20, 2026; open to relocation and available full-time January 2027.
           </p>
           <a className="btn btn-secondary" href={RESUME}>
             Download résumé (PDF)
@@ -161,26 +159,36 @@ export function ExperiencePage() {
       <section aria-label="At a glance" className="wrap">
         <dl className="glance">
           <div>
-            <dt className="label">INDUSTRY</dt>
+            <dt className="label">BACKEND INDUSTRY</dt>
             <dd>5 years, 2019 to 2024</dd>
-            <dd>EY and TCS, client engagements</dd>
+            <dd>TCS and EY, client engagements</dd>
           </div>
           <div>
             <dt className="label">DOMAINS</dt>
-            <dd>Fraud, portfolio, lending</dd>
-            <dd>Real-time and high-volume systems</dd>
+            <dd>Lending, fraud, portfolios</dd>
+            <dd>Decisioning & data platforms</dd>
           </div>
           <div>
-            <dt className="label">OWNERSHIP</dt>
-            <dd>Design to on-call</dd>
-            <dd>Requirements, build, release, support</dd>
+            <dt className="label">AI/ML & RESEARCH</dt>
+            <dd>Began at RIT, Aug 2024</dd>
+            <dd>GRA, Lead Developer - FedLearn</dd>
           </div>
           <div>
-            <dt className="label">NOW</dt>
-            <dd>M.S. at RIT, Dec 2026</dd>
-            <dd>Graduate Research Assistant, FedLearn</dd>
+            <dt className="label">AVAILABILITY</dt>
+            <dd>Sunnyvale, CA (from Dec 20, 2026)</dd>
+            <dd>M.S. CS Dec 2026 · Full-time Jan 2027</dd>
           </div>
         </dl>
+      </section>
+
+      <section aria-label="Career timeline" className="wrap" style={{ marginTop: 32 }}>
+        <Figure
+          src="images/diagrams/fin-career-timeline.svg"
+          width={1200}
+          height={290}
+          alt="Career and academic timeline: TCS Senior Systems Engineer on USAA Consumer Lending from Jul 2019 to Apr 2022, EY Senior Technology Consultant in Software Engineering for Morgan Stanley and BlackRock from Apr 2022 to Jul 2024, RIT M.S. in Computer Science from Aug 2024 to Dec 2026 expected, and RIT Graduate Research Assistant, Lead Developer - FedLearn from Mar 2026 to present."
+          caption="Timeline: five years of backend production (TCS, EY) followed by AI/ML coursework and ML infrastructure at RIT (Aug 2024 onward)."
+        />
       </section>
 
       <section aria-label="Roles" className="wrap">
@@ -257,15 +265,16 @@ export function ExperiencePage() {
             <strong>M.S. Computer Science · Rochester Institute of Technology</strong>
             <span className="when">Aug 2024 to Dec 2026 (expected)</span>
             <span className="courses">
-              Machine Learning, Artificial Intelligence, Deep Learning, Advanced Computer Vision, Big Data Analytics
+              Parallel Computing, Machine Learning, Artificial Intelligence, Deep Learning, Advanced Computer Vision,
+              Big Data Analytics
             </span>
           </div>
           <div>
             <strong>B.Tech Computer Science and Engineering · Sikkim Manipal Institute of Technology</strong>
-            <span className="when">2015 to 2019</span>
+            <span className="when">Jun 2015 to Jul 2019</span>
           </div>
           <div>
-            <strong>AWS Certified Cloud Practitioner · Oracle Certified Associate, Java SE 8 Programmer</strong>
+            <strong>AWS Certified Cloud Practitioner · Oracle Certified Associate, Java Programmer</strong>
           </div>
         </div>
       </section>

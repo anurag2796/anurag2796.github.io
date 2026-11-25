@@ -1,10 +1,23 @@
 import { useSearchParams } from "react-router";
 import { Go } from "@/components/links";
-import { Shot, Status } from "@/components/ui-bits";
-import { AREAS, PROJECTS, type Area } from "@/content/projects";
+import { Shot, STATUS_LABEL, Status } from "@/components/ui-bits";
+import { AREAS, PROJECTS, type Area, type Project } from "@/content/projects";
 import { usePageTitle } from "@/lib/nav";
 
 const FILTERS: (Area | "All")[] = ["All", ...AREAS];
+
+const WORK_GROUPS: { title: string; slugs: string[] }[] = [
+  { title: "Industry", slugs: ["financial-services"] },
+  { title: "Research", slugs: ["fedlearn", "executorch"] },
+  { title: "AI products and platforms", slugs: ["nexus", "tigerresearchbuddy", "tasksip"] },
+  {
+    title: "Applied ML",
+    slugs: ["leafmd", "faminesight", "hybrid-ml-scheduler", "image-similarity", "smart-betting-system"],
+  },
+  { title: "Data", slugs: ["crimecastnyc"] },
+];
+
+const GROUPED_SLUGS = new Set(WORK_GROUPS.flatMap((g) => g.slugs));
 
 function isArea(v: string | null): v is Area {
   return !!v && (AREAS as readonly string[]).includes(v);
@@ -24,9 +37,12 @@ export function WorkPage() {
   };
 
   const shown = PROJECTS.filter((p) => current === "All" || p.areas.includes(current));
-  const flagship = shown.filter((p) => p.tier === "flagship");
-  const index = shown.filter((p) => p.tier === "index");
-  const archive = shown.filter((p) => p.tier === "archive");
+  const bySlug = new Map(shown.map((p) => [p.slug, p]));
+  const grouped = WORK_GROUPS.map((g) => ({
+    title: g.title,
+    items: g.slugs.map((s) => bySlug.get(s)).filter((p): p is Project => !!p),
+  })).filter((g) => g.items.length > 0);
+  const archive = shown.filter((p) => !GROUPED_SLUGS.has(p.slug));
   const count = `${current === "All" ? "All areas" : current} · ${shown.length} ${shown.length === 1 ? "entry" : "entries"}`;
 
   return (
@@ -38,7 +54,7 @@ export function WorkPage() {
         </div>
         <div className="intro-aside enter-late">
           <p>
-            Three flagship stories, then smaller projects and archived experiments. Every entry states its status and
+            Work grouped across industry, research, AI products, applied ML, and data. Every entry states its status and
             my ownership.
           </p>
         </div>
@@ -64,57 +80,11 @@ export function WorkPage() {
           </p>
         </div>
 
-        {flagship.length > 0 && (
-          <>
-            <h2 className="tier-head">FLAGSHIP STORIES</h2>
-            <ol className="flag-list">
-              {flagship.map((p) => (
-                <li className="flag-item reveal" key={p.slug}>
-                  <div className="flag-copy">
-                    <Status kind={p.status} />
-                    <h3>{p.name}</h3>
-                    <p className="owner">{p.owner}</p>
-                    <p className="desc">{p.desc}</p>
-                    {p.why && (
-                      <p className="labeled">
-                        <span className="label-accent">WHY</span>
-                        <span>{p.why}</span>
-                      </p>
-                    )}
-                    <p className="labeled">
-                      <span className="label-accent">EVIDENCE</span>
-                      <span>{p.evidence}</span>
-                    </p>
-                    <p className="tech">{p.tech}</p>
-                    <div className="cta-row">
-                      {p.href && (
-                        <Go className="btn btn-primary" to={p.href}>
-                          {p.cta}
-                        </Go>
-                      )}
-                      {p.repo && (
-                        <a className="link" href={p.repo}>
-                          Repository ↗
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                  {p.image && p.href && (
-                    <figure className="flag-figure">
-                      <Shot image={p.image} to={p.href} decorative />
-                    </figure>
-                  )}
-                </li>
-              ))}
-            </ol>
-          </>
-        )}
-
-        {index.length > 0 && (
-          <>
-            <h2 className="tier-head">PROJECT INDEX</h2>
+        {grouped.map((g) => (
+          <div key={g.title}>
+            <h2 className="tier-head">{g.title}</h2>
             <ol className="proj-list">
-              {index.map((p) => (
+              {g.items.map((p) => (
                 <li className="proj reveal" key={p.slug}>
                   <div className="proj-name">
                     <h3>
@@ -127,17 +97,27 @@ export function WorkPage() {
                       )}
                     </h3>
                     <Status kind={p.status} />
-                    <span className="owner">{p.owner}</span>
+                    {p.owner && <span className="owner">{p.owner}</span>}
                   </div>
                   <div className="proj-body">
                     <p className="desc">{p.desc}</p>
-                    <p className="evidence">{p.evidence}</p>
+                    {p.why && (
+                      <p className="evidence">
+                        <span className="label-accent">WHY</span> {p.why}
+                      </p>
+                    )}
+                    {p.evidence && <p className="evidence">{p.evidence}</p>}
                     <div className="proj-foot">
-                      <span className="tech">{p.tech}</span>
+                      {p.tech && <span className="tech">{p.tech}</span>}
                       {p.href && (
                         <Go className="link" to={p.href}>
-                          {p.cta}
+                          {p.cta ?? "Read the project page →"}
                         </Go>
+                      )}
+                      {p.repo && (
+                        <a className="link" href={p.repo}>
+                          Repository ↗
+                        </a>
                       )}
                     </div>
                   </div>
@@ -149,18 +129,26 @@ export function WorkPage() {
                 </li>
               ))}
             </ol>
-          </>
-        )}
+          </div>
+        ))}
 
         {archive.length > 0 && (
           <>
-            <h2 className="tier-head">ARCHIVE</h2>
+            <h2 className="tier-head">Archive</h2>
             <ul className="archive">
               {archive.map((p) => (
                 <li key={p.slug}>
-                  <span className="name">{p.name}</span>
+                  <span className="name">
+                    {p.href ? (
+                      <Go to={p.href} className="proj-link">
+                        {p.name}
+                      </Go>
+                    ) : (
+                      p.name
+                    )}
+                  </span>
                   <span className="desc">
-                    {p.desc} <span className="mono" style={{ fontSize: 12.5 }}>· □ Archived experiment</span>
+                    {p.desc} <span className="mono" style={{ fontSize: 12.5 }}>· {STATUS_LABEL[p.status]}</span>
                   </span>
                 </li>
               ))}

@@ -6,10 +6,30 @@ import { FEDLEARN_REPO, GITHUB, LINKEDIN, MAILTO, RESUME, ROUTES, type ImageKey 
 import type { StatusKind } from "@/components/ui-bits";
 
 const METRICS = [
-  { value: "1M+", label: "transactions per day", how: "Production APIs at 99.9% uptime", where: "TCS" },
-  { value: "<500 ms", label: "screening SLA, from 5,000 ms", how: "Redis-backed distributed caching", where: "EY" },
-  { value: "75%", label: "lower manual-review time", how: "Fraud-decisioning workflow", where: "EY" },
-  { value: "40%", label: "shorter deployment lead time", how: "CI/CD and containerized delivery", where: "TCS" },
+  {
+    value: "<500 ms",
+    label: "end-to-end SLA, from 5,000 ms (10×)",
+    how: "Cached inbound transactions in Redis",
+    where: "EY · Morgan Stanley",
+  },
+  {
+    value: "1 → 5",
+    label: "payment rails screened",
+    how: "P2P, ACH, branch ACH, wire, branch wire",
+    where: "EY · Morgan Stanley",
+  },
+  {
+    value: "−75%",
+    label: "manual review time",
+    how: "Contributed to triage automation (reported)",
+    where: "EY · Morgan Stanley",
+  },
+  {
+    value: "800 / 856",
+    label: "public FedLearn commits",
+    how: "Primary implementation contributor",
+    where: "RIT · FedLearn",
+  },
 ];
 
 const CAPABILITIES = [
@@ -19,7 +39,7 @@ const CAPABILITIES = [
     line: "Services that stay fast and correct under production load.",
     points: ["Event-driven services and APIs", "Caching, authorization and observability", "On-call support and root-cause fixes"],
     evidence: { to: ROUTES.finserv, label: "Evidence: financial-services delivery →" },
-    tech: "Java · Spring Boot · Kafka · Redis · PostgreSQL",
+    tech: "Java · Scala · Spring Boot · Kafka · Redis · PostgreSQL",
   },
   {
     n: "02",
@@ -27,22 +47,22 @@ const CAPABILITIES = [
     line: "Operational tools owned from API to interface.",
     points: [
       "Dashboards with live state over WebSocket",
-      "Web, desktop and mobile clients on one design system",
+      "Web, desktop and Android clients on shared design tokens",
       "CI/CD and deployment shipped with the feature",
     ],
     evidence: { to: ROUTES.fedlearn, label: "Evidence: FedLearn clients →" },
-    tech: "React · TypeScript · Electron · React Native · AWS",
+    tech: "React · TypeScript · Electron · React Native · AWS EC2",
   },
   {
     n: "03",
     title: "AI systems",
-    line: "Training and retrieval that run on real hardware and are measured.",
+    line: "Federated training, evaluation, and local retrieval built for real hardware.",
     points: [
       "Federated learning with privacy and robust aggregation",
       "Hybrid vector and graph retrieval, local inference",
       "Reproducible evaluation that keeps negative results",
     ],
-    evidence: { to: ROUTES.trb, label: "Evidence: FedLearn and TigerResearchBuddy →" },
+    evidence: { to: ROUTES.trb, label: "Evidence: TigerResearchBuddy →" },
     tech: "PyTorch · gRPC · ExecuTorch · Ollama · Jetson Orin",
   },
 ];
@@ -51,45 +71,44 @@ const ROLES = [
   {
     id: "pe-ey",
     org: "EY",
-    title: "Senior Technology Consultant",
+    title: "Senior Technology Consultant (Software Engineering)",
     when: "Apr 2022 to Jul 2024 · Bengaluru",
     summary:
-      "Backend services for two clients: a real-time transaction-screening platform for fraud decisioning, and portfolio-management services behind a console used by several user groups.",
+      "Embedded software developer for two clients: Morgan Stanley's Fraud Hub real-time transaction-screening platform (~18 months) and BlackRock's Java on Spark portfolio-management platform (~6 months).",
     owned: [
-      "Three screening services (persistence, core enricher, additional enricher) as the platform grew from one payment rail to five",
-      "Event-driven pipelines on Kafka and Redis-backed caching on hot read paths",
-      "Validation and cleansing built into the portfolio data pipeline",
-      "Verification of a Java/Spark re-architecture against the legacy system before migration",
+      "Three Fraud Hub Scala services (core enricher, additional enricher, persistence) as the platform grew from 1 payment rail to 5",
+      "Event-driven pipelines on IBM MQ and Kafka, caching inbound transactions in Redis to take database round-trips off the SLA path",
+      "Contributed to triage automation (auto-routing, pre-filled evidence, auto-clearing low-risk cases) and wrote design documents",
+      "Validated BlackRock's re-architected Java on a Spark-backed portfolio platform against the legacy system and added validation rules",
     ],
     results: [
-      ["<500 ms", "screening SLA, down from 5,000 ms · Redis-backed caching"],
-      ["75%", "lower manual-review time · automated triage queues"],
-      ["25%", "lower pipeline latency · profiling-driven fixes"],
-      ["15%", "better data accuracy · validation at ingestion"],
-      ["100K+", "client artifacts a month from high-throughput services"],
+      ["<500 ms", "end-to-end screening SLA, from 5,000 ms (10×) · cached inbound transactions in Redis"],
+      ["−75%", "manual review time · contributed to triage automation"],
+      ["1 → 5", "payment rails screened · P2P, ACH, branch ACH, wire, branch wire"],
+      ["+15%", "data accuracy at BlackRock · reconciliation before vs after"],
     ],
-    how: "Turned changing business needs into requirements with product stakeholders, mentored junior developers, and was the code-review point of contact for several components.",
+    how: "Translated business needs into technical requirements with stakeholders, maintained Jenkins CI/CD, mentored junior developers, and served as code-review point of contact for several components.",
   },
   {
     id: "pe-tcs",
     org: "TCS",
-    title: "Software Engineer",
+    title: "Senior Systems Engineer (promoted from Systems Engineer)",
     when: "Jul 2019 to Apr 2022 · Hyderabad",
     summary:
-      "Core-banking and consumer-lending APIs for a US financial-services client, running on Kafka and Docker on OpenShift, with on-call production support.",
+      "Spring Boot microservices in USAA's 6-service Consumer Lending pipeline (personal and auto loans), running with IBM MQ, Kafka and Docker on OpenShift, with on-call production support.",
     owned: [
-      "Spring Boot REST APIs over MySQL and MongoDB",
-      "CI/CD pipelines behind SonarQube quality gates, released through UrbanCode Deploy",
-      "Prometheus and Grafana monitoring, and the root-cause fixes it surfaced",
-      "Schema and index tuning across relational and NoSQL stores",
+      "Features, unit/integration tests and fixes across retrieval, risk-check, decision and data services on MySQL and Couchbase",
+      "Enrichment via 3 cross-team integrations (credit-bureau gateway, credit-card service, LDAP company directory) and rule-based decisioning",
+      "Kafka producer integration publishing persisted final application records downstream, with timeouts, retries and MQ backout-queue replay",
+      "Releases and rollbacks via IBM UrbanCode Deploy (dev → QA → prod) on OpenShift; on-call monitoring with Prometheus and Grafana",
     ],
     results: [
-      ["1M+", "transactions a day at 99.9% uptime"],
-      ["40%", "shorter deployment lead time · CI/CD and containers"],
-      ["35%", "lower MTTR · monitoring and root-cause fixes"],
-      ["50%", "faster queries · indexing and data-model tuning"],
+      ["6", "Spring Boot services in USAA's Consumer Lending pipeline, each in its own repository"],
+      ["3", "cross-team integrations · credit-bureau gateway, credit-card service, LDAP directory"],
+      ["2", "loan products · personal and auto loans, routed to 3 decision outcomes"],
+      ["3", "recurring incident classes resolved on call · dependency slowdowns, bad input, release regressions"],
     ],
-    how: "Carried on-call support and turned incidents into permanent fixes through root-cause analysis and better monitoring.",
+    how: "Carried on-call support, diagnosed incidents with logs and Grafana, shipped fixes, replayed backout-queue messages and wrote RCAs.",
   },
 ];
 
@@ -133,16 +152,16 @@ const CAREER = [
     carries: "reliability, API design, on-call, stakeholder delivery",
   },
   {
-    when: "02 · RIT",
-    title: "AI infrastructure and federated learning",
-    where: "FedLearn · control plane, training runtime, clients",
-    carries: "orchestration, evaluation, device runtimes",
+    when: "02 · RIT (2024 to 2026)",
+    title: "Applied AI and edge systems",
+    where: "RIT AI/ML coursework and projects · TigerResearchBuddy on Jetson Orin",
+    carries: "hybrid retrieval, hardware-aware pipelines, evaluation discipline",
   },
   {
-    when: "03 · RIT",
-    title: "Applied AI on constrained devices",
-    where: "TigerResearchBuddy on Jetson Orin · on-device training on Android",
-    next: "full-time AI systems and backend roles",
+    when: "03 · RIT (2026)",
+    title: "ML infrastructure and federated learning",
+    where: "FedLearn · control plane, training runtime, desktop and Android clients",
+    next: "full-time backend, ML infrastructure, and AI systems roles",
   },
 ];
 
@@ -154,19 +173,21 @@ export function HomePage() {
       {/* Hero */}
       <section aria-labelledby="hero-h" className="wrap hero">
         <div className="hero-main enter">
-          <p className="hero-eyebrow">Software engineer · AI systems · Rochester, NY</p>
-          <h1 id="hero-h">Five years shipping production backends. Now building AI systems that hold up.</h1>
+          <p className="hero-eyebrow">Software engineer · Backend &amp; ML infrastructure · Sunnyvale, CA</p>
+          <h1 id="hero-h">Five years shipping production backends. Now building ML infrastructure and AI systems.</h1>
           <p className="hero-sub">
-            From backend services and distributed infrastructure to RAG, evaluation, and full-stack workflows.
+            From financial transaction pipelines and distributed infrastructure to federated learning, evaluation, and
+            full-stack workflows.
           </p>
           <p className="hero-body">
-            At EY and TCS I built and supported real-time services for financial-services clients: fraud screening,
-            portfolio data and consumer lending. At RIT I now lead development of FedLearn, a federated-learning
-            platform, working across architecture, implementation, evaluation, deployment and production debugging.
+            From 2019 to 2024 at EY and TCS I built and supported real-time backend services for Morgan Stanley,
+            BlackRock and USAA. Since starting my M.S. at RIT in August 2024, I have focused on AI/ML systems and now
+            serve as Graduate Research Assistant and lead developer of FedLearn, working across architecture,
+            implementation, evaluation and deployment.
           </p>
           <p className="hero-target">
             <span className="label-accent">TARGETING</span>
-            AI Systems, Backend, Full-stack AI, Applied AI, and Forward-Deployed Engineering roles.
+            Backend, ML Infrastructure, Distributed Systems, and Applied AI roles.
           </p>
           <div className="hero-actions">
             <Go className="btn btn-primary" to={ROUTES.work}>
@@ -186,28 +207,28 @@ export function HomePage() {
         <aside aria-label="Profile" className="profile enter-late">
           <p className="profile-head">
             <span>PROFILE</span>
-            <span>OCT 2026</span>
+            <span>NOV 2026</span>
           </p>
           <dl>
             <div className="profile-row">
               <dt>Now</dt>
               <dd>
-                Graduate Research Assistant, RIT
+                Graduate Research Assistant, RIT (Mar 2026–present)
                 <br />
-                <span className="muted">Primary architect, FedLearn Platform</span>
+                <span className="muted">Lead Developer - FedLearn · Learning Optimization Group</span>
               </dd>
             </div>
             <div className="profile-row">
               <dt>Industry</dt>
-              <dd>5 years at EY and TCS, backend platforms for financial services</dd>
+              <dd>5 years (2019–2024) at EY and TCS, backend platforms for financial services</dd>
             </div>
             <div className="profile-row">
               <dt>Education</dt>
-              <dd>M.S. Computer Science, RIT, December 2026</dd>
+              <dd>M.S. Computer Science, RIT (Aug 2024–Dec 2026, expected)</dd>
             </div>
             <div className="profile-row">
               <dt>Focus</dt>
-              <dd>Federated learning, RAG, edge inference, backend platforms</dd>
+              <dd>Backend platforms, ML infrastructure, federated learning, local RAG</dd>
             </div>
             <div className="profile-row">
               <dt>Available</dt>
@@ -215,7 +236,7 @@ export function HomePage() {
                 <span className="dot-available" aria-hidden="true" />
                 Full-time from January 2027
                 <br />
-                <span className="muted">Rochester, NY · open to relocation</span>
+                <span className="muted">Sunnyvale, CA (moving Dec 20, 2026) · open to relocation</span>
               </dd>
             </div>
           </dl>
@@ -225,7 +246,7 @@ export function HomePage() {
       {/* Metrics */}
       <section aria-labelledby="m-h" className="metrics">
         <div className="wrap">
-          <h2 id="m-h">PRODUCTION IMPACT · INDUSTRY ROLES, 2019 TO 2024</h2>
+          <h2 id="m-h">IMPACT AND SCOPE · 2019 TO PRESENT</h2>
           <div className="metrics-grid">
             {METRICS.map((m) => (
               <div className="metric" key={m.label}>
@@ -275,8 +296,7 @@ export function HomePage() {
           </div>
           <p>
             Two firms, three client engagements, one constant: services that had to be fast, correct and supported in
-            production. I owned work end to end, from requirements with stakeholders through release, monitoring and
-            on-call.
+            production. I delivered work from requirements with stakeholders through release, monitoring and on-call.
           </p>
         </div>
 
@@ -295,7 +315,7 @@ export function HomePage() {
           </div>
           <div>
             <dt>CORE STACK</dt>
-            <dd>Java · Scala · Spring Boot · Kafka · Redis</dd>
+            <dd>Java · Scala · Spring Boot · Kafka · IBM MQ · Redis</dd>
           </div>
         </dl>
 
@@ -337,7 +357,7 @@ export function HomePage() {
         <div className="now-bar">
           <span>
             <span className="label">NOW</span>
-            <strong>RIT</strong> · Graduate Research Assistant, full-stack lead on FedLearn{" "}
+            <strong>RIT</strong> · Graduate Research Assistant, Lead Developer - FedLearn (Mar 2026–present){" "}
             <span className="muted">· earlier: Infosys intern, 2019</span>
           </span>
           <span className="now-links">
@@ -371,24 +391,24 @@ export function HomePage() {
             </p>
             <h3 id="fl-h">FedLearn Platform</h3>
             <p className="desc">
-              A custom, full-stack federated-learning platform connecting web, desktop, Docker, and native mobile
+              A custom, full-stack federated-learning platform connecting web, desktop, Docker, and native Android
               clients to a PyTorch/gRPC runtime, with reproducible experiments across heterogeneous hardware.
             </p>
             <p className="muted" style={{ fontSize: 15 }}>
-              Primary architect and principal implementer
+              Primary implementation contributor (800 of 856 public commits)
             </p>
             <ul className="evidence-list">
               <li>
                 <span className="label-accent">EVIDENCE</span>
-                <span>FedAvg matched Flower within 2.39 × 10⁻⁷ across 200 aggregations</span>
+                <span>360-configuration, 7,200-round NIH ChestX-ray14 study; FedAvg reported within 2.38 × 10⁻⁷ of Flower</span>
               </li>
               <li>
                 <span className="label-accent">EVIDENCE</span>
-                <span>One model trained across three physical machines over gRPC</span>
+                <span>Qualified gRPC training across 3 physical hosts (up to 80 logical clients)</span>
               </li>
               <li>
                 <span className="label-accent">DEBUGGING</span>
-                <span>Phone training failure traced into an ExecuTorch kernel</span>
+                <span>Fixed an ExecuTorch max_pool2d bug on Android (reported); 21 of 24 full-arm plans verified with live receipts</span>
               </li>
             </ul>
             <div className="cta-row">
@@ -430,26 +450,26 @@ export function HomePage() {
               <span className="accent">CASE STUDY 03</span>
               <span className="ink">■ Production experience</span>
             </p>
-            <h3 id="fs-h">Real-time decisioning for financial services</h3>
+            <h3 id="fs-h">Financial-services delivery</h3>
             <div className="stat-strip">
               <div>
                 <strong>&lt;500 ms</strong>
-                <span>SLA, from 5,000 ms</span>
+                <span>end-to-end SLA, from 5,000 ms</span>
               </div>
               <div>
-                <strong>75%</strong>
-                <span>lower manual review</span>
+                <strong>−75%</strong>
+                <span>manual review time</span>
               </div>
               <div>
-                <strong>1M+</strong>
-                <span>transactions a day</span>
+                <strong>1 → 5</strong>
+                <span>payment rails screened</span>
               </div>
             </div>
             <p className="desc">
               Fraud screening, portfolio and lending services built inside client engagements at EY and TCS:
               requirements with stakeholders, integration with existing systems, production support.
             </p>
-            <p className="tech">Java · Scala · Spring Boot · Kafka · Redis</p>
+            <p className="tech">Java · Scala · Spring Boot · Kafka · IBM MQ · Redis</p>
             <Go className="link-strong" to={ROUTES.finserv}>
               Read the case study →
             </Go>
@@ -512,23 +532,23 @@ export function HomePage() {
           <h2 id="ed-h">Education and focus</h2>
           <div className="edu-item">
             <strong>M.S. Computer Science, RIT</strong>
-            <span>Expected December 2026</span>
+            <span>Aug 2024 – Dec 2026 (expected)</span>
           </div>
           <div className="edu-item">
             <strong>B.Tech Computer Science and Engineering</strong>
-            <span>Sikkim Manipal Institute of Technology, 2019</span>
+            <span>Sikkim Manipal Institute of Technology, Jun 2015 – Jul 2019</span>
           </div>
           <div className="edu-now">
-            <span className="label-accent">CURRENTLY</span>
+            <span className="label-accent">CAPSTONE</span>
             <span>
-              TLS-by-default and secure-aggregation hardening in FedLearn; a held-out retrieval benchmark for
-              TigerResearchBuddy.
+              FedLearn platform and 360-configuration, 7,200-round NIH ChestX-ray14 federated study (manuscript in
+              preparation).
             </span>
           </div>
         </div>
       </section>
 
-      <ContactBand body="I'm completing my M.S. in Computer Science at RIT and targeting full-time AI systems, backend, full-stack AI, and forward-deployed engineering roles beginning January 2027." />
+      <ContactBand body="I'm completing my M.S. in Computer Science at RIT (Dec 2026), relocating to Sunnyvale, CA on December 20, 2026, and targeting full-time backend, ML infrastructure, distributed systems, and applied AI roles starting January 2027." />
     </>
   );
 }

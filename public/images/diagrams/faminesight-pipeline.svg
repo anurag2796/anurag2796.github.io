@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 580" width="1200" height="580" role="img" aria-labelledby="famine-title famine-desc">
+  <title id="famine-title">FamineSight Somalia early-warning pipeline</title>
+  <desc id="famine-desc">Seven humanitarian and environmental sources (ACLED, WFP, CHIRPS, NDVI, UNHCR, IPC, FSNAU) are joined into a Somalia district-month panel with KNN imputation, outlier analysis, lags, rolling windows, and PCA. It feeds unsupervised clustering, anomaly detection, and association rules alongside a chronological split and SMOTE classifier comparison (Naive Bayes, SVM, MLP, Random Forest, XGBoost) with no valid scores committed, plus FastAPI, Streamlit, and Groq or Ollama LLM situation narratives.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#666b72" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="580" fill="#fcfbf8" />
+
+  <!-- Header -->
+  <text x="40" y="48" font-family="Instrument Sans, system-ui, sans-serif" font-size="22" font-weight="600" fill="#111315">FamineSight — Somalia District-Month Early-Warning Pipeline</text>
+  <text x="40" y="74" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">CSCI.720 Big Data Analytics · final run used real data (synthetic fallback exists)</text>
+
+  <rect x="868" y="28" width="292" height="32" rx="6" fill="#fcfbf8" stroke="#a23a3a" stroke-width="1.5" />
+  <text x="1014" y="49" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#a23a3a">NO VALID SCORES COMMITTED</text>
+
+  <!-- Col 1: 7 Sources -->
+  <text x="40" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">01 · SEVEN SOURCES</text>
+  <rect x="40" y="130" width="224" height="356" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+
+  <rect x="56" y="146" width="192" height="36" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="70" y="169" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#111315">ACLED</text>
+  <text x="130" y="169" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Conflict events</text>
+
+  <rect x="56" y="190" width="192" height="36" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="70" y="213" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#111315">WFP</text>
+  <text x="130" y="213" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Food prices</text>
+
+  <rect x="56" y="234" width="192" height="36" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="70" y="257" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#111315">CHIRPS</text>
+  <text x="130" y="257" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Rainfall</text>
+
+  <rect x="56" y="278" width="192" height="36" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="70" y="301" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#111315">NDVI</text>
+  <text x="130" y="301" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Vegetation</text>
+
+  <rect x="56" y="322" width="192" height="36" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="70" y="345" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#111315">UNHCR</text>
+  <text x="130" y="345" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Displacement</text>
+
+  <rect x="56" y="366" width="192" height="36" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="70" y="389" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#111315">IPC</text>
+  <text x="130" y="389" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Food phases</text>
+
+  <rect x="56" y="410" width="192" height="36" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="70" y="433" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#111315">FSNAU</text>
+  <text x="130" y="433" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Mortality</text>
+
+  <text x="152" y="471" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a66112">Synthetic fallback if no creds</text>
+
+  <!-- Col 2: District-Month Panel -->
+  <text x="304" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#2457d6">02 · PANEL &amp; FEATURES</text>
+  <rect x="304" y="130" width="216" height="356" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+
+  <text x="322" y="164" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="600" fill="#111315">District-Month</text>
+  <text x="322" y="186" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="600" fill="#111315">Spatio-Temporal</text>
+  <text x="322" y="208" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="600" fill="#111315">Panel (Somalia)</text>
+
+  <line x1="322" y1="228" x2="502" y2="228" stroke="#d8d6d0" stroke-width="1.5" />
+
+  <text x="322" y="260" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="500" fill="#111315">Preprocessing:</text>
+  <text x="322" y="290" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">• KNN impute + interp.</text>
+  <text x="322" y="318" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">• Z-score outlier scan</text>
+  <text x="322" y="346" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">• 1–3 mo lags &amp; rolling</text>
+  <text x="322" y="374" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">• PCA reduction</text>
+
+  <rect x="320" y="406" width="184" height="62" rx="6" fill="#fcfbf8" stroke="#207a52" stroke-width="1.5" />
+  <text x="412" y="432" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#207a52">Chronological split</text>
+  <text x="412" y="454" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Avoids future leakage</text>
+
+  <!-- Col 3: Analytics & Classification -->
+  <text x="560" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#2457d6">03 · MINING &amp; CLASSIFICATION</text>
+
+  <!-- Unsupervised block -->
+  <rect x="560" y="130" width="316" height="156" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="578" y="160" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">District Profiling &amp; Mining</text>
+  <text x="578" y="190" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">• Clustering:</text>
+  <text x="668" y="190" font-family="IBM Plex Mono, monospace" font-size="14" fill="#111315">K-Means, DBSCAN/HDBSCAN</text>
+  <text x="578" y="220" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">• Anomaly detection</text>
+  <text x="578" y="250" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">• Association-rule mining</text>
+
+  <!-- Classifier comparison block -->
+  <rect x="560" y="306" width="316" height="180" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="578" y="336" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Classifier Comparison</text>
+  <text x="578" y="362" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">SMOTE · Avg Precision &amp; Recall</text>
+  <text x="578" y="390" font-family="IBM Plex Mono, monospace" font-size="14" fill="#111315">NB · SVM · MLP · RF · XGBoost</text>
+
+  <rect x="578" y="410" width="280" height="58" rx="6" fill="#fcfbf8" stroke="#a23a3a" stroke-width="1.5" stroke-dasharray="5 4" />
+  <text x="718" y="435" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#a23a3a">Report chart has empty bars</text>
+  <text x="718" y="456" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a23a3a">No valid scores on record</text>
+
+  <!-- Col 4: Serving & Narratives -->
+  <text x="916" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">04 · SERVE &amp; NARRATE</text>
+
+  <rect x="916" y="130" width="244" height="114" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="934" y="160" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="500" fill="#111315">FastAPI Service</text>
+  <text x="934" y="186" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">API-key auth · Pydantic v2</text>
+  <text x="934" y="210" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Model registry + Docker</text>
+
+  <rect x="916" y="260" width="244" height="86" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="934" y="290" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="500" fill="#111315">Streamlit Dashboard</text>
+  <text x="934" y="316" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Risk maps &amp; alerts view</text>
+
+  <rect x="916" y="362" width="244" height="124" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="934" y="392" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">LLM Narratives</text>
+  <text x="934" y="418" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">Groq | local Ollama</text>
+  <rect x="932" y="434" width="212" height="38" rx="6" fill="#fcfbf8" stroke="#a23a3a" stroke-width="1.5" stroke-dasharray="4 3" />
+  <text x="1038" y="458" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a23a3a">Audit bugs unverified</text>
+
+  <!-- Arrows -->
+  <line x1="264" y1="308" x2="302" y2="308" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="520" y1="260" x2="558" y2="210" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="520" y1="340" x2="558" y2="390" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="876" y1="208" x2="914" y2="188" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="876" y1="350" x2="914" y2="305" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="876" y1="415" x2="914" y2="424" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Footer Legend -->
+  <line x1="40" y1="518" x2="1160" y2="518" stroke="#d8d6d0" stroke-width="1.5" />
+  <rect x="40" y="536" width="14" height="14" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="62" y="548" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Core ML &amp; panel pipeline</text>
+  <rect x="256" y="536" width="14" height="14" rx="6" fill="#fcfbf8" stroke="#207a52" stroke-width="1.5" />
+  <text x="278" y="548" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Leakage guard</text>
+  <rect x="404" y="536" width="14" height="14" rx="6" fill="#fcfbf8" stroke="#a23a3a" stroke-width="1.5" stroke-dasharray="3 2" />
+  <text x="426" y="548" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Missing scores / unverified fixes</text>
+</svg>

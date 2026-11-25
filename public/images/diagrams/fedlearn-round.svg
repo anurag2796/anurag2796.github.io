@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" width="1200" height="540" role="img" aria-labelledby="title desc">
+  <title id="title">FedLearn One Federated Training Round Sequence</title>
+  <desc id="desc">Six-step training round flow: clients enroll and receive an execution contract, fetch model artifacts by SHA hash, train locally, upload round-tagged deterministic float32 safetensors updates, aggregate on the coordinator, and persist checkpoints and lineage-registered models.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="context-stroke" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="540" fill="#fcfbf8" />
+
+  <!-- Header -->
+  <text x="36" y="38" font-family="Instrument Sans, system-ui, sans-serif" font-size="20" font-weight="600" fill="#111315">FedLearn — One Federated Training Round</text>
+  <text x="36" y="62" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Execution contract, hash-verified artifacts, deterministic safetensors updates, aggregation, and lineage</text>
+
+  <!-- Step 01 -->
+  <rect x="36" y="98" width="348" height="158" rx="6" fill="#f7f9ff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="54" y="126" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#2457d6">01 · ENROLL</text>
+  <text x="54" y="154" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Enroll + Execution Contract</text>
+  <text x="54" y="182" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Client receives run-scoped token</text>
+  <text x="54" y="204" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">and execution contract (model,</text>
+  <text x="54" y="226" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">arm, optimizer, update protocol).</text>
+
+  <line x1="384" y1="177" x2="422" y2="177" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 02 -->
+  <rect x="426" y="98" width="348" height="158" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="444" y="126" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#2457d6">02 · FETCH</text>
+  <text x="444" y="154" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Fetch Artifacts by Hash</text>
+  <text x="444" y="182" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Client validates contract and</text>
+  <text x="444" y="204" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">downloads model artifacts with</text>
+  <text x="444" y="226" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">resumable SHA verification.</text>
+
+  <line x1="774" y1="177" x2="812" y2="177" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 03 -->
+  <rect x="816" y="98" width="348" height="158" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="834" y="126" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#2457d6">03 · TRAIN</text>
+  <text x="834" y="154" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Local Train</text>
+  <text x="834" y="182" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Trains on local data under arm</text>
+  <text x="834" y="204" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">FULL | FROZEN_HEAD | OVA_LP</text>
+  <text x="834" y="226" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">via PyTorch or C++ ExecuTorch.</text>
+
+  <!-- Row connector 03 -> 04 -->
+  <path d="M 990 256 L 990 282 L 210 282 L 210 304" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 04 -->
+  <rect x="36" y="308" width="348" height="158" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="54" y="336" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#2457d6">04 · UPLOAD</text>
+  <text x="54" y="364" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Round-Tagged Safetensors Update</text>
+  <text x="54" y="392" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Submits deterministic float32</text>
+  <text x="54" y="414" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">safetensors (chunked) / scalars</text>
+  <text x="54" y="436" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">tagged with session &amp; round ID.</text>
+
+  <line x1="384" y1="387" x2="422" y2="387" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 05 -->
+  <rect x="426" y="308" width="348" height="158" rx="6" fill="#f7f9ff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="444" y="336" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#2457d6">05 · AGGREGATE</text>
+  <text x="444" y="364" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Aggregate</text>
+  <text x="444" y="392" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Coordinator aggregates eligible</text>
+  <text x="444" y="414" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">updates (FedAvg/FedProx/FedOpt,</text>
+  <text x="444" y="436" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">robust agg, DP, or LightSecAgg).</text>
+
+  <line x1="774" y1="387" x2="812" y2="387" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 06 -->
+  <rect x="816" y="308" width="348" height="158" rx="6" fill="#f4faf7" stroke="#207a52" stroke-width="1.5" />
+  <text x="834" y="336" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#207a52">06 · PERSIST</text>
+  <text x="834" y="364" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Checkpoint + Register</text>
+  <text x="834" y="392" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Retry-safe callbacks save timing</text>
+  <text x="834" y="414" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">and checkpoints to PostgreSQL;</text>
+  <text x="834" y="436" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">new model registered with lineage.</text>
+
+  <!-- Footer -->
+  <text x="36" y="508" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">
+    <tspan font-weight="600" fill="#111315">Boundary:</tspan> Nothing in the browser touches model weights; the in-process simulator reuses the same coordinator and strategy objects.
+  </text>
+</svg>

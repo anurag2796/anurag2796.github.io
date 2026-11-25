@@ -4,7 +4,7 @@ export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="wrap">
-        <span>Anurag Lnu · Rochester, NY · © {new Date().getFullYear()}</span>
+        <span>Anurag Lnu · Sunnyvale, CA · © {new Date().getFullYear()}</span>
         <span className="footer-links">
           <a href={MAILTO}>Email</a>
           <a href={LINKEDIN}>LinkedIn</a>

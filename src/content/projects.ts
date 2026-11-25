@@ -1,25 +1,7 @@
-import type { StatusKind } from "@/components/ui-bits";
-import { FEDLEARN_REPO, ROUTES, type ImageKey } from "@/site";
+import { FEDLEARN_REPO, ROUTES } from "@/site";
+import { AREAS, type Area, type Project } from "@/types/content";
 
-export const AREAS = ["Backend", "Full-stack", "AI Systems", "Data"] as const;
-export type Area = (typeof AREAS)[number];
-
-export type Project = {
-  tier: "flagship" | "index" | "archive";
-  slug: string;
-  name: string;
-  areas: Area[];
-  status: StatusKind;
-  owner?: string;
-  why?: string;
-  desc: string;
-  evidence?: string;
-  tech?: string;
-  href?: string;
-  cta?: string;
-  repo?: string;
-  image?: ImageKey;
-};
+export { AREAS, type Area, type Project };
 
 export const PROJECTS: Project[] = [
   {
@@ -28,10 +10,10 @@ export const PROJECTS: Project[] = [
     name: "FedLearn Platform",
     areas: ["Backend", "Full-stack", "AI Systems"],
     status: "active",
-    owner: "Primary architect and principal implementer · early-stage contributions by Chinmay Lokare",
+    owner: "Primary implementation contributor (800 of 856 public commits) · early-stage contributions by Chinmay Lokare",
     desc: "A custom, full-stack federated-learning platform connecting web, desktop, Docker, and native mobile clients to a PyTorch/gRPC runtime, with reproducible experiments across heterogeneous hardware.",
     evidence:
-      "FedAvg within 2.39 × 10⁻⁷ of Flower over 200 aggregations · Rényi DP accountant checked against Opacus over 154 orders · physical runs on Apple Silicon, Jetson, NVIDIA and Android.",
+      "360-configuration, 7,200-round NIH ChestX-ray14 study · 3-host gRPC qualification (up to 80 logical clients) · 21 of 24 Android plans with live receipts · FedAvg within 2.384 × 10⁻⁷ of Flower over 200 trials and Rényi DP checked against Opacus across 154 orders (reported).",
     tech: "Java 21 · Spring Boot 3 · Python · PyTorch · gRPC · React · Electron · React Native · C++",
     href: ROUTES.fedlearn,
     cta: "Read the case study",
@@ -48,7 +30,7 @@ export const PROJECTS: Project[] = [
     why: "Built to encourage collaboration between students and researchers at RIT and to strengthen research culture on campus: when it is easy to see who works on what, it is easier to reach out.",
     desc: "A local-first RIT research-discovery system combining vector retrieval, knowledge-graph traversal, and VLM-validated document extraction, deployed on NVIDIA Jetson Orin for a public demonstration.",
     evidence:
-      "Ran end to end on Jetson Orin for the demo · failed runs documented, classified and pinned with regression tests · formal retrieval benchmark is the next step.",
+      "Ran end to end on Jetson Orin at Imagine RIT · failed runs documented, classified and pinned with regression tests · no retrieval benchmark yet · proprietary license (continued as Research Circle in Oct–Nov 2026).",
     tech: "Python · React · TypeScript · Ollama · Gemini · NVIDIA Jetson Orin",
     href: ROUTES.trb,
     cta: "Read the case study",
@@ -60,11 +42,11 @@ export const PROJECTS: Project[] = [
     name: "Financial-services delivery",
     areas: ["Backend", "Data"],
     status: "production",
-    owner: "EY Senior Technology Consultant and TCS Software Engineer, inside client engagements",
+    owner: "EY Senior Technology Consultant (Software Engineering) and TCS Senior Systems Engineer",
     desc: "Real-time fraud decisioning, portfolio data and consumer-lending services, built and supported in production for financial-services clients.",
     evidence:
-      "Screening SLA cut from 5,000 ms to under 500 ms with Redis-backed caching · 75% lower manual-review time · 1M+ transactions a day at 99.9% uptime.",
-    tech: "Java · Scala · Spring Boot · Kafka · Redis · MongoDB · OpenShift",
+      "End-to-end screening SLA cut from 5,000 ms to under 500 ms via Redis · contributed to 75% lower manual-review time · Fraud Hub expanded from 1 to 5 payment rails · BlackRock data accuracy +15%.",
+    tech: "Java · Scala · Spring Boot · Kafka · IBM MQ · Redis · MySQL · Couchbase · OpenShift",
     href: ROUTES.finserv,
     cta: "Read the case study",
   },
@@ -73,11 +55,11 @@ export const PROJECTS: Project[] = [
     slug: "executorch",
     name: "ExecuTorch kernel fix",
     areas: ["AI Systems"],
-    status: "oss",
-    owner: "Contribution branch to PyTorch ExecuTorch",
-    desc: "Diagnosed and prepared a fix for an ExecuTorch max-pooling backward bug that reused stale gradient memory, then validated the correction on macOS arm64 and a Snapdragon 845 handset with affected and negative-control models.",
+    status: "active",
+    owner: "Reported local runtime fix in FedLearn",
+    desc: "Diagnosed and fixed an ExecuTorch max_pool2d backward bug that failed to zero grad_input and blocked on-device CNN training.",
     evidence:
-      "291 of 300 training steps were NaN before the fix and none after; five unaffected control models kept identical loss curves.",
+      "Reported diagnosis and local source fix confirmed on an Android handset (not an accepted upstream PR).",
     tech: "C++ · ExecuTorch",
     href: ROUTES.fedlearn,
     cta: "Read the debugging story →",
@@ -93,7 +75,7 @@ export const PROJECTS: Project[] = [
     evidence: "All policies see identical synthetic task streams; energy and cost are modeled, not measured on hardware.",
     tech: "Python · FastAPI · PostgreSQL · Redis · WebSocket · React",
     image: "hybrid",
-    href: `${ROUTES.work}/hybrid-ml-scheduler`,
+    href: ROUTES.hybridMlScheduler,
     cta: "Read the project page →",
   },
   {
@@ -103,11 +85,11 @@ export const PROJECTS: Project[] = [
     areas: ["AI Systems", "Data"],
     status: "prototype",
     owner: "Sole author",
-    desc: "An audited humanitarian-ML research prototype combining conflict, food-price, weather, vegetation, displacement, and food-security data into predictive, clustering, and anomaly-analysis workflows.",
+    desc: "An audited Somalia hunger-mortality and crisis-classification prototype combining conflict, food-price, weather, vegetation, displacement, and food-security data into predictive, clustering, and anomaly-analysis workflows.",
     evidence:
-      "Audited · not production-ready. Known integration defects are published with the code, and synthetic development data is kept separate from real conclusions.",
+      "No valid performance scores committed on record (comparison figure bars are empty). Final run used real data, but scores are uncommitted and pre-publication audit defects are not verified as fixed.",
     tech: "Python · XGBoost · HDBSCAN · FastAPI · Streamlit",
-    href: `${ROUTES.work}/faminesight`,
+    href: ROUTES.faminesight,
     cta: "Read the project page →",
   },
   {
@@ -118,10 +100,11 @@ export const PROJECTS: Project[] = [
     status: "coursework",
     owner: "Developer · Advanced Computer Vision",
     desc: "An offline plant-disease detection pipeline investigating the gap between controlled PlantVillage images and real PlantDoc field conditions through curriculum learning, augmentation, pseudo-labeling, and edge-oriented export.",
-    evidence: "Built a dedicated lab-to-field evaluator; comparison results are not yet published.",
+    evidence:
+      "Built a dedicated lab-to-field evaluator (evaluate_gap.py), but no mAP, accuracy, or domain-gap metrics are committed; iOS is an export target, not demonstrated.",
     tech: "Python · YOLO11n · YOLO26n · FastAPI",
     image: "leafmd",
-    href: `${ROUTES.work}/leafmd`,
+    href: ROUTES.leafmd,
     cta: "Read the project page →",
   },
   {
@@ -132,10 +115,11 @@ export const PROJECTS: Project[] = [
     status: "simulator",
     owner: "Developer",
     desc: "A virtual-money football forecasting pipeline that converts XGBoost probabilities into market-relative edge, risk-controlled Kelly positions, settlement, and portfolio analytics.",
-    evidence: "Virtual money only · no real wagering · no profitability claim. A walk-forward backtest is future work.",
+    evidence:
+      "Virtual money only · no real wagering · no committed backtest, ROI, or calibration record; look-ahead leakage checks are undocumented.",
     tech: "Python · XGBoost · FastAPI · SQLAlchemy · React",
     image: "smart",
-    href: `${ROUTES.work}/smart-betting-system`,
+    href: ROUTES.smartBettingSystem,
     cta: "Read the project page →",
   },
   {
@@ -144,28 +128,57 @@ export const PROJECTS: Project[] = [
     name: "CrimeCastNYC",
     areas: ["Data", "Backend"],
     status: "coursework",
-    owner: "Project lead, version 2.0 · original phases built with three classmates",
+    owner: "Sole author · Feb 2026",
     desc: "A compact ETL and analytics pipeline for two decades of NYPD 911 data, using Parquet, a partitioned PostgreSQL star schema, vectorized Apriori, and classical predictive models.",
-    evidence: "The pipeline runs on pandas; the star schema and year partitioning are the main engineering work.",
+    evidence:
+      "Runs on pandas (the PySpark cleaner is unwired); partitioned PostgreSQL star schema is the main engineering work; 0 tests and no committed rules or model scores.",
     tech: "Python · pandas · Parquet · PostgreSQL · Docker",
     image: "crimecast",
-    href: `${ROUTES.work}/crimecastnyc`,
+    href: ROUTES.crimecastnyc,
     cta: "Read the project page →",
   },
   {
-    tier: "archive",
-    slug: "heatwaves",
-    name: "Heatwaves Reproduction",
-    areas: ["Data"],
-    status: "archived",
-    desc: "R reproduction of a 42-year heatwave and viticulture study; 33 of 35 automated checks pass and the divergences are reported.",
+    tier: "index",
+    slug: "nexus",
+    name: "Nexus + Research Circle",
+    areas: ["AI Systems", "Full-stack", "Backend"],
+    status: "prototype",
+    owner: "Team #4966 · 123 of 124 Nexus commits by Anurag (75 of 83 in Research Circle) · Meta Global AI Developer Hackathon (Oct 26 – Nov 4, 2026)",
+    desc: "A campus research-collaboration platform built in 10 days for the Meta Global AI Developer Hackathon (5,367 submissions; did not place) alongside Research Circle's continuation of TigerResearchBuddy, with a property graph, double opt-in matching, a SHA-256 and Merkle-root priority vault, single-point policy-enforced data access, and grounded grant drafting on Meta Muse models.",
+    evidence:
+      "19 test functions across 5 test files; deterministic fixture mode and seeded demo data; did not place.",
+    tech: "Python · FastAPI · Next.js 16 · Meta Muse · Docker · nginx",
+    href: ROUTES.nexus,
+    cta: "Read the project page →",
+    repo: "https://github.com/nexus-research-ai/nexus",
   },
   {
-    tier: "archive",
-    slug: "dart",
-    name: "dART",
+    tier: "index",
+    slug: "tasksip",
+    name: "TaskSip",
+    areas: ["Full-stack", "Backend", "AI Systems"],
+    status: "prototype",
+    owner: "PhD lab, RIT Computer Science · team project (Nov 2 – Nov 20, 2026 branch window)",
+    desc: "A multi-provider AI gateway and team workspace with browser chat, document processing, Cloud Run agent jobs, a Tauri/Rust desktop app for local coding sessions, and workspace-level usage governance.",
+    evidence:
+      "95 backend tests and 253 frontend unit tests pass locally on test fixtures; 2-student pilot; repository is private.",
+    tech: "Rust · Tauri 2 · React · TypeScript · Python · FastAPI · PostgreSQL · Alembic",
+    href: ROUTES.tasksip,
+    cta: "Read the project page →",
+  },
+  {
+    tier: "index",
+    slug: "image-similarity",
+    name: "imageSimilarity",
     areas: ["AI Systems"],
-    status: "archived",
-    desc: "An ART-1 neural network modeled as Scala/Akka actors, exploring asynchronous message passing.",
+    status: "prototype",
+    owner: "Sole author · Feb 2026",
+    desc: "Pairwise image-similarity pipelines comparing a frozen DINOv2 backbone with a trainable BCE head against a fine-tuned CLIP vision encoder with validation-tuned cosine-distance thresholding on TinyImageNet.",
+    evidence:
+      "Unit tests for data and models committed; no accuracy or retrieval metrics are committed.",
+    tech: "Python · PyTorch · DINOv2 · CLIP · Hugging Face datasets",
+    href: ROUTES.imageSimilarity,
+    cta: "Read the project page →",
+    repo: "https://github.com/anurag2796/imageSimilarity",
   },
 ];

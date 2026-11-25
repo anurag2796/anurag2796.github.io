@@ -21,38 +21,40 @@ export function AboutPage() {
             <p className="kicker">ABOUT</p>
             <h1 id="a-h">Hi, I'm Anurag.</h1>
             <p className="lede">
-              I'm a software engineer who spent five years on backend systems for financial services and now builds AI
+              I'm a software engineer who spent five years on backend systems for financial services and now builds ML
               systems at RIT.
             </p>
           </div>
 
           <h2>Background</h2>
           <p className="p">
-            At TCS I built consumer-lending APIs that carried more than a million transactions a day and took my turn
-            on call. At EY I owned services in a real-time fraud-screening pipeline and built portfolio services for an
-            asset-management client. That work taught me to care about latency budgets, data correctness, and being
-            responsible for what I ship.
+            At TCS I worked across USAA's six-service consumer-lending pipeline (personal and auto loans) and took my
+            turn on call. At EY I owned three production services in Morgan Stanley's real-time fraud-screening pipeline
+            and validated a re-architected portfolio platform (Java on Spark) for BlackRock. That work taught me to care
+            about latency budgets, data correctness, and being responsible for what I ship.
           </p>
 
-          <h2>Moving into AI systems</h2>
+          <h2>Moving into ML systems</h2>
           <p className="p">
-            I started an M.S. in Computer Science at RIT to work on machine learning directly. The production habits
-            came with me. FedLearn, the federated-learning platform I lead, has a Java control plane, a PyTorch training
-            runtime, four kinds of client, and an evaluation record that keeps its negative results.
+            My AI and ML work began at RIT when I started an M.S. in Computer Science in August 2024. The production
+            habits came with me. On FedLearn, the federated-learning platform I lead development on in RIT's Learning
+            Optimization Group (as primary implementation contributor, building on early contributions from Chinmay
+            Lokare), a Java control plane and a PyTorch gRPC runtime pair with desktop, Docker, and Android clients,
+            with negative results kept in the evaluation record.
           </p>
 
           <section aria-labelledby="dbg-h" className="story">
             <p className="kicker">A BUG I LIKE TO TELL</p>
             <h2 id="dbg-h">A phone that couldn't train a CNN</h2>
             <p className="p">
-              On-device training in FedLearn kept producing NaN losses on an Android handset. The application code was
-              fine. So was the model. Three layers down, ExecuTorch's max-pool backward kernel was adding gradients into
-              recycled memory without clearing it first. A zero-initialization fixed it: 291 NaN steps out of 300
-              became none, and five unaffected control models stayed byte-identical.
+              On-device CNN training in FedLearn was blocked on an Android handset (reported). Three layers down,
+              ExecuTorch's max_pool2d backward kernel was accumulating gradients into grad_input without zero-initializing
+              it first. Diagnosing and fixing that initialization unblocked on-device CNN training on the handset, and
+              subsequent Android qualification confirmed live receipts for 21 of 24 declared FULL-arm plans.
             </p>
             <p className="p">
-              I like problems like this: the symptom is in one place, the cause is somewhere nobody looks, and the fix
-              is only trustworthy once the controls agree.
+              I like problems like this: the symptom shows up in the training run, the cause sits in a lower-level
+              runtime, and you verify the fix on physical hardware.
             </p>
             <Go className="link-strong" to={ROUTES.fedlearn}>
               Read the full debugging story →
@@ -95,18 +97,18 @@ export function AboutPage() {
             </div>
             <div>
               <dt className="label">LOCATION</dt>
-              <dd>Rochester, NY · open to relocation</dd>
+              <dd>Sunnyvale, CA · open to relocation</dd>
             </div>
             <div>
               <dt className="label">EDUCATION</dt>
               <dd>
                 M.S. Computer Science, RIT
                 <br />
-                <span className="dim">Expected December 2026</span>
+                <span className="dim">Aug 2024 – Dec 2026 (expected)</span>
                 <br />
                 B.Tech Computer Science and Engineering, Sikkim Manipal Institute of Technology
                 <br />
-                <span className="dim">2019</span>
+                <span className="dim">Jun 2015 – Jul 2019</span>
               </dd>
             </div>
             <div>
@@ -114,14 +116,14 @@ export function AboutPage() {
               <dd>
                 AWS Certified Cloud Practitioner
                 <br />
-                Oracle Certified Associate, Java SE 8 Programmer
+                Oracle Certified Associate, Java Programmer
               </dd>
             </div>
           </dl>
         </aside>
       </section>
 
-      <ContactBand body="Email is the fastest way to reach me. Rochester, NY · open to relocation · available from January 2027.">
+      <ContactBand body="Email is the fastest way to reach me. Sunnyvale, CA · open to relocation · available from January 2027.">
         <dl className="contact-dl">
           <div>
             <dt>Email</dt>

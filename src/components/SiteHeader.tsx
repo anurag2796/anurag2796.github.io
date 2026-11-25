@@ -74,7 +74,7 @@ export function SiteHeader() {
       <nav aria-label="Primary" className="wrap site-nav">
         <Go to={ROUTES.home} className="brand" aria-label="Anurag Lnu, home">
           <span className="brand-name">Anurag Lnu</span>
-          <span className="brand-tag">Software engineer · AI systems</span>
+          <span className="brand-tag">Software engineer · Backend &amp; ML infrastructure</span>
         </Go>
 
         <div className="nav-links">

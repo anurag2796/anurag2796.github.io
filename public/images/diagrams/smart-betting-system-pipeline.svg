@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" width="1200" height="540" role="img" aria-labelledby="betting-title betting-desc">
+  <title id="betting-title">Smart Betting System closed-loop virtual-money pipeline</title>
+  <desc id="betting-desc">Virtual money simulation only: match and odds ingestion over 16,000+ Premier League matches plus fotmob_scraper feeds feature engineering (advanced_features, player_ratings, team_value) and an XGBoost probability classifier. value_scorer gates bets at edge >= 2% versus implied odds and confidence >= 55% by design, feeding Kelly Criterion sizing guarded by a bankroll circuit breaker, scheduled virtual bets every 6 hours in a local database, and settlement via settle_bets.py into a React dashboard. No backtest ROI or calibration curves are committed.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#666b72" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="540" fill="#fcfbf8" />
+
+  <!-- Header -->
+  <text x="40" y="48" font-family="Instrument Sans, system-ui, sans-serif" font-size="22" font-weight="600" fill="#111315">Smart Betting System — Closed-Loop Virtual Betting Pipeline</text>
+  <text x="40" y="74" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">branch: dev/automated-betting-system · no bookmaker API, no real deposits</text>
+
+  <rect x="780" y="28" width="380" height="32" rx="6" fill="#fcfbf8" stroke="#a66112" stroke-width="1.5" />
+  <text x="970" y="49" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#a66112">VIRTUAL MONEY ONLY · LOCAL DB</text>
+
+  <!-- Row 1: Prediction & Gating -->
+  <!-- Box 1: Ingest -->
+  <text x="40" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">01 · INGEST</text>
+  <rect x="40" y="130" width="236" height="132" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="58" y="162" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Matches &amp; Odds</text>
+  <text x="58" y="190" font-family="IBM Plex Mono, monospace" font-size="14" fill="#207a52">16,000+ EPL matches</text>
+  <text x="58" y="216" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">fotmob_scraper</text>
+  <text x="58" y="242" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Historical odds feed</text>
+
+  <!-- Box 2: Features -->
+  <text x="316" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">02 · FEATURES</text>
+  <rect x="316" y="130" width="236" height="132" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="334" y="162" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Feature Package</text>
+  <text x="334" y="190" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">advanced_features</text>
+  <text x="334" y="214" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">player_ratings</text>
+  <text x="334" y="238" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">team_value</text>
+
+  <!-- Box 3: XGBoost -->
+  <text x="592" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#2457d6">03 · MODEL</text>
+  <rect x="592" y="130" width="228" height="132" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="610" y="162" font-family="IBM Plex Mono, monospace" font-size="17" font-weight="500" fill="#111315">XGBoost</text>
+  <text x="610" y="190" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Match outcome probs</text>
+  <text x="610" y="216" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a23a3a">Calibration curve</text>
+  <text x="610" y="236" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a23a3a">not committed</text>
+
+  <!-- Box 4: Edge Gate -->
+  <text x="860" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#2457d6">04 · EDGE GATE</text>
+  <rect x="860" y="130" width="300" height="132" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="878" y="160" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="500" fill="#111315">value_scorer vs Implied Odds</text>
+  <rect x="878" y="176" width="264" height="44" rx="6" fill="#fcfbf8" stroke="#2457d6" stroke-width="1.5" />
+  <text x="1010" y="203" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#2457d6">edge &gt;= 2% AND conf &gt;= 55%</text>
+  <text x="878" y="244" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a66112">Design rule (not proven ROI)</text>
+
+  <!-- Row 2: Sizing, Virtual Bets, Settlement -->
+  <!-- Box 5: Kelly Sizing -->
+  <text x="860" y="302" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#2457d6">05 · KELLY SIZING</text>
+  <rect x="860" y="318" width="300" height="132" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="878" y="350" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Kelly Criterion Sizing</text>
+  <text x="878" y="376" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Stake scaled to perceived edge</text>
+  <rect x="878" y="392" width="264" height="42" rx="6" fill="#fcfbf8" stroke="#a66112" stroke-width="1.5" />
+  <text x="1010" y="418" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="500" fill="#a66112">Bankroll circuit breaker floor</text>
+
+  <!-- Box 6: Virtual Bets -->
+  <text x="456" y="302" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#a66112">06 · VIRTUAL BETS</text>
+  <rect x="456" y="318" width="364" height="132" rx="6" fill="#ffffff" stroke="#a66112" stroke-width="1.5" />
+  <text x="474" y="350" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Place Virtual Bets (VIRTUAL MONEY)</text>
+  <text x="474" y="378" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">6-hour schedule · FastAPI</text>
+  <text x="474" y="404" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">SQLAlchemy + 5 Alembic migrations</text>
+  <text x="474" y="430" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a66112">Local ledger only · 0 real money</text>
+
+  <!-- Box 7: Settle & Report -->
+  <text x="40" y="302" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">07 · SETTLE &amp; REPORT</text>
+  <rect x="40" y="318" width="376" height="132" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="58" y="350" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="500" fill="#111315">settle_bets.py -&gt; React UI</text>
+  <text x="58" y="376" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Settles virtual wagers vs match results</text>
+  <rect x="58" y="392" width="340" height="44" rx="6" fill="#fcfbf8" stroke="#a23a3a" stroke-width="1.5" stroke-dasharray="5 4" />
+  <text x="228" y="419" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a23a3a">No committed backtest, ROI, or CLV</text>
+
+  <!-- Arrows Row 1 (L->R) -->
+  <line x1="276" y1="196" x2="314" y2="196" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="552" y1="196" x2="590" y2="196" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="820" y1="196" x2="858" y2="196" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <!-- Down from Edge Gate to Kelly -->
+  <line x1="1010" y1="262" x2="1010" y2="316" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <!-- Row 2 (R->L) -->
+  <line x1="860" y1="384" x2="822" y2="384" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="456" y1="384" x2="418" y2="384" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Footer Legend -->
+  <line x1="40" y1="478" x2="1160" y2="478" stroke="#d8d6d0" stroke-width="1.5" />
+  <rect x="40" y="496" width="14" height="14" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="62" y="508" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Model &amp; sizing pipeline</text>
+  <rect x="240" y="496" width="14" height="14" rx="6" fill="#fcfbf8" stroke="#a66112" stroke-width="1.5" />
+  <text x="262" y="508" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Virtual-money scope &amp; design rules</text>
+  <rect x="518" y="496" width="14" height="14" rx="6" fill="#fcfbf8" stroke="#a23a3a" stroke-width="1.5" stroke-dasharray="3 2" />
+  <text x="540" y="508" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Unvalidated ROI / calibration</text>
+</svg>

@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 580" width="1200" height="580" role="img" aria-labelledby="hybrid-title hybrid-desc">
+  <title id="hybrid-title">Hybrid ML Scheduler simulation and online-learning architecture</title>
+  <desc id="hybrid-desc">WorkloadGenerator synthesizes identical tasks fed concurrently to six schedulers: Round Robin, Random, Greedy, Hybrid ML (Random Forest), RL Agent (DQN), and brute-force Oracle. A fixed cost model computes wall-clock time, energy (50 W GPU / 30 W CPU), and dollar cost ($0.15/kWh). Oracle results write to a ground-truth history CSV that retrains the Random Forest every 50 tasks. A layered FastAPI backend backed by PostgreSQL and Redis streams metrics over WebSocket (ws://:8000/ws) to a React dashboard.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#666b72" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="580" fill="#fcfbf8" />
+
+  <!-- Header -->
+  <text x="40" y="48" font-family="Instrument Sans, system-ui, sans-serif" font-size="22" font-weight="600" fill="#111315">Hybrid ML Scheduler — Heterogeneous Task Simulation</text>
+  <text x="40" y="74" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">6 concurrent policies · no physical GPU or CUDA dispatch</text>
+
+  <rect x="820" y="28" width="340" height="32" rx="6" fill="#fcfbf8" stroke="#a66112" stroke-width="1.5" />
+  <text x="990" y="49" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#a66112">SIMULATOR · FIXED COST MODEL</text>
+
+  <!-- Col 1: WorkloadGenerator -->
+  <text x="40" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">01 · SYNTHETIC TASKS</text>
+  <rect x="40" y="130" width="196" height="194" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="58" y="164" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="500" fill="#111315">WorkloadGenerator</text>
+  <text x="58" y="196" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Randomized tasks:</text>
+  <text x="58" y="222" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">• Task size</text>
+  <text x="58" y="246" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">• Compute intensity</text>
+  <text x="58" y="270" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">• Memory req.</text>
+  <text x="58" y="302" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">Identical stream</text>
+
+  <!-- Col 2: Six Concurrent Schedulers -->
+  <text x="276" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#2457d6">02 · SIX SCHEDULERS (PARALLEL)</text>
+  <rect x="276" y="130" width="276" height="282" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+
+  <rect x="292" y="146" width="244" height="34" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="306" y="168" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111315">Round Robin</text>
+  <text x="412" y="168" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Baseline</text>
+
+  <rect x="292" y="188" width="244" height="34" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="306" y="210" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111315">Random</text>
+  <text x="412" y="210" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Control</text>
+
+  <rect x="292" y="230" width="244" height="34" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="306" y="252" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111315">Greedy</text>
+  <text x="412" y="252" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Fastest resource</text>
+
+  <rect x="292" y="272" width="244" height="36" rx="6" fill="#fcfbf8" stroke="#2457d6" stroke-width="1.5" />
+  <text x="306" y="295" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#2457d6">Hybrid ML</text>
+  <text x="394" y="295" font-family="IBM Plex Mono, monospace" font-size="14" fill="#111315">Random Forest</text>
+
+  <rect x="292" y="316" width="244" height="36" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="306" y="339" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111315">RL Agent</text>
+  <text x="394" y="339" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">DQN (real-time)</text>
+
+  <rect x="292" y="360" width="244" height="38" rx="6" fill="#fcfbf8" stroke="#207a52" stroke-width="1.5" />
+  <text x="306" y="384" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#207a52">Oracle</text>
+  <text x="372" y="384" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Brute-force grid</text>
+
+  <!-- Retrain loop box below schedulers -->
+  <rect x="276" y="438" width="534" height="58" rx="6" fill="#fcfbf8" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5 3" />
+  <text x="296" y="463" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#2457d6">Online Retrain Loop (RF only):</text>
+  <text x="296" y="484" font-family="IBM Plex Mono, monospace" font-size="14" fill="#111315">Oracle history CSV -&gt; retrain Random Forest every 50 tasks</text>
+
+  <!-- Col 3: Cost Model -->
+  <text x="592" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#a66112">03 · COST MODEL</text>
+  <rect x="592" y="130" width="218" height="282" rx="6" fill="#ffffff" stroke="#a66112" stroke-width="1.5" />
+  <text x="610" y="164" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="600" fill="#111315">Multi-Objective</text>
+  <text x="610" y="186" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="600" fill="#111315">Scoring</text>
+
+  <line x1="610" y1="204" x2="792" y2="204" stroke="#d8d6d0" stroke-width="1.5" />
+
+  <text x="610" y="234" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111315">Time</text>
+  <text x="610" y="254" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">GPU/CPU + xfer model</text>
+
+  <text x="610" y="290" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111315">Energy</text>
+  <text x="610" y="310" font-family="IBM Plex Mono, monospace" font-size="14" fill="#a66112">50 W GPU / 30 W CPU</text>
+
+  <text x="610" y="346" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111315">Dollar Cost</text>
+  <text x="610" y="366" font-family="IBM Plex Mono, monospace" font-size="14" fill="#a66112">$0.15 / kWh</text>
+
+  <text x="610" y="396" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Assumed constants</text>
+
+  <!-- Col 4: FastAPI Backend & React Dashboard -->
+  <text x="850" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">04 · BACKEND &amp; UI</text>
+
+  <rect x="850" y="130" width="310" height="178" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="868" y="160" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="500" fill="#111315">FastAPI Service</text>
+  <text x="868" y="186" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">api · services · models</text>
+  <text x="868" y="208" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">middleware · repositories</text>
+  <line x1="868" y1="226" x2="1142" y2="226" stroke="#d8d6d0" stroke-width="1.5" />
+  <rect x="868" y="242" width="130" height="44" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="933" y="269" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="#111315">PostgreSQL</text>
+  <rect x="1012" y="242" width="130" height="44" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="1077" y="269" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="#111315">Redis</text>
+
+  <rect x="850" y="348" width="310" height="148" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="868" y="380" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="600" fill="#111315">React Dashboard</text>
+  <text x="868" y="406" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">WebSocket ws://:8000/ws</text>
+  <text x="868" y="438" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">• Global comparison</text>
+  <text x="868" y="460" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">• Scheduler detail + History</text>
+
+  <!-- Arrows -->
+  <line x1="236" y1="227" x2="274" y2="227" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="552" y1="270" x2="590" y2="270" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="810" y1="220" x2="848" y2="220" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="1005" y1="308" x2="1005" y2="346" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <!-- Oracle -> CSV -> RF arrows -->
+  <path d="M 414 398 L 414 436" fill="none" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 276 467 L 252 467 L 252 290 L 290 290" fill="none" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Footer Legend -->
+  <line x1="40" y1="518" x2="1160" y2="518" stroke="#d8d6d0" stroke-width="1.5" />
+  <rect x="40" y="536" width="14" height="14" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="62" y="548" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Main simulation &amp; UI stream</text>
+  <rect x="272" y="536" width="14" height="14" rx="6" fill="#fcfbf8" stroke="#207a52" stroke-width="1.5" />
+  <text x="294" y="548" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Oracle ground truth</text>
+  <rect x="444" y="536" width="14" height="14" rx="6" fill="#fcfbf8" stroke="#a66112" stroke-width="1.5" />
+  <text x="466" y="548" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Modeled constants (not measured hardware)</text>
+</svg>
