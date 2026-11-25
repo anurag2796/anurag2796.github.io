@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" role="img" aria-labelledby="crimecast-title crimecast-desc">
+  <title id="crimecast-title">CrimeCastNYC ETL and analytics pipeline</title>
+  <desc id="crimecast-desc">Socrata Open Data API records for NYPD 911 calls (2004 to 2024) are downloaded in year chunks to raw CSVs, cleaned via the active pandas cleaner (cleaner.py) to columnar Parquet, and bulk-loaded into a year-partitioned PostgreSQL star schema. An unwired PySpark cleaner (cleaner_spark.py) is shown as a dashed greyed box disconnected from main.py. PostgreSQL feeds matrix-vectorized Apriori mining and Logistic plus Ridge regression models, ending in static reports with no committed outputs or tests.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#666b72" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="560" fill="#fcfbf8" />
+
+  <!-- Header -->
+  <text x="40" y="48" font-family="Instrument Sans, system-ui, sans-serif" font-size="22" font-weight="600" fill="#111315">CrimeCastNYC — NYPD 911 ETL &amp; Analytics Pipeline</text>
+  <text x="40" y="74" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">orchestrated by src/main.py · NYPD 911 calls (2004–2024)</text>
+
+  <rect x="836" y="28" width="324" height="32" rx="6" fill="#fcfbf8" stroke="#a23a3a" stroke-width="1.5" />
+  <text x="998" y="49" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#a23a3a">0 TESTS · NO COMMITTED OUTPUTS</text>
+
+  <!-- Step 1: Socrata -> Year chunks -->
+  <text x="40" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">01 · INGEST</text>
+  <rect x="40" y="130" width="184" height="148" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="56" y="162" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Socrata API</text>
+  <text x="56" y="186" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">downloader.py</text>
+  <line x1="56" y1="202" x2="208" y2="202" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="56" y="228" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Year chunks</text>
+  <text x="56" y="252" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">-&gt; Raw CSVs</text>
+
+  <!-- Step 2: Pandas cleaner + Parquet (active) + Unwired Spark cleaner (dashed greyed) -->
+  <text x="260" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#2457d6">02 · CLEAN &amp; STAGE</text>
+
+  <!-- Active Pandas Cleaner -->
+  <rect x="260" y="130" width="192" height="148" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="276" y="162" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="500" fill="#2457d6">cleaner.py</text>
+  <text x="276" y="186" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="600" fill="#111315">pandas cleaner</text>
+  <text x="276" y="210" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#207a52">Executed path</text>
+  <line x1="276" y1="224" x2="436" y2="224" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="276" y="252" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="500" fill="#111315">-&gt; Parquet</text>
+
+  <!-- Unwired Spark Cleaner (dashed, greyed box) -->
+  <rect x="260" y="316" width="192" height="120" rx="6" fill="#f2f1ec" stroke="#666b72" stroke-width="1.5" stroke-dasharray="6 5" />
+  <text x="276" y="346" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">cleaner_spark.py</text>
+  <text x="276" y="370" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="600" fill="#666b72">PySpark cleaner</text>
+  <text x="276" y="396" font-family="IBM Plex Mono, monospace" font-size="14" fill="#a23a3a">UNWIRED in main.py</text>
+  <text x="276" y="418" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Not executed</text>
+
+  <!-- Step 3: Partitioned PostgreSQL Star Schema -->
+  <text x="488" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#2457d6">03 · WAREHOUSE</text>
+  <rect x="488" y="130" width="218" height="148" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="506" y="160" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">loader.py -&gt; PostgreSQL</text>
+  <text x="506" y="188" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="600" fill="#2457d6">Partitioned Star Schema</text>
+  <text x="506" y="216" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Year-partitioned facts</text>
+  <text x="506" y="242" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">Docker Compose</text>
+
+  <!-- Step 4: Apriori + Logistic / Ridge -->
+  <text x="742" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">04 · MINING &amp; ML</text>
+
+  <rect x="742" y="130" width="220" height="118" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="760" y="160" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#2457d6">mining.py</text>
+  <text x="760" y="186" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Vectorized Apriori</text>
+  <text x="760" y="210" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Matrix co-occurrence</text>
+  <text x="760" y="232" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">crime-type rules</text>
+
+  <rect x="742" y="272" width="220" height="142" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="760" y="302" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#2457d6">ml.py</text>
+  <text x="760" y="328" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="600" fill="#111315">Logistic Regression</text>
+  <text x="760" y="349" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">High/low call priority</text>
+  <text x="760" y="378" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="600" fill="#111315">Ridge Regression</text>
+  <text x="760" y="399" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Precinct/hour volume</text>
+
+  <!-- Step 5: Reports -->
+  <text x="998" y="114" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#666b72">05 · REPORTS</text>
+  <rect x="998" y="130" width="162" height="284" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="1014" y="162" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#111315">generator.py</text>
+  <text x="1014" y="190" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Static Reports</text>
+  <text x="1014" y="220" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">• Time series</text>
+  <text x="1014" y="244" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">• Heatmaps</text>
+  <text x="1014" y="268" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">• Scatter plots</text>
+
+  <rect x="1012" y="316" width="134" height="78" rx="6" fill="#fcfbf8" stroke="#a23a3a" stroke-width="1.5" stroke-dasharray="5 4" />
+  <text x="1079" y="348" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#a23a3a">Outputs &amp; R²</text>
+  <text x="1079" y="370" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a23a3a">not committed</text>
+
+  <!-- Arrows -->
+  <line x1="224" y1="204" x2="258" y2="204" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="452" y1="204" x2="486" y2="204" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="706" y1="190" x2="740" y2="190" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="706" y1="230" x2="740" y2="335" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="962" y1="190" x2="996" y2="215" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="962" y1="340" x2="996" y2="290" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Footer Legend -->
+  <line x1="40" y1="478" x2="1160" y2="478" stroke="#d8d6d0" stroke-width="1.5" />
+  <rect x="40" y="496" width="14" height="14" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="62" y="508" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Executed pandas &amp; PostgreSQL path</text>
+  <rect x="330" y="496" width="14" height="14" rx="6" fill="#f2f1ec" stroke="#666b72" stroke-width="1.5" stroke-dasharray="3 2" />
+  <text x="352" y="508" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Unwired Spark module (not executed)</text>
+  <rect x="624" y="496" width="14" height="14" rx="6" fill="#fcfbf8" stroke="#a23a3a" stroke-width="1.5" stroke-dasharray="3 2" />
+  <text x="646" y="508" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Missing tests &amp; committed outputs</text>
+</svg>

@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" role="img" aria-labelledby="trb-title trb-desc">
+  <title id="trb-title">TigerResearchBuddy High-Level Architecture</title>
+  <desc id="trb-desc">High-level pipeline diagram of TigerResearchBuddy. RIT web crawlers and research PDFs feed the VLM-validated DeepDistiller to produce research cards indexed in both a vector store (LanceDB/ChromaDB) and the TigerBrain knowledge graph. User queries pass through query expansion and hybrid retrieval across both indexes, feeding local Ollama or optional Gemini to produce answers, faculty matches, and SDG impact scores. Bottom boxes show the confirmed NVIDIA Jetson Orin demo and the Research Circle Oct-Nov 2026 team continuation.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#666b72" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="660" fill="#fcfbf8" />
+
+  <!-- Header -->
+  <text x="36" y="34" font-family="Instrument Sans, system-ui, sans-serif" font-size="20" font-weight="700" fill="#111315">TigerResearchBuddy — Hybrid RAG &amp; Edge Architecture</text>
+  <text x="36" y="58" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Crawlers + PDFs -&gt; VLM-validated distiller -&gt; Dual index (Vector + Graph) -&gt; Local Ollama / Gemini on Jetson Orin</text>
+
+  <!-- Row 1: Ingestion & Indexing -->
+  <rect x="36" y="82" width="226" height="76" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="52" y="110" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">RIT Web Crawlers</text>
+  <text x="52" y="134" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">smart, scholar, vision</text>
+
+  <rect x="36" y="176" width="226" height="76" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="52" y="204" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Research PDFs</text>
+  <text x="52" y="228" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">pdf · paper_downloader</text>
+
+  <!-- Arrows from sources to DeepDistiller -->
+  <line x1="262" y1="120" x2="282" y2="150" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="262" y1="214" x2="282" y2="184" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <rect x="284" y="102" width="236" height="130" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="302" y="132" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="600" fill="#111315">DeepDistiller</text>
+  <text x="302" y="158" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">VLM-validated extraction</text>
+  <text x="302" y="182" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Gen 2 / Level 3 pipeline</text>
+  <text x="302" y="206" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Hardware-aware profiles</text>
+
+  <line x1="520" y1="167" x2="554" y2="167" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <rect x="556" y="114" width="194" height="106" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="574" y="144" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Research Cards</text>
+  <text x="574" y="170" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Structured paper &amp;</text>
+  <text x="574" y="192" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">faculty summaries</text>
+
+  <!-- Arrows from Research Cards to Vector Store & Knowledge Graph -->
+  <line x1="750" y1="152" x2="786" y2="120" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="750" y1="182" x2="786" y2="214" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <rect x="788" y="82" width="376" height="76" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="806" y="110" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Vector Store</text>
+  <text x="806" y="134" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">LanceDB / ChromaDB · Semantic index</text>
+
+  <rect x="788" y="176" width="376" height="76" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="806" y="204" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Knowledge Graph (TigerBrain)</text>
+  <text x="806" y="228" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Builder, analytics, data mining &amp; export</text>
+
+  <!-- Index feed paths down into Hybrid Retrieval -->
+  <path d="M 788 128 L 766 128 L 766 266 L 560 266 L 560 294" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 850 252 L 850 274 L 584 274 L 584 294" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Row 2: Query & Hybrid Retrieval Path -->
+  <rect x="36" y="308" width="144" height="114" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="52" y="340" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">User Query</text>
+  <text x="52" y="366" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">React / TS UI</text>
+  <text x="52" y="388" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Topic or idea</text>
+
+  <line x1="180" y1="365" x2="208" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="210" y="308" width="184" height="114" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="226" y="340" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Query Expansion</text>
+  <text x="226" y="366" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Expands terms &amp;</text>
+  <text x="226" y="388" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">entity cues</text>
+
+  <line x1="394" y1="365" x2="422" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="424" y="296" width="286" height="138" rx="6" fill="#f0f5ff" stroke="#2457d6" stroke-width="2" />
+  <text x="442" y="324" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2457d6">Hybrid Retrieval</text>
+  <text x="442" y="350" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Vector search + graph traversal</text>
+  <text x="442" y="374" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Merges both into combined context</text>
+  <text x="442" y="398" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a23a3a">Note: dedicated module &amp; memory</text>
+  <text x="442" y="418" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a23a3a">on unmerged agent branch</text>
+
+  <line x1="710" y1="365" x2="738" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="740" y="308" width="204" height="114" rx="6" fill="#f0f5ff" stroke="#2457d6" stroke-width="2" />
+  <text x="758" y="340" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="600" fill="#2457d6">Ollama / Gemini</text>
+  <text x="758" y="366" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Ollama local-first</text>
+  <text x="758" y="388" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Gemini optional alt.</text>
+
+  <line x1="944" y1="365" x2="972" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="974" y="308" width="190" height="114" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="990" y="340" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Answer &amp; Tools</text>
+  <text x="990" y="366" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">3 assistant personas</text>
+  <text x="990" y="388" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Matcher · UN SDG</text>
+
+  <!-- Row 3: Jetson Orin Demo & Research Circle Continuation -->
+  <rect x="36" y="472" width="548" height="132" rx="6" fill="#ffffff" stroke="#207a52" stroke-width="1.5" />
+  <text x="54" y="498" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">NVIDIA Jetson Orin Demo</text>
+  <text x="566" y="498" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#207a52">CONFIRMED DEMO</text>
+  <text x="54" y="524" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Live Imagine RIT public demo (also runs on macOS Apple Silicon)</text>
+  <text x="54" y="546" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Automated CUDA library loading, hardware profiles &amp; ORIN_SETUP.sh</text>
+  <text x="54" y="568" font-family="IBM Plex Mono, monospace" font-size="14" fill="#207a52">52/55 dev commits Anurag · 37 test files · ~22,700 LOC Python</text>
+  <text x="54" y="590" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a23a3a">Limit: No retrieval benchmark (Recall@k, MRR, NDCG unmeasured)</text>
+
+  <rect x="616" y="472" width="548" height="132" rx="6" fill="#ffffff" stroke="#a66112" stroke-width="1.5" />
+  <text x="634" y="498" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Research Circle Continuation (Oct–Nov 2026)</text>
+  <text x="1146" y="498" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#a66112">REPORTED</text>
+  <text x="634" y="524" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Moved TigerResearchBuddy history into ResearchCircle/researchCircle</text>
+  <text x="634" y="546" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">75/83 Oct–Nov commits Anurag; Prakyat &amp; Isha: matching &amp; member UI</text>
+  <text x="634" y="568" font-family="IBM Plex Mono, monospace" font-size="14" fill="#111315">2,100+ PDFs · 850+ faculty links · 2,500-node graph</text>
+  <text x="634" y="590" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">G14 HTTPS · Meta model provider · Proposal editor · Graph exporters</text>
+
+  <!-- Legend Footer -->
+  <rect x="36" y="626" width="14" height="14" rx="6" fill="#f0f5ff" stroke="#2457d6" stroke-width="2" />
+  <text x="58" y="638" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Hybrid retrieval &amp; local-first LLM path</text>
+
+  <rect x="342" y="626" width="14" height="14" rx="6" fill="#207a52" />
+  <text x="364" y="638" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Confirmed (Jetson demo / repo)</text>
+
+  <rect x="606" y="626" width="14" height="14" rx="6" fill="#a66112" />
+  <text x="628" y="638" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Reported (Research Circle)</text>
+
+  <rect x="836" y="626" width="14" height="14" rx="6" fill="#a23a3a" />
+  <text x="858" y="638" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Limit / unmerged branch</text>
+</svg>

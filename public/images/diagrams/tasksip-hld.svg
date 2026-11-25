@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="1200" height="680" role="img" aria-labelledby="tasksip-title tasksip-desc">
+  <title id="tasksip-title">TaskSip System Architecture Highlighting Anurag's Components</title>
+  <desc id="tasksip-desc">Full-system high-level architecture of TaskSip showing teammate-built components in muted gray and Anurag's contributions highlighted in blue. Teammate-built components (ZidongLiu and xiaxin) cover the browser React workspace, core CLI gateway proxy, protocol translation, pooled routing, document ingestion, team conversations, Cloud Run agent jobs, and cost reporting. Anurag's highlighted components cover the Tauri 2 Rust desktop app (v0.3.1), local Code sessions runner with Windows Job Objects and macOS descendant tracking, opt-in routing switch with selective Undo, database-backed workspace-wide rate limit and send-time IP SSRF protection, in-flight stream revocation with heuristic metering, and reconciled Alembic migrations. A local verification note lists 95 backend and 253 frontend tests passed at commit fcc4df7.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#666b72" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="680" fill="#fcfbf8" />
+
+  <!-- Header -->
+  <text x="36" y="34" font-family="Instrument Sans, system-ui, sans-serif" font-size="20" font-weight="700" fill="#111315">TaskSip — Full System Architecture (Ownership Highlighted)</text>
+  <text x="36" y="58" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Blue = Anurag's scope (Nov 2–20, 2026) · Neutral = Teammate-built gateway core &amp; workspace (ZidongLiu, xiaxin)</text>
+
+  <!-- Column 1: Client & Desktop Surfaces (x=36..386) -->
+  <rect x="36" y="82" width="350" height="96" rx="6" fill="#f4f3ef" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="52" y="108" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Browser Workspace</text>
+  <text x="370" y="108" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">TEAMMATE-BUILT</text>
+  <text x="52" y="132" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">React / TS / Vite (xiaxin): browser chat,</text>
+  <text x="52" y="154" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">team queue, doc uploads &amp; agent UI</text>
+
+  <rect x="36" y="194" width="350" height="304" rx="6" fill="#f0f5ff" stroke="#2457d6" stroke-width="2" />
+  <text x="52" y="220" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2457d6">Tauri 2 / Rust Desktop (0.3.1)</text>
+  <text x="370" y="220" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#2457d6">ANURAG</text>
+
+  <rect x="52" y="234" width="318" height="72" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="66" y="258" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="700" fill="#111315">Device Auth &amp; Code Shell</text>
+  <text x="66" y="280" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">OS keyring · Revocation · Floating widget</text>
+
+  <rect x="52" y="318" width="318" height="94" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="66" y="342" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="700" fill="#111315">Local Code Sessions (Rust Runner)</text>
+  <text x="66" y="364" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">Codex JSON-RPC · Claude stream JSON</text>
+  <text x="66" y="386" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Win Job Objects · macOS watchdog</text>
+
+  <rect x="52" y="424" width="318" height="60" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="66" y="448" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="700" fill="#111315">Opt-In Routing Switch</text>
+  <text x="66" y="470" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Config previews · Selective key Undo</text>
+
+  <rect x="36" y="514" width="350" height="74" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="52" y="540" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Local Installed CLIs</text>
+  <text x="52" y="564" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">Claude Code · Codex · Claude Desktop</text>
+
+  <line x1="211" y1="498" x2="211" y2="512" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Column 2: FastAPI Gateway & Governance (x=426..836) -->
+  <rect x="426" y="82" width="410" height="134" rx="6" fill="#f4f3ef" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="442" y="108" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Gateway Core &amp; Workspace</text>
+  <text x="820" y="108" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">TEAMMATE-BUILT</text>
+  <text x="442" y="132" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">ZidongLiu: CLI proxy, Messages &lt;-&gt; Responses</text>
+  <text x="442" y="154" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">translation, pooled routing, legacy desktop</text>
+  <text x="442" y="176" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">xiaxin: doc pipeline, team chat, cost reporting</text>
+  <text x="442" y="198" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">FastAPI · HTTPX · Hypercorn HTTP/2</text>
+
+  <rect x="426" y="232" width="410" height="116" rx="6" fill="#f0f5ff" stroke="#2457d6" stroke-width="2" />
+  <text x="442" y="258" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2457d6">Workspace Rate Limit &amp; Authz</text>
+  <text x="820" y="258" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#2457d6">ANURAG</text>
+  <text x="442" y="284" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">1-min DB workspace + member limits (0022)</text>
+  <text x="442" y="308" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Ownership transfer lock · Atomic pairing</text>
+  <text x="442" y="330" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Send-time IP SSRF check (TLS host preserved)</text>
+
+  <rect x="426" y="364" width="410" height="124" rx="6" fill="#f0f5ff" stroke="#2457d6" stroke-width="2" />
+  <text x="442" y="390" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2457d6">In-Flight Stream Revocation</text>
+  <text x="820" y="390" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#2457d6">ANURAG</text>
+  <text x="442" y="416" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">5s periodic + chunk checks (CLI &amp; SSE)</text>
+  <text x="442" y="440" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Aborts upstream on revoke; emits terminal</text>
+  <text x="442" y="462" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">event · Heuristic interrupted metering</text>
+
+  <rect x="426" y="504" width="410" height="84" rx="6" fill="#f0f5ff" stroke="#2457d6" stroke-width="2" />
+  <text x="442" y="530" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2457d6">DB &amp; Reconciled Migrations</text>
+  <text x="820" y="530" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#2457d6">ANURAG</text>
+  <text x="442" y="556" font-family="IBM Plex Mono, monospace" font-size="14" fill="#111315">PostgreSQL / SQLite · Alembic 0022</text>
+  <text x="442" y="576" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Merged overlapping lineages · GCS preconditions</text>
+
+  <!-- Column 3: Upstreams, Cloud & Verification (x=876..1164) -->
+  <rect x="876" y="82" width="288" height="120" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="892" y="108" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Upstream Model APIs</text>
+  <text x="892" y="134" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">OpenAI Responses</text>
+  <text x="892" y="156" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Anthropic Messages</text>
+  <text x="892" y="178" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Self-hosted endpoints</text>
+
+  <rect x="876" y="218" width="288" height="144" rx="6" fill="#f4f3ef" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="892" y="244" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Cloud Execution &amp; GCS</text>
+  <text x="892" y="266" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">TEAMMATE-BUILT</text>
+  <text x="892" y="292" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Cloud Run web &amp; agent Jobs</text>
+  <text x="892" y="314" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">GCS private uploads</text>
+  <text x="892" y="336" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Cloud Tasks workers</text>
+
+  <rect x="876" y="378" width="288" height="210" rx="6" fill="#ffffff" stroke="#207a52" stroke-width="1.5" />
+  <text x="892" y="404" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Local Verification Fact</text>
+  <text x="892" y="426" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#207a52">MEASURED (LOCAL fcc4df7)</text>
+  <text x="892" y="454" font-family="IBM Plex Mono, monospace" font-size="14" fill="#111315">95 backend tests passed</text>
+  <text x="892" y="476" font-family="IBM Plex Mono, monospace" font-size="14" fill="#111315">253 frontend tests passed</text>
+  <text x="892" y="498" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">47 prior preflight tests</text>
+  <text x="892" y="526" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a66112">2-student pilot (reported)</text>
+  <text x="892" y="552" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a23a3a">Open: signing, paid checks</text>
+  <text x="892" y="572" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a23a3a">No latency/adoption metrics</text>
+
+  <!-- Clean orthogonal inter-column arrows -->
+  <!-- Client <-> Gateway -->
+  <line x1="386" y1="130" x2="424" y2="130" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="386" y1="270" x2="424" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 386 346 L 406 346 L 406 298 L 424 298" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="426" y1="426" x2="388" y2="426" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Within Gateway column -->
+  <line x1="631" y1="216" x2="631" y2="230" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="631" y1="348" x2="631" y2="362" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="631" y1="488" x2="631" y2="502" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Gateway <-> Upstreams & Cloud -->
+  <line x1="836" y1="126" x2="874" y2="126" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 836 266 L 856 266 L 856 154 L 874 154" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 876 184 L 866 184 L 866 410 L 838 410" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 836 180 L 846 180 L 846 286 L 874 286" fill="none" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Legend Footer -->
+  <rect x="36" y="616" width="14" height="14" rx="6" fill="#f0f5ff" stroke="#2457d6" stroke-width="2" />
+  <text x="58" y="628" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Anurag's scope (desktop, Code runner, routing, rate limit, cutoff, migrations)</text>
+
+  <rect x="596" y="616" width="14" height="14" rx="6" fill="#f4f3ef" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="618" y="628" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Teammate-built (gateway core, workspace, Cloud Run/GCS)</text>
+
+  <rect x="36" y="644" width="14" height="14" rx="6" fill="#207a52" />
+  <text x="58" y="656" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Measured locally (test fixtures)</text>
+
+  <rect x="306" y="644" width="14" height="14" rx="6" fill="#a66112" />
+  <text x="328" y="656" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Reported (2-student pilot)</text>
+
+  <rect x="526" y="644" width="14" height="14" rx="6" fill="#a23a3a" />
+  <text x="548" y="656" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Open gate / unmeasured</text>
+</svg>

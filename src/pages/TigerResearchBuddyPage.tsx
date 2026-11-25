@@ -1,22 +1,27 @@
+import { Figure } from "@/components/Figure";
 import { Go } from "@/components/links";
+import { ProjectGlance } from "@/components/ProjectGlance";
 import { Pager, SecHead, Shot } from "@/components/ui-bits";
 import { usePageTitle } from "@/lib/nav";
 import { ROUTES } from "@/site";
+import type { Glance } from "@/types/content";
 
-const STEPS = [
-  { n: "1 · CRAWL", title: "RIT research crawler", detail: "paper download, vision crawler" },
-  { n: "2 · EXTRACT", title: "DeepDistiller", detail: "VLM-validated document extraction" },
-  { n: "3 · STRUCTURE", title: "Vector index + knowledge graph", detail: "graph builder, analytics, export" },
-  { n: "4 · RETRIEVE", title: "Hybrid retrieval", detail: "query expansion → vector + graph → merged context", hot: true },
-  { n: "5 · GENERATE", title: "Ollama (local) or Gemini", detail: "three assistant modes", hot: true },
-];
+const GLANCE: Glance = {
+  role: "Developer: retrieval pipeline, DeepDistiller extraction, knowledge graph and Jetson Orin deployment",
+  period: "Feb – Apr 2026 (continued as Research Circle in Oct – Nov 2026)",
+  team: "Effectively solo on TigerResearchBuddy (52 of 55 commits on dev; 3 bot commits); Research Circle continued with Prakyat and Isha (75 of 83 Oct–Nov commits)",
+  context: "RIT research discovery (papers, faculty, topics); Imagine RIT public demo",
+  status: "Deployed demo on NVIDIA Jetson Orin · proprietary license · no retrieval benchmark yet",
+  stack: "Python · React · TypeScript · LanceDB / ChromaDB · Ollama · Gemini · NVIDIA Jetson Orin",
+  links: [],
+};
 
 const BUILT = [
-  "The hybrid flow: query expansion, vector and graph retrieval, context merging and generation",
-  "RIT-focused research crawling, paper download and a vision crawler",
+  "Hybrid retrieval flow: query expansion, vector search (LanceDB / ChromaDB) and TigerBrain graph traversal, context merging and generation",
+  "RIT-focused crawlers (smart, scholar, PDF, vision) and paper download across ~22,700 lines of Python in 7 subsystem packages",
   "Document extraction iterated into the VLM-validated DeepDistiller pipeline",
   "Knowledge-graph builder, analytics, mining and export tooling",
-  "Faculty and research matching, and three prompting modes: encouraging, analytical, critical",
+  "Faculty and research matching, UN SDG impact scoring, and three prompting modes (encouraging, analytical, critical), backed by 37 test files",
 ];
 
 const FAILURES = [
@@ -24,6 +29,29 @@ const FAILURES = [
   ["2 · CLASSIFY", "Group failures into categories rather than patching symptoms."],
   ["3 · FIX", "Fix each category at its source."],
   ["4 · PIN", "Add a regression test so it stays fixed."],
+];
+
+const RESULTS = [
+  {
+    scopeKind: "active" as const,
+    scopeLabel: "● Confirmed (hardware demo)",
+    claim: "End-to-end pipeline deployed and demonstrated live on NVIDIA Jetson Orin at Imagine RIT using hardware-aware profiles and CUDA setup scripts.",
+  },
+  {
+    scopeKind: "active" as const,
+    scopeLabel: "● Confirmed (repo record)",
+    claim: "37 test files on the dev branch, including categorized regression tests pinned after pipeline post-mortems and pre-Jetson bug fixes.",
+  },
+  {
+    scopeKind: "demo" as const,
+    scopeLabel: "◆ Reported (Research Circle)",
+    claim: "Team continuation (Oct–Nov 2026) ingested 2,100+ PDF paper records (linking 850+ publications to faculty), expanded the graph up to 2,500 nodes, and deployed privately over HTTPS.",
+  },
+  {
+    scopeKind: "prototype" as const,
+    scopeLabel: "▲ Not measured",
+    claim: "Held-out retrieval quality (Recall@k, MRR, NDCG), answer quality, and Mac vs Jetson Orin latency benchmarks have not been run or committed.",
+  },
 ];
 
 const PLAN = [
@@ -37,6 +65,11 @@ const DECISIONS = [
     title: "Hybrid retrieval over pure vector search",
     why: "Graph traversal keeps the links between papers, people and topics that similarity search drops.",
     tradeoff: "Two indexes to ingest into and keep consistent.",
+  },
+  {
+    title: "Local Ollama primary, Gemini optional",
+    why: "Keeps research material on-device and works offline on constrained hardware without mandatory cloud API calls.",
+    tradeoff: "Bound by local model capacity and board memory compared with hosted models.",
   },
   {
     title: "Jetson Orin as the target",
@@ -75,33 +108,15 @@ export function TigerResearchBuddyPage() {
           </div>
           <p className="p muted">
             Not a chat-with-PDFs demo. It covers the whole path: crawling, extraction, structured knowledge, retrieval,
-            generation and deployment on constrained hardware.
+            generation and deployment on constrained hardware. Active work here ran Feb–Apr 2026; in Oct–Nov 2026 the
+            project continued as Research Circle in a team repository with two teammates.
           </p>
         </div>
-        <dl className="cs-meta">
-          <div>
-            <dt className="label">ROLE</dt>
-            <dd>Developer: retrieval pipeline, extraction and edge deployment</dd>
-          </div>
-          <div>
-            <dt className="label">CONTEXT</dt>
-            <dd>Research discovery for RIT: papers, faculty and topics</dd>
-          </div>
-          <div>
-            <dt className="label">DEPLOYMENT</dt>
-            <dd>NVIDIA Jetson Orin, public demonstration</dd>
-          </div>
-          <div>
-            <dt className="label">STACK</dt>
-            <dd className="tech" style={{ fontSize: 13 }}>
-              Python · React · TypeScript · Ollama · Gemini
-            </dd>
-          </div>
-        </dl>
+        <ProjectGlance glance={GLANCE} />
         <figure className="stack-sm" style={{ marginTop: 48 }}>
           <Shot image="trb" eager />
           <figcaption style={{ fontSize: 14 }}>
-            Figure 0. From RIT sources to a cited answer. Section 02 details each stage.
+            Figure 0. From RIT sources to an assistant response. Section 02 details each stage.
           </figcaption>
         </figure>
       </section>
@@ -120,56 +135,33 @@ export function TigerResearchBuddyPage() {
       </section>
 
       <section aria-labelledby="s2" className="wrap sec reveal">
-        <div className="read mb-28">
+        <div className="read stack mb-28">
           <SecHead id="s2" n="02">
-            Architecture
+            Architecture and how it works
           </SecHead>
+          <p className="p">
+            The pipeline indexes crawled RIT faculty pages and papers into both a vector store and the TigerBrain
+            knowledge graph, supporting three assistant personas (encouraging, analytical, critical), faculty matching,
+            and UN SDG idea scoring. Development continued in Oct–Nov 2026 in a team repository as Research Circle.
+          </p>
         </div>
-        <figure>
-          <div className="diagram-scroll">
-            <div
-              role="img"
-              aria-label="Figure 1. TigerResearchBuddy pipeline: crawl, extract, structure, retrieve, generate, all deployable on Jetson Orin."
-              className="dk-panel pipeline"
-            >
-              <div className="pipeline-steps">
-                {STEPS.map((s, i) => (
-                  <div key={s.n} className={`pipeline-step${s.hot ? " hot" : ""}`}>
-                    <span className="n">{s.n}</span>
-                    <strong>{s.title}</strong>
-                    <span className="detail">{s.detail}</span>
-                    {i < STEPS.length - 1 && (
-                      <span className="arrow" aria-hidden="true">
-                        →
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
-              <div className="pipeline-foot">
-                <div>
-                  <span className="dk-label">INTERFACE</span> · React and TypeScript; faculty and research matching;
-                  idea-impact analysis
-                </div>
-                <div>
-                  <span className="dk-label">RUNS ON</span> · NVIDIA Jetson Orin with hardware-aware processing, CUDA
-                  setup and profiles
-                </div>
-              </div>
-            </div>
-          </div>
-          <figcaption style={{ marginTop: 12, fontSize: 14 }}>Figure 1. Pipeline from crawl to generation.</figcaption>
-          <details className="disclosure">
-            <summary>Read the diagram as a list</summary>
-            <ol>
-              <li>Crawlers collect RIT research pages and papers.</li>
-              <li>DeepDistiller extracts document content and validates it with a vision-language model.</li>
-              <li>Content is indexed as vectors and as a knowledge graph.</li>
-              <li>Queries are expanded, then answered from both indexes; contexts are merged.</li>
-              <li>Ollama generates locally, or Gemini when configured.</li>
-            </ol>
-          </details>
-        </figure>
+        <Figure
+          src="images/diagrams/trb-hld.svg"
+          alt="TigerResearchBuddy architecture: RIT web crawlers and research PDFs feed VLM-validated DeepDistiller into research cards, indexing into a LanceDB/ChromaDB vector store and the TigerBrain knowledge graph. User queries expand and run through hybrid retrieval across both indexes into local Ollama or optional Gemini for answers, faculty matches, and UN SDG scores. Supporting panels show the confirmed NVIDIA Jetson Orin demo at Imagine RIT and the Oct–Nov 2026 Research Circle team continuation."
+          caption="Figure 1. Pipeline from crawl and VLM distillation to hybrid retrieval, Jetson Orin demo, and Research Circle continuation."
+          width={1200}
+          height={660}
+        />
+        <details className="disclosure">
+          <summary>Read the diagram as a list</summary>
+          <ol>
+            <li>Crawlers and PDF downloaders collect RIT research pages and papers.</li>
+            <li>DeepDistiller extracts document content and validates it with a vision-language model into research cards.</li>
+            <li>Cards are indexed into LanceDB / ChromaDB vectors and the TigerBrain knowledge graph.</li>
+            <li>Queries expand and pull merged context from both vector search and graph traversal.</li>
+            <li>Ollama generates locally (or Gemini optionally), running on NVIDIA Jetson Orin for the Imagine RIT demo; Oct–Nov work continued in Research Circle.</li>
+          </ol>
+        </details>
       </section>
 
       <section className="wrap sec reveal">
@@ -215,16 +207,26 @@ export function TigerResearchBuddyPage() {
       <section aria-labelledby="s6" className="wrap sec reveal">
         <div className="read stack">
           <SecHead id="s6" n="06">
-            Evaluation status
+            Results and evaluation status
           </SecHead>
           <p className="p">
-            Retrieval and answer quality have not yet been measured against a held-out set. The demonstration shows the
-            system works end to end on the board; it does not show how good the answers are. This is the plan:
+            The demonstration shows the pipeline works end to end on NVIDIA Jetson Orin; retrieval and answer quality
+            have not yet been benchmarked against a held-out query set.
           </p>
         </div>
+        <ul className="defs mt-24" style={{ marginBottom: 32 }}>
+          {RESULTS.map((r) => (
+            <li key={r.claim}>
+              <span>
+                <span className={`status status--${r.scopeKind}`}>{r.scopeLabel}</span>
+              </span>
+              <span>{r.claim}</span>
+            </li>
+          ))}
+        </ul>
         <div className="table-scroll ruled stack-mobile" style={{ maxWidth: 960 }}>
           <table className="table">
-            <caption>Table 1. Planned evaluation. No results yet.</caption>
+            <caption>Table 1. Planned evaluation. No retrieval-quality results yet.</caption>
             <thead>
               <tr>
                 <th scope="col">QUERY TYPE</th>
@@ -268,17 +270,24 @@ export function TigerResearchBuddyPage() {
         </div>
       </section>
 
-      <section className="wrap sec sec-last reveal">
+      <section className="wrap sec reveal">
         <div className="split">
           <div className="stack-sm" aria-labelledby="s8">
             <SecHead id="s8" n="08">
               Known limitations
             </SecHead>
             <ul className="marked warn">
-              <li>No held-out retrieval or answer-quality benchmark yet</li>
-              <li>Some functionality sits on a separate development branch</li>
-              <li>Substantial tests, but no CI yet</li>
-              <li>Proprietary license; not open source</li>
+              <li>No held-out retrieval or answer-quality benchmark yet (Recall@k, MRR, and NDCG remain unmeasured).</li>
+              <li>
+                Branch sprawl: <code>main</code> is 24 commits behind <code>dev</code>, and conversational memory plus a
+                dedicated hybrid-retrieval module live on an unmerged agent branch, so no single checkout holds every
+                feature.
+              </li>
+              <li>37 test files exist on dev, but there is no CI workflow gating changes yet.</li>
+              <li>
+                Proprietary license (All rights reserved; not open source). Active TigerResearchBuddy feature work
+                stopped in April 2026 before continuing as Research Circle in Oct–Nov 2026.
+              </li>
             </ul>
           </div>
           <div className="stack-sm" aria-labelledby="s9">
@@ -292,6 +301,21 @@ export function TigerResearchBuddyPage() {
               <li>Move datasets and indexes out of Git</li>
             </ul>
           </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="s10" className="wrap sec sec-last">
+        <SecHead id="s10" n="10">
+          Evidence links
+        </SecHead>
+        <p className="p read" style={{ marginTop: 12 }}>
+          The TigerResearchBuddy repository (<code>dev</code> branch head <code>7e39237</code>) is proprietary and not
+          publicly linked. Its Oct–Nov 2026 continuation is documented on the Nexus + Research Circle case study.
+        </p>
+        <div className="link-buttons">
+          <Go className="btn btn-secondary" to={ROUTES.nexus}>
+            Nexus + Research Circle continuation →
+          </Go>
         </div>
         <Pager
           prev={{ to: ROUTES.fedlearn, label: "PREVIOUS", title: "FedLearn Platform" }}

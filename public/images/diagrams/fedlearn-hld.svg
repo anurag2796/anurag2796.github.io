@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" role="img" aria-labelledby="title desc">
+  <title id="title">FedLearn Platform High-Level Architecture</title>
+  <desc id="desc">Browser dashboard connects through nginx to the Spring Boot control plane backed by PostgreSQL and a content-addressed artifact registry. Spring Boot launches the Python FL server over gRPC, which coordinates training rounds with Python/Docker (including Jetson CUDA), Electron desktop, and Android ExecuTorch clients while streaming STOMP live logs back to the browser.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="context-stroke" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="660" fill="#fcfbf8" />
+
+  <!-- Header -->
+  <text x="36" y="36" font-family="Instrument Sans, system-ui, sans-serif" font-size="20" font-weight="600" fill="#111315">FedLearn Platform — High-Level Architecture</text>
+  <text x="36" y="60" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Control plane, gRPC FL server, heterogeneous clients, artifact registry, and STOMP live logs</text>
+
+  <!-- STOMP Live Logs return path -->
+  <path d="M 965 135 L 965 94 L 128 94 L 128 141" fill="none" stroke="#207a52" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrow)" />
+  <rect x="360" y="79" width="480" height="28" rx="6" fill="#fcfbf8" stroke="#207a52" stroke-width="1.5" />
+  <text x="600" y="98" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#207a52">STOMP live logs (FL server → Spring Boot → nginx → browser)</text>
+
+  <!-- 1. Browser -->
+  <rect x="36" y="145" width="185" height="150" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="52" y="175" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Browser</text>
+  <text x="52" y="198" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">React 19 · TS</text>
+  <text x="52" y="226" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Run config &amp;</text>
+  <text x="52" y="246" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Simulation Lab</text>
+  <text x="52" y="266" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Registry &amp; logs</text>
+
+  <line x1="221" y1="220" x2="255" y2="220" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- 2. nginx -->
+  <rect x="259" y="165" width="115" height="110" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="275" y="195" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">nginx</text>
+  <text x="275" y="218" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">TLS / proxy</text>
+  <text x="275" y="246" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">REST + WS</text>
+
+  <line x1="374" y1="220" x2="412" y2="220" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- 3. Spring Boot Control Plane -->
+  <rect x="416" y="135" width="300" height="170" rx="6" fill="#f7f9ff" stroke="#2457d6" stroke-width="2" />
+  <text x="434" y="165" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Spring Boot Control Plane</text>
+  <text x="434" y="188" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">Java 21 · Security · JPA</text>
+  <text x="434" y="216" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Orgs, roles, project audit</text>
+  <text x="434" y="238" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Enrollment &amp; exec contracts</text>
+  <text x="434" y="260" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Launches FL server on port</text>
+  <text x="434" y="282" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Retry-safe result ingestion</text>
+
+  <line x1="716" y1="220" x2="762" y2="220" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="739" y="208" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">exec</text>
+
+  <!-- 4. Python FL Server (gRPC) -->
+  <rect x="766" y="135" width="398" height="170" rx="6" fill="#f7f9ff" stroke="#2457d6" stroke-width="2" />
+  <text x="784" y="165" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Python FL Server (gRPC)</text>
+  <text x="784" y="188" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">Python 3.12 · PyTorch · Buf</text>
+  <text x="784" y="216" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Coordinator · FedAvg / FedProx / FedOpt</text>
+  <text x="784" y="238" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">DeComFL · LightSecAgg · RDP DP · XGBoost</text>
+  <text x="784" y="260" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">In-process simulator shares coordinator</text>
+  <text x="784" y="284" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Early platform &amp; DeComFL/ECG: teammate-built</text>
+
+  <!-- PostgreSQL -->
+  <line x1="566" y1="305" x2="566" y2="346" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <rect x="416" y="350" width="300" height="100" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="434" y="380" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">PostgreSQL</text>
+  <text x="542" y="380" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">Flyway schema</text>
+  <text x="434" y="408" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Runs, enrollments, checkpoints,</text>
+  <text x="434" y="430" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">per-round timing &amp; audit logs</text>
+
+  <!-- Content-Addressed Artifact Registry -->
+  <path d="M 416 285 L 395 285 L 395 405 L 378 405" fill="none" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <rect x="36" y="365" width="338" height="150" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="54" y="396" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111315">Artifact Registry</text>
+  <text x="54" y="420" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">SHA digests · lineage · warm starts</text>
+  <text x="54" y="448" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Content-addressed versions &amp;</text>
+  <text x="54" y="470" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">deduplicated hash-verified fetch</text>
+
+  <line x1="374" y1="490" x2="762" y2="490" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="568" y="480" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Hash-verified artifact download</text>
+
+  <!-- gRPC links to clients -->
+  <line x1="885" y1="305" x2="885" y2="348" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="874" y="332" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">gRPC</text>
+
+  <line x1="1045" y1="348" x2="1045" y2="305" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="1056" y="332" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">safetensors</text>
+
+  <!-- 5. Training Clients -->
+  <rect x="766" y="352" width="398" height="245" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" stroke-dasharray="5 4" />
+  <text x="782" y="375" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#666b72">TRAINING CLIENTS (gRPC)</text>
+
+  <rect x="782" y="386" width="366" height="62" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="796" y="410" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="600" fill="#111315">Python / Docker</text>
+  <text x="952" y="410" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">CPU · x86/Jetson CUDA</text>
+  <text x="796" y="434" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">fl-runtime/ &amp; teammate client scripts</text>
+
+  <rect x="782" y="456" width="366" height="62" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="796" y="480" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="600" fill="#111315">Electron Desktop</text>
+  <text x="945" y="480" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">TS · dockerode</text>
+  <text x="796" y="504" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">OS-keychain JWT · dialog mounts · native/Docker</text>
+
+  <rect x="782" y="526" width="366" height="62" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="796" y="550" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="600" fill="#111315">Android ExecuTorch</text>
+  <text x="965" y="550" font-family="IBM Plex Mono, monospace" font-size="14" fill="#207a52">Kotlin/JNI · C++</text>
+  <text x="796" y="574" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Native training · libtorch-free safetensors</text>
+
+  <!-- Scope footer -->
+  <text x="36" y="634" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">
+    <tspan font-weight="600" fill="#a23a3a">Scope:</tspan> Single-VM EC2/nginx/systemd deployment; plaintext gRPC is default outside configured TLS profiles; iOS is an app shell only.
+  </text>
+</svg>

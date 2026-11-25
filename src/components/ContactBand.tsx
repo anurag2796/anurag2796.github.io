@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import { EMAIL, GITHUB, LINKEDIN, MAILTO, RESUME } from "@/site";
 
-export const CONTACT_HEADLINE = "Hiring an engineer who can carry AI systems from architecture to deployment?";
+export const CONTACT_HEADLINE =
+  "Hiring an engineer who can carry backend and ML infrastructure from architecture to deployment?";
 
 /** Dark contact band. `children` replaces the default action column. */
 export function ContactBand({ body, children }: { body: string; children?: ReactNode }) {
@@ -22,7 +23,7 @@ export function ContactBand({ body, children }: { body: string; children?: React
               <a href={GITHUB}>GitHub</a>
               <a href={RESUME}>Résumé (PDF)</a>
             </div>
-            <p className="contact-note">Rochester, NY · open to relocation · available January 2027</p>
+            <p className="contact-note">Sunnyvale, CA · open to relocation · available full-time January 2027</p>
           </div>
         )}
       </div>

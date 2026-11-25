@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" role="img" aria-labelledby="nexus-title nexus-desc">
+  <title id="nexus-title">Nexus and Research Circle High-Level Architecture</title>
+  <desc id="nexus-desc">High-level diagram of Nexus and Research Circle. Next.js 16 frontend (UI designed by teammate Prakyat and integrated by Anurag) communicates over FastAPI and typed contracts with four Python monorepo packages: discovery (campus graph and double opt-in matcher), intelligence (Meta Muse models and citation auditor), workspace (SHA-256 and Merkle-root hash-commitment vault), and funding (grant studio). All data access passes through a single Policy Enforcement Point using the PUBLIC &lt; SHARED &lt; CONFIDENTIAL lattice and a credential-less Data-Access Broker backed by a hash-chained audit sink and Research Circle's ingested corpus and graph.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#666b72" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="660" fill="#fcfbf8" />
+
+  <!-- Header -->
+  <text x="36" y="34" font-family="Instrument Sans, system-ui, sans-serif" font-size="20" font-weight="700" fill="#111315">Nexus + Research Circle — High-Level Architecture</text>
+  <text x="36" y="58" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Python monorepo (FastAPI) · Next.js 16 UI · Single Policy Enforcement Point &amp; lattice-enforced broker</text>
+
+  <!-- Band 1: Client & Gateway -->
+  <rect x="36" y="76" width="540" height="82" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="54" y="102" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="600" fill="#111315">Next.js 16 Frontend</text>
+  <text x="558" y="102" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">UI: Prakyat (teammate)</text>
+  <text x="54" y="126" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Force-directed campus graph · Match &amp; proposal views</text>
+  <text x="54" y="146" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#2457d6">Frontend integration &amp; API wiring: Anurag (123/124 commits)</text>
+
+  <line x1="576" y1="117" x2="622" y2="117" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="624" y="76" width="540" height="82" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="642" y="102" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="600" fill="#111315">FastAPI + Docker Compose / nginx</text>
+  <text x="642" y="126" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Typed HTTP boundaries defined in shared contracts package</text>
+  <text x="642" y="146" font-family="IBM Plex Mono, monospace" font-size="14" fill="#207a52">19 test functions across 5 test files (confirmed)</text>
+
+  <!-- Arrows from Gateway to 4 feature packages -->
+  <line x1="894" y1="158" x2="894" y2="169" stroke="#2457d6" stroke-width="1.5" />
+  <line x1="171" y1="169" x2="1029" y2="169" stroke="#2457d6" stroke-width="1.5" />
+  <line x1="171" y1="169" x2="171" y2="180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="457" y1="169" x2="457" y2="180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="743" y1="169" x2="743" y2="180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="1029" y1="169" x2="1029" y2="180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Band 2: 4 Feature Packages -->
+  <rect x="36" y="182" width="270" height="142" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="52" y="208" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="600" fill="#2457d6">discovery</text>
+  <text x="52" y="234" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111315">Campus Property Graph</text>
+  <text x="52" y="256" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">People, labs, papers, code</text>
+  <text x="52" y="280" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111315">Double Opt-In Matcher</text>
+  <text x="52" y="302" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Mutual-consent reveal</text>
+
+  <rect x="322" y="182" width="270" height="142" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="338" y="208" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="600" fill="#2457d6">intelligence</text>
+  <text x="338" y="234" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111315">Meta Muse Inference</text>
+  <text x="338" y="256" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">muse-wonder-1.0 / spark-1.3</text>
+  <text x="338" y="280" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111315">Citation Auditor</text>
+  <text x="338" y="302" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Checks claims vs source text</text>
+
+  <rect x="608" y="182" width="270" height="142" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="624" y="208" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="600" fill="#2457d6">workspace</text>
+  <text x="624" y="234" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111315">Hypothesis Priority Vault</text>
+  <text x="624" y="256" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">SHA-256 + Merkle root</text>
+  <text x="624" y="280" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Timestamped pre-disclosure</text>
+  <text x="624" y="302" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a23a3a">Commit-reveal (not ZK proof)</text>
+
+  <rect x="894" y="182" width="270" height="142" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="910" y="208" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="600" fill="#2457d6">funding</text>
+  <text x="910" y="234" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111315">Grant Proposal Studio</text>
+  <text x="910" y="256" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">NSF / NIH / DARPA drafts</text>
+  <text x="910" y="280" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Fixture mode w/o API key</text>
+  <text x="910" y="302" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">No DB creds in modules</text>
+
+  <!-- Arrows down via contracts to PEP -->
+  <line x1="171" y1="324" x2="171" y2="342" stroke="#2457d6" stroke-width="1.5" />
+  <line x1="457" y1="324" x2="457" y2="342" stroke="#2457d6" stroke-width="1.5" />
+  <line x1="743" y1="324" x2="743" y2="342" stroke="#2457d6" stroke-width="1.5" />
+  <line x1="1029" y1="324" x2="1029" y2="342" stroke="#2457d6" stroke-width="1.5" />
+  <line x1="171" y1="342" x2="1029" y2="342" stroke="#2457d6" stroke-width="1.5" />
+  <line x1="306" y1="342" x2="306" y2="354" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+  <rect x="468" y="330" width="264" height="22" rx="6" fill="#fcfbf8" stroke="#2457d6" stroke-width="1" />
+  <text x="480" y="346" font-family="IBM Plex Mono, monospace" font-size="14" fill="#2457d6">contracts (all access gated)</text>
+
+  <!-- Band 3: Enforcement PEP + Data Broker -->
+  <rect x="36" y="356" width="540" height="106" rx="6" fill="#f0f5ff" stroke="#2457d6" stroke-width="2" />
+  <text x="54" y="382" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="600" fill="#2457d6">enforcement · Policy Enforcement Point (PEP)</text>
+  <text x="54" y="408" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#111315">Lattice: PUBLIC &lt; SHARED &lt; CONFIDENTIAL</text>
+  <text x="54" y="432" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Combined by max rule · Single boundary for every read &amp; match</text>
+  <text x="54" y="451" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Feature packages never hold database credentials</text>
+
+  <line x1="576" y1="409" x2="622" y2="409" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="624" y="356" width="540" height="106" rx="6" fill="#f0f5ff" stroke="#2457d6" stroke-width="2" />
+  <text x="642" y="382" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="600" fill="#2457d6">Data-Access Broker + Hash-Chained Audit Sink</text>
+  <text x="642" y="408" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#111315">Sole holder of DB credentials; mediates all store queries</text>
+  <text x="642" y="432" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Appends hash-chained audit records for commitments &amp; reads</text>
+
+  <!-- Arrows down to storage & Research Circle -->
+  <line x1="306" y1="462" x2="306" y2="486" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="894" y1="462" x2="894" y2="486" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Band 4: Research Circle Continuation & Stores -->
+  <rect x="36" y="488" width="630" height="118" rx="6" fill="#ffffff" stroke="#a66112" stroke-width="1.5" />
+  <text x="54" y="514" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Research Circle Continuation (Oct–Nov 2026)</text>
+  <text x="648" y="514" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#a66112">REPORTED</text>
+  <text x="54" y="538" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Team repo (75/83 commits Anurag · Prakyat &amp; Isha: matching &amp; member UI)</text>
+  <text x="54" y="560" font-family="IBM Plex Mono, monospace" font-size="14" fill="#111315">2,100+ PDFs · 850+ faculty links · Graph up to 2,500 nodes</text>
+  <text x="54" y="582" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Hybrid semantic chat · Cosmograph/Gephi/VOSviewer export · G14 HTTPS</text>
+
+  <rect x="690" y="488" width="474" height="118" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="708" y="514" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#111315">Broker-Managed Stores &amp; Scope</text>
+  <text x="708" y="538" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Property graph, seeded profiles &amp; hash-chained audit logs</text>
+  <text x="708" y="560" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Runs offline in deterministic fixture mode without API key</text>
+  <text x="708" y="582" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#a23a3a">Limit: 10-day prototype (did not place); no retrieval benchmark</text>
+
+  <!-- Legend Footer -->
+  <rect x="36" y="626" width="14" height="14" rx="6" fill="#f0f5ff" stroke="#2457d6" stroke-width="2" />
+  <text x="58" y="638" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Enforced path / Anurag packages</text>
+
+  <rect x="296" y="626" width="14" height="14" rx="6" fill="#207a52" />
+  <text x="318" y="638" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Confirmed (git / tests)</text>
+
+  <rect x="492" y="626" width="14" height="14" rx="6" fill="#a66112" />
+  <text x="514" y="638" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Reported (Research Circle scale)</text>
+
+  <rect x="760" y="626" width="14" height="14" rx="6" fill="#a23a3a" />
+  <text x="782" y="638" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Limit / scope boundary</text>
+</svg>

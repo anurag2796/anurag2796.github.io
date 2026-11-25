@@ -5,7 +5,9 @@ const BASE_TITLE = "Anurag Lnu";
 /** Sets the document title for the current page. */
 export function usePageTitle(title?: string) {
   useEffect(() => {
-    document.title = title ? `${title} · ${BASE_TITLE}` : `${BASE_TITLE} · Software engineer, AI systems`;
+    document.title = title
+      ? `${title} · ${BASE_TITLE}`
+      : `${BASE_TITLE} · Software engineer, Backend & ML infrastructure`;
   }, [title]);
 }
 

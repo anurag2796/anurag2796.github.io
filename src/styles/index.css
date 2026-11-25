@@ -3639,3 +3639,29 @@ details.disclosure ul {
     background: #fff;
   }
 }
+
+
+/* -------------------------------------------------------------------------- */
+/* Diagram figures                                                             */
+/* -------------------------------------------------------------------------- */
+
+.diagram-figure {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 100%;
+}
+
+.diagram-frame {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.diagram-frame img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}

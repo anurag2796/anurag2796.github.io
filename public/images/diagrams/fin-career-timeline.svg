@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 290" width="1200" height="290" role="img">
+  <title>Career and academic timeline (2019 to present)</title>
+  <desc>Compact timeline of experience: TCS Senior Systems Engineer on USAA Consumer Lending (Jul 2019 to Apr 2022), EY Senior Technology Consultant in Software Engineering for Morgan Stanley and BlackRock (Apr 2022 to Jul 2024), RIT M.S. in Computer Science (Aug 2024 to Dec 2026 expected), and RIT Graduate Research Assistant, Lead Developer - FedLearn (Mar 2026 to present).</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#666b72" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="290" fill="#fcfbf8" />
+
+  <!-- Header -->
+  <text x="36" y="38" font-family="Instrument Sans, system-ui, sans-serif" font-size="20" font-weight="700" fill="#111315">Career &amp; academic timeline</text>
+  <text x="36" y="62" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Jul 2019 – Jul 2024: production backend engineering · Aug 2024 onward: AI/ML coursework &amp; ML infrastructure (RIT)</text>
+
+  <!-- Phase band labels -->
+  <text x="36" y="96" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#666b72">BACKEND PRODUCTION (5 YEARS)</text>
+  <line x1="36" y1="104" x2="766" y2="104" stroke="#d8d6d0" stroke-width="2" />
+
+  <text x="794" y="96" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#2457d6">AI/ML &amp; RESEARCH (RIT)</text>
+  <line x1="794" y1="104" x2="1164" y2="104" stroke="#2457d6" stroke-width="2" />
+
+  <!-- TCS -->
+  <rect x="36" y="118" width="298" height="78" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="52" y="144" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#2457d6">Jul 2019 – Apr 2022</text>
+  <text x="52" y="168" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="700" fill="#111315">TCS · USAA Consumer Lending</text>
+  <text x="52" y="188" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Systems Engineer → Sr. Systems Engineer</text>
+
+  <line x1="334" y1="157" x2="358" y2="157" stroke="#666b72" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- EY -->
+  <rect x="364" y="118" width="402" height="78" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="380" y="144" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#2457d6">Apr 2022 – Jul 2024</text>
+  <text x="380" y="168" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="700" fill="#111315">EY · Morgan Stanley &amp; BlackRock</text>
+  <text x="380" y="188" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Senior Technology Consultant (Software Engineering)</text>
+
+  <line x1="766" y1="157" x2="788" y2="157" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- RIT M.S. -->
+  <rect x="794" y="118" width="370" height="78" rx="6" fill="#eef3fc" stroke="#2457d6" stroke-width="1.5" />
+  <text x="810" y="144" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#2457d6">Aug 2024 – Dec 2026 (exp.)</text>
+  <text x="810" y="168" font-family="Instrument Sans, system-ui, sans-serif" font-size="16" font-weight="700" fill="#111315">RIT · M.S. Computer Science</text>
+  <text x="810" y="188" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">ML, deep learning, vision, parallel &amp; big data</text>
+
+  <!-- RIT GRA (concurrent from Mar 2026) -->
+  <line x1="870" y1="196" x2="870" y2="244" stroke="#207a52" stroke-width="1.5" />
+  <line x1="870" y1="244" x2="890" y2="244" stroke="#207a52" stroke-width="1.5" marker-end="url(#arrow)" />
+  <rect x="896" y="212" width="268" height="64" rx="6" fill="#edf7f1" stroke="#207a52" stroke-width="1.5" />
+  <text x="912" y="238" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#207a52">Mar 2026 – present</text>
+  <text x="912" y="260" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="700" fill="#111315">GRA, Lead Developer - FedLearn</text>
+
+  <!-- Availability footer -->
+  <text x="36" y="250" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Sunnyvale, CA (moving Dec 20, 2026) · open to relocation · full-time Jan 2027</text>
+</svg>

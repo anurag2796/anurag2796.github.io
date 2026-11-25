@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500" role="img" aria-labelledby="title desc">
+  <title id="title">FedLearn Recorded Evidence Summary</title>
+  <desc id="desc">Four scoped measurements from the FedLearn record: 800 of 856 public commits (93.5%), NIH ChestX-ray14 study with 360 configurations and 7,200 rounds in simulation, 3 hosts and up to 80 logical clients with multi-host 1.87 to 2.93 times slower end to end than single-host, and 21 of 24 Android plans with live receipts.</desc>
+
+  <rect width="1200" height="500" fill="#fcfbf8" />
+
+  <!-- Header -->
+  <text x="36" y="38" font-family="Instrument Sans, system-ui, sans-serif" font-size="20" font-weight="600" fill="#111315">FedLearn — Recorded Evidence Summary</text>
+  <text x="36" y="62" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Public commit share, simulation study, multi-host gRPC qualification, and physical Android receipts</text>
+
+  <!-- Card 1: Public commits -->
+  <rect x="36" y="90" width="552" height="182" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="58" y="122" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="600" fill="#111315">Public Commit Share</text>
+  <rect x="436" y="102" width="130" height="26" rx="6" fill="#ebf7f1" stroke="#207a52" stroke-width="1.5" />
+  <text x="501" y="120" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#207a52">Confirmed</text>
+
+  <text x="58" y="168" font-family="IBM Plex Mono, monospace" font-size="26" font-weight="600" fill="#2457d6">800 / 856 <tspan font-size="18" fill="#111315">(93.5%)</tspan></text>
+  <text x="58" y="194" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">public commits on the repository snapshot</text>
+
+  <rect x="58" y="212" width="508" height="22" rx="6" fill="#efede8" />
+  <rect x="58" y="212" width="475" height="22" rx="6" fill="#2457d6" />
+  <text x="58" y="254" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">93.5% of public snapshot commits</text>
+
+  <!-- Card 2: NIH study -->
+  <rect x="612" y="90" width="552" height="182" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="634" y="122" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="600" fill="#111315">NIH ChestX-ray14 Study</text>
+  <rect x="916" y="102" width="226" height="26" rx="6" fill="#ebf7f1" stroke="#207a52" stroke-width="1.5" />
+  <text x="1029" y="120" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#207a52">Measured · simulation</text>
+
+  <rect x="634" y="146" width="244" height="82" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="654" y="186" font-family="IBM Plex Mono, monospace" font-size="26" font-weight="600" fill="#207a52">360</text>
+  <text x="654" y="212" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">configurations</text>
+
+  <rect x="898" y="146" width="244" height="82" rx="6" fill="#fcfbf8" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="918" y="186" font-family="IBM Plex Mono, monospace" font-size="26" font-weight="600" fill="#207a52">7,200</text>
+  <text x="918" y="212" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">rounds</text>
+
+  <text x="634" y="254" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Scope: measured in-process simulation (not clinical validation)</text>
+
+  <!-- Card 3: Three-host qualification -->
+  <rect x="36" y="290" width="552" height="182" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="58" y="322" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="600" fill="#111315">Three-Host gRPC Qualification</text>
+  <rect x="330" y="302" width="236" height="26" rx="6" fill="#fdeeee" stroke="#a23a3a" stroke-width="1.5" />
+  <text x="448" y="320" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#a23a3a">Measured · negative result</text>
+
+  <text x="58" y="360" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="600" fill="#111315">3 hosts · up to 80 logical clients</text>
+
+  <text x="58" y="396" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Single-host</text>
+  <rect x="174" y="380" width="110" height="18" rx="6" fill="#d8d6d0" />
+  <text x="294" y="395" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">reference</text>
+
+  <text x="58" y="426" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111315">Multi-host</text>
+  <rect x="174" y="410" width="206" height="18" rx="6" fill="#f3c6c6" />
+  <rect x="372" y="410" width="124" height="18" rx="6" fill="#a23a3a" />
+
+  <text x="58" y="454" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#a23a3a">Multi-host 1.87–2.93× slower end to end than single-host</text>
+
+  <!-- Card 4: Android qualification -->
+  <rect x="612" y="290" width="552" height="182" rx="6" fill="#ffffff" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="634" y="322" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="600" fill="#111315">Android Qualification</text>
+  <rect x="916" y="302" width="226" height="26" rx="6" fill="#ebf7f1" stroke="#207a52" stroke-width="1.5" />
+  <text x="1029" y="320" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" font-weight="600" fill="#207a52">Measured · hardware</text>
+
+  <text x="634" y="368" font-family="IBM Plex Mono, monospace" font-size="26" font-weight="600" fill="#207a52">21 / 24 <tspan font-family="Instrument Sans, system-ui, sans-serif" font-size="18" font-weight="500" fill="#111315">plans with live receipts</tspan></text>
+  <text x="634" y="394" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">measured on physical Android hardware</text>
+
+  <rect x="634" y="412" width="508" height="22" rx="6" fill="#efede8" />
+  <rect x="634" y="412" width="445" height="22" rx="6" fill="#207a52" />
+  <text x="634" y="454" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">21 of 24 plans confirmed with live receipts</text>
+</svg>
