@@ -9,19 +9,19 @@ import type { Glance } from "@/types/content";
 const GLANCE: Glance = {
   role: "Senior Technology Consultant (Software Engineering) at EY · Senior Systems Engineer (promoted from Systems Engineer) at TCS",
   period: "Jul 2019 – Jul 2024 (TCS Jul 2019 – Apr 2022 · EY Apr 2022 – Jul 2024)",
-  team: "Embedded in Morgan Stanley Fraud Hub (~8 services, 3 owned) and BlackRock portfolio teams; TCS USAA Consumer Lending (6-service pipeline)",
+  team: "Embedded in a Morgan Stanley fraud-technology team (3 services owned) and a BlackRock portfolio team; TCS USAA Consumer Lending team",
   context: "Production backend engineering for Morgan Stanley & BlackRock (EY, Bengaluru) and USAA (TCS, Hyderabad)",
   status: "Production delivery · proprietary client repositories",
   stack:
-    "Java · Scala · Spring Boot · REST · IBM MQ · Kafka · Redis · MySQL · Couchbase · NoSQL · LDAP · Docker · OpenShift · Jenkins · UrbanCode Deploy · Prometheus · Grafana · Java on a Spark-backed platform",
+    "Java · Scala · Spring Boot · REST · IBM MQ · Kafka · Redis · MySQL · Couchbase · NoSQL · Docker · OpenShift · Jenkins · UrbanCode Deploy · Prometheus · Grafana · Java on a Spark-backed platform",
   links: [],
 };
 
 const PROBLEMS = [
   {
-    who: "EY · MORGAN STANLEY (FRAUD HUB)",
+    who: "EY · MORGAN STANLEY",
     title: "Real-time fraud screening",
-    text: "A real-time fraud-screening pipeline had to stay within its end-to-end SLA as payment rails expanded from one (P2P) to five (P2P, ACH, branch ACH, wire, branch wire), while analysts spent too long manually reviewing suspected cases.",
+    text: "A real-time fraud-screening pipeline had to stay within its end-to-end SLA as it expanded from one payment type to five, while analysts spent too long manually reviewing suspected cases.",
   },
   {
     who: "EY · BLACKROCK (~6 MONTHS)",
@@ -31,7 +31,7 @@ const PROBLEMS = [
   {
     who: "TCS · USAA (CONSUMER LENDING)",
     title: "Consumer lending decisioning",
-    text: "Thin personal and auto loan applications arrived on IBM MQ and needed enrichment from internal stores and three cross-team systems, risk checks, rule-based decisioning, persistence and Kafka publishing, plus resilient retries and on-call recovery.",
+    text: "Personal and auto loan applications needed enrichment from internal data and other teams' services, risk checks, rule-based decisioning, persistence and event publishing, plus resilient retries and on-call recovery.",
   },
 ];
 
@@ -43,7 +43,7 @@ const THREE = [
     items: [
       "Product stakeholders whose changing needs I turned into technical requirements",
       "Distinct user groups using BlackRock's portfolio console and USAA teams consuming Kafka loan records",
-      "Fraud analysts and loan underwriters handling referred cases, plus junior developers I mentored",
+      "Operations teams reviewing cases the automation referred to them, plus junior developers I mentored",
     ],
   },
   {
@@ -51,8 +51,8 @@ const THREE = [
     n: "03",
     title: "Constraints",
     items: [
-      "End-to-end SLA on real-time fraud screening across 5 payment rails",
-      "Fail-safe lending decisions: incomplete bureau or address data went to underwriter review, never auto-approval",
+      "End-to-end SLA on real-time fraud screening as payment types were added",
+      "Lending decisions had to stay correct when upstream data was slow or incomplete",
       "Portfolio migration results had to be proven against the legacy baseline across nested hierarchies",
     ],
   },
@@ -61,9 +61,9 @@ const THREE = [
     n: "04",
     title: "What I built and owned",
     items: [
-      "Three production Scala services in Fraud Hub (core enricher, additional enricher, persistence), Redis SLA caching, and pipeline changes across 1 → 5 payment rails",
+      "Three production Scala services (enrichment and persistence), Redis caching, and pipeline changes as screening grew from 1 to 5 payment types",
       "Validation and cleansing rules plus the hierarchical legacy-vs-new comparison report for BlackRock's portfolio platform",
-      "Features, defect fixes, tests, Couchbase/MySQL data access, timeouts/retries, backout replay, and the Kafka producer integration across USAA's 6-service pipeline",
+      "Features, defect fixes, tests, Couchbase/MySQL data access, timeouts/retries, failed-message replay, and the Kafka producer integration across a 6-service pipeline",
       "Point of contact and code reviewer for multiple EY components; Jenkins CI/CD, UrbanCode Deploy releases, on-call diagnosis, and RCAs",
     ],
   },
@@ -72,21 +72,21 @@ const THREE = [
 const OUTCOMES = [
   [
     "Screening SLA from 5,000 ms to under 500 ms (10×)",
-    "Cached inbound transactions in Redis, taking database round-trips off the SLA path",
+    "Added Redis caching, taking database round-trips off the critical path",
     "EY · Morgan Stanley",
     "active",
     "● Confirmed (end-to-end SLA)",
   ],
   [
     "Contributed to 75% less manual review time",
-    "Triage automation: auto-routing, pre-filled evidence and auto-clearing low-risk cases",
+    "Contributed to the team's triage automation",
     "EY · Morgan Stanley",
     "demo",
     "◆ Reported (team figure)",
   ],
   [
-    "Expanded Fraud Hub from 1 to 5 payment rails",
-    "Delivered pipeline changes across enrichment, rules and persistence (P2P to ACH, branch ACH, wire, branch wire)",
+    "Expanded screening from 1 to 5 payment types",
+    "Delivered pipeline changes across enrichment, rules and persistence",
     "EY · Morgan Stanley",
     "active",
     "● Confirmed",
@@ -99,8 +99,8 @@ const OUTCOMES = [
     "● Confirmed (reconciliation)",
   ],
   [
-    "6-service lending pipeline across 3 cross-team integrations",
-    "Personal and auto loans: IBM MQ intake, credit bureau, credit card, LDAP directory, Java rules, MySQL/Couchbase, Kafka publishing",
+    "6-service lending pipeline",
+    "Personal and auto loans: queue intake, enrichment, Java rules, MySQL/Couchbase, Kafka publishing",
     "TCS · USAA",
     "active",
     "● Confirmed scope",
@@ -172,33 +172,22 @@ export function FinancialServicesPage() {
             Decisioning pipelines twice
           </SecHead>
           <p className="p">
-            Both USAA consumer lending (TCS) and Morgan Stanley Fraud Hub (EY) share the same pipeline shape: IBM MQ
-            intake, enrichment, rule-based decisioning, persistence and a manual-review path. Internal repository names
-            and proprietary rules are omitted.
+            The lending work at TCS and the fraud-screening work at EY followed the same broad shape: queue intake,
+            enrichment, rule-based decisioning, persistence, event publishing and a human-review path. Each stage ran
+            as its own service so teams could release changes independently.
           </p>
           <p className="p">
-            Both pipelines were split across independent services—six Spring Boot repositories at USAA and roughly eight
-            services at Morgan Stanley—so teams could release changes without redeploying the entire flow. At BlackRock,
-            hierarchical comparison runs across nested portfolios sorted every legacy-vs-new difference into matches,
-            improvements, and regressions.
+            The figure below shows that general pattern only. Client system designs, service names, rules and data
+            stay confidential; I&apos;m happy to talk through the engineering decisions in an interview.
           </p>
         </div>
-        <div className="stack" style={{ gap: 20 }}>
-          <Figure
-            src="images/diagrams/fin-fraudhub-pipeline.svg"
-            width={1200}
-            height={590}
-            alt="Morgan Stanley Fraud Hub pipeline: transactions across five payment rails arrive over IBM MQ, enter the orchestrator where the SLA clock starts and inbound transactions are cached in Redis, pass over Kafka through the owned core enricher, rule-based decision engine, optional owned additional enricher looping back to the decision engine, and owned persistence to NoSQL where the SLA clock stops, with suspected cases routed to automated triage queues."
-            caption="Figure 1. EY / Morgan Stanley Fraud Hub: IBM MQ intake, Kafka between services, owned enrichment and persistence services, Redis SLA cache, and triage queues."
-          />
-          <Figure
-            src="images/diagrams/fin-tcs-pipeline.svg"
-            width={1200}
-            height={660}
-            alt="TCS USAA Consumer Lending 6-service pipeline: thin personal and auto loan requests arrive on IBM MQ and flow through six Spring Boot services (descriptive names: intake, context retrieval, credit retrieval, risk check, decision, data/publish) with other-team calls to credit-card service, LDAP directory, and credit-bureau gateway, MQ backout queue replay on failures, MySQL and Couchbase storage, and Kafka publishing."
-            caption="Figure 2. TCS / USAA Consumer Lending 6-service pipeline (descriptive service names): IBM MQ intake, cross-team lookups, Java decision rules, MySQL and Couchbase, and Kafka output."
-          />
-        </div>
+        <Figure
+          src="images/diagrams/fin-pattern.svg"
+          width={1200}
+          height={400}
+          alt="Generalized pipeline pattern: queue intake, enrichment backed by a Redis cache, rule-based decision with a human review queue, persistence to SQL or NoSQL, and Kafka event publishing, with timeouts, retries and replay of failed messages at every stage. No client system is depicted."
+          caption="Figure 1. The general pattern I worked in at TCS and EY. Not a diagram of any client system."
+        />
       </section>
 
       <section className="wrap sec reveal">
@@ -209,9 +198,8 @@ export function FinancialServicesPage() {
             </SecHead>
             <ul className="ruled-list">
               <li>
-                <strong>Take database round-trips off the SLA path.</strong> Cached inbound transactions in Redis so
-                end-to-end Fraud Hub screening dropped from 5,000 ms to under 500 ms without changing screening
-                outcomes.
+                <strong>Take database round-trips off the SLA path.</strong> Added Redis caching so end-to-end
+                screening dropped from 5,000 ms to under 500 ms without changing screening outcomes.
               </li>
               <li>
                 <strong>Validate migrations with reconciliation.</strong> Added validation and cleansing rules on
@@ -219,9 +207,8 @@ export function FinancialServicesPage() {
                 matches, improvements and regressions.
               </li>
               <li>
-                <strong>Persist first, fail safe on missing data.</strong> USAA&apos;s lending pipeline persisted the
-                final record to MySQL/Couchbase before publishing to Kafka, routed incomplete data to underwriter review,
-                and held repeated failures on an IBM MQ backout queue for replay.
+                <strong>Persist first, then publish.</strong> The lending pipeline stored the final record before
+                publishing it to Kafka, and held repeatedly failing messages for replay instead of dropping them.
               </li>
             </ul>
           </div>
@@ -235,12 +222,11 @@ export function FinancialServicesPage() {
                 the legacy baseline across nested portfolio hierarchies before migration.
               </li>
               <li>
-                Diagnosed recurring USAA production incidents on call (dependency slowdowns, malformed input, release
-                regressions) using Prometheus and Grafana, shipped fixes, replayed backout-queue messages and wrote
-                RCAs.
+                Diagnosed recurring production incidents on call (dependency slowdowns, malformed input, release
+                regressions) using Prometheus and Grafana, shipped fixes, replayed failed messages and wrote RCAs.
               </li>
               <li>
-                Released USAA services through IBM UrbanCode Deploy (dev → QA → prod) on Docker and OpenShift, and
+                Released services through IBM UrbanCode Deploy (dev → QA → prod) on Docker and OpenShift, and
                 maintained Jenkins CI/CD and production support at EY.
               </li>
             </ul>
@@ -252,20 +238,13 @@ export function FinancialServicesPage() {
         <SecHead id="s8" n="08">
           Results (with scope)
         </SecHead>
-        <div className="stack mb-28" style={{ gap: 20 }}>
+        <div className="mb-28">
           <Figure
             src="images/diagrams/fin-latency.svg"
             width={1200}
             height={360}
-            alt="Bar chart of end-to-end pipeline SLA for Morgan Stanley Fraud Hub: 5,000 ms before with database round-trips on the SLA path versus under 500 ms after caching inbound transactions in Redis, labeled < 500 ms."
-            caption="Figure 3. End-to-end pipeline SLA, Morgan Stanley Fraud Hub: 5,000 ms before versus under 500 ms after Redis caching."
-          />
-          <Figure
-            src="images/diagrams/fin-rails.svg"
-            width={1200}
-            height={360}
-            alt="Payment rail expansion at Morgan Stanley Fraud Hub: 1 rail at join (P2P) expanded to 5 payment rails (P2P, ACH, branch ACH, wire, branch wire)."
-            caption="Figure 4. Morgan Stanley Fraud Hub expansion from 1 payment rail (P2P) to 5 rails (ACH, branch ACH, wire, branch wire added)."
+            alt="Bar chart of end-to-end screening time at EY: 5,000 ms before versus under 500 ms after adding Redis caching, labeled < 500 ms."
+            caption="Figure 2. End-to-end screening time, EY engagement: 5,000 ms before versus under 500 ms after Redis caching."
           />
         </div>
         <div className="table-scroll boxed stack-mobile">
@@ -314,17 +293,16 @@ export function FinancialServicesPage() {
                 belong to EY, TCS, Morgan Stanley, BlackRock, and USAA and cannot be linked publicly.
               </li>
               <li>
-                Owned 3 of ~8 production services in Fraud Hub (not the entire platform), and contributed to triage
-                automation rather than claiming sole ownership of the −75% review-time figure (case counts not recalled).
+                Owned 3 production services in a larger platform (not the entire platform), and contributed to triage
+                automation rather than claiming sole ownership of the −75% review-time figure.
               </li>
               <li>
-                Early-career TCS/USAA quantitative impact metrics (transaction volume, latency, uptime) are not recalled
-                and are omitted rather than estimated; service labels describe function rather than exact internal
-                repository names.
+                Early-career TCS quantitative impact metrics (volume, latency, uptime) are not recalled and are omitted
+                rather than estimated.
               </li>
               <li>
                 At BlackRock, worked in core Java services and validation around a Spark-backed platform (platform
-                exposure only); the specific NoSQL product behind Fraud Hub persistence is not recalled.
+                exposure only).
               </li>
             </ul>
           </div>
@@ -334,8 +312,8 @@ export function FinancialServicesPage() {
             </h2>
             <p>
               This work was done as an employee of EY and TCS on client engagements (Morgan Stanley, BlackRock, USAA).
-              Internal repository names, proprietary rules and client data are left out; detail stops at what my
-              authoritative work record already states.
+              Client system designs, internal project and service names, proprietary rules and client data are left
+              out. This page describes my role, the general engineering pattern and my results.
             </p>
           </div>
         </div>

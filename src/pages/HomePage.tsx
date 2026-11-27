@@ -9,13 +9,13 @@ const METRICS = [
   {
     value: "<500 ms",
     label: "end-to-end SLA, from 5,000 ms (10×)",
-    how: "Cached inbound transactions in Redis",
+    how: "Added Redis caching",
     where: "EY · Morgan Stanley",
   },
   {
     value: "1 → 5",
-    label: "payment rails screened",
-    how: "P2P, ACH, branch ACH, wire, branch wire",
+    label: "payment types screened",
+    how: "Pipeline changes across enrichment, rules, persistence",
     where: "EY · Morgan Stanley",
   },
   {
@@ -74,17 +74,17 @@ const ROLES = [
     title: "Senior Technology Consultant (Software Engineering)",
     when: "Apr 2022 to Jul 2024 · Bengaluru",
     summary:
-      "Embedded software developer for two clients: Morgan Stanley's Fraud Hub real-time transaction-screening platform (~18 months) and BlackRock's Java on Spark portfolio-management platform (~6 months).",
+      "Embedded software developer for two clients: a Morgan Stanley real-time transaction-screening platform (~18 months) and BlackRock's Java on Spark portfolio-management platform (~6 months).",
     owned: [
-      "Three Fraud Hub Scala services (core enricher, additional enricher, persistence) as the platform grew from 1 payment rail to 5",
-      "Event-driven pipelines on IBM MQ and Kafka, caching inbound transactions in Redis to take database round-trips off the SLA path",
-      "Contributed to triage automation (auto-routing, pre-filled evidence, auto-clearing low-risk cases) and wrote design documents",
+      "Three production Scala services (enrichment and persistence) as screening grew from 1 payment type to 5",
+      "Event-driven pipelines on IBM MQ and Kafka, with Redis caching to take database round-trips off the critical path",
+      "Contributed to triage automation and wrote design documents",
       "Validated BlackRock's re-architected Java on a Spark-backed portfolio platform against the legacy system and added validation rules",
     ],
     results: [
-      ["<500 ms", "end-to-end screening SLA, from 5,000 ms (10×) · cached inbound transactions in Redis"],
+      ["<500 ms", "end-to-end screening SLA, from 5,000 ms (10×) · Redis caching"],
       ["−75%", "manual review time · contributed to triage automation"],
-      ["1 → 5", "payment rails screened · P2P, ACH, branch ACH, wire, branch wire"],
+      ["1 → 5", "payment types screened"],
       ["+15%", "data accuracy at BlackRock · reconciliation before vs after"],
     ],
     how: "Translated business needs into technical requirements with stakeholders, maintained Jenkins CI/CD, mentored junior developers, and served as code-review point of contact for several components.",
@@ -98,17 +98,17 @@ const ROLES = [
       "Spring Boot microservices in USAA's 6-service Consumer Lending pipeline (personal and auto loans), running with IBM MQ, Kafka and Docker on OpenShift, with on-call production support.",
     owned: [
       "Features, unit/integration tests and fixes across retrieval, risk-check, decision and data services on MySQL and Couchbase",
-      "Enrichment via 3 cross-team integrations (credit-bureau gateway, credit-card service, LDAP company directory) and rule-based decisioning",
-      "Kafka producer integration publishing persisted final application records downstream, with timeouts, retries and MQ backout-queue replay",
+      "Enrichment via 3 cross-team service integrations and rule-based decisioning",
+      "Kafka producer integration publishing persisted final application records downstream, with timeouts, retries and failed-message replay",
       "Releases and rollbacks via IBM UrbanCode Deploy (dev → QA → prod) on OpenShift; on-call monitoring with Prometheus and Grafana",
     ],
     results: [
       ["6", "Spring Boot services in USAA's Consumer Lending pipeline, each in its own repository"],
-      ["3", "cross-team integrations · credit-bureau gateway, credit-card service, LDAP directory"],
+      ["3", "cross-team service integrations"],
       ["2", "loan products · personal and auto loans, routed to 3 decision outcomes"],
       ["3", "recurring incident classes resolved on call · dependency slowdowns, bad input, release regressions"],
     ],
-    how: "Carried on-call support, diagnosed incidents with logs and Grafana, shipped fixes, replayed backout-queue messages and wrote RCAs.",
+    how: "Carried on-call support, diagnosed incidents with logs and Grafana, shipped fixes, replayed failed messages and wrote RCAs.",
   },
 ];
 
@@ -462,7 +462,7 @@ export function HomePage() {
               </div>
               <div>
                 <strong>1 → 5</strong>
-                <span>payment rails screened</span>
+                <span>payment types screened</span>
               </div>
             </div>
             <p className="desc">
