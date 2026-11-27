@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img">
+  <title>Event-driven decisioning pipeline pattern (generalized)</title>
+  <desc>Generalized pattern shared by the lending and fraud-screening work: messages arrive on a queue, pass through enrichment services with a cache, rule-based decisioning, persistence, and are published as events for downstream teams. Failed messages are retried and then held for replay. Cases that need a person go to a review queue. No client systems are depicted.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#666b72" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="400" fill="#fcfbf8" />
+
+  <text x="36" y="42" font-family="Instrument Sans, system-ui, sans-serif" font-size="22" font-weight="700" fill="#111315">The pipeline pattern I worked in (generalized)</text>
+  <text x="36" y="68" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" fill="#666b72">Common to the lending and fraud-screening work · not a diagram of any client system</text>
+
+  <!-- 1 Queue intake -->
+  <rect x="36" y="120" width="180" height="104" rx="6" fill="#f5f3ee" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="52" y="152" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="700" fill="#111315">Queue intake</text>
+  <text x="52" y="178" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Consume, validate</text>
+  <text x="52" y="204" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">IBM MQ</text>
+
+  <line x1="216" y1="172" x2="246" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- 2 Enrichment -->
+  <rect x="252" y="120" width="200" height="104" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="268" y="152" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="700" fill="#111315">Enrichment</text>
+  <text x="268" y="178" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Add context from data</text>
+  <text x="268" y="198" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">stores and other teams</text>
+
+  <!-- Cache under enrichment -->
+  <rect x="252" y="262" width="200" height="64" rx="6" fill="#ffffff" stroke="#207a52" stroke-width="1.5" />
+  <text x="268" y="290" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#207a52">Cache</text>
+  <text x="268" y="312" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">Redis</text>
+  <line x1="352" y1="226" x2="352" y2="256" stroke="#207a52" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)" />
+
+  <line x1="452" y1="172" x2="482" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- 3 Rules -->
+  <rect x="488" y="120" width="190" height="104" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="504" y="152" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="700" fill="#111315">Rule-based decision</text>
+  <text x="504" y="178" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Automated outcome</text>
+  <text x="504" y="198" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">or human review</text>
+
+  <!-- Review queue -->
+  <rect x="488" y="262" width="190" height="64" rx="6" fill="#ffffff" stroke="#a66112" stroke-width="1.5" />
+  <text x="504" y="290" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#a66112">Review queue</text>
+  <text x="504" y="312" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Cases that need a person</text>
+  <line x1="583" y1="226" x2="583" y2="256" stroke="#a66112" stroke-width="2" marker-end="url(#arrow)" />
+
+  <line x1="678" y1="172" x2="708" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- 4 Persist -->
+  <rect x="714" y="120" width="190" height="104" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" />
+  <text x="730" y="152" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="700" fill="#111315">Persist</text>
+  <text x="730" y="178" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Store the final record</text>
+  <text x="730" y="204" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">SQL / NoSQL</text>
+
+  <line x1="904" y1="172" x2="934" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- 5 Publish -->
+  <rect x="940" y="120" width="224" height="104" rx="6" fill="#f5f3ee" stroke="#d8d6d0" stroke-width="1.5" />
+  <text x="956" y="152" font-family="Instrument Sans, system-ui, sans-serif" font-size="17" font-weight="700" fill="#111315">Publish event</text>
+  <text x="956" y="178" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">For downstream teams</text>
+  <text x="956" y="204" font-family="IBM Plex Mono, monospace" font-size="14" fill="#666b72">Kafka</text>
+
+  <!-- Retry and replay band -->
+  <rect x="714" y="262" width="450" height="64" rx="6" fill="#ffffff" stroke="#a23a3a" stroke-width="1.5" stroke-dasharray="6 4" />
+  <text x="730" y="290" font-family="Instrument Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#a23a3a">Failure handling (every stage)</text>
+  <text x="730" y="312" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Timeouts, retries, then hold failed messages for replay</text>
+
+  <text x="36" y="372" font-family="Instrument Sans, system-ui, sans-serif" font-size="14" fill="#666b72">Each stage ran as its own service so teams could release changes independently. Client service names, rules and data are not shown.</text>
+</svg>

@@ -44,17 +44,17 @@ const ROLES: Role[] = [
     when: "Apr 2022 to Jul 2024 · Bengaluru, India",
     org: "Ernst & Young (EY)",
     title: "Senior Technology Consultant (Software Engineering)",
-    scope: "Clients: Morgan Stanley (Fraud Hub, ~18 months), BlackRock (portfolio platform, ~6 months)",
+    scope: "Clients: Morgan Stanley (fraud technology, ~18 months), BlackRock (portfolio platform, ~6 months)",
     summary:
-      "Embedded as a software engineer with two financial-services client engineering teams. At Morgan Stanley's Fraud Hub (~18 months) I owned 3 production Scala services in the real-time fraud-screening pipeline as it expanded from 1 payment rail to 5. At BlackRock (~6 months) I worked in Java on a Spark-backed portfolio-management platform, validating a re-architecture against the legacy system and building services behind a multi-user console.",
+      "Embedded as a software engineer with two financial-services client engineering teams. At Morgan Stanley (~18 months) I owned 3 production Scala services in a real-time fraud-screening pipeline as it expanded from 1 payment type to 5. At BlackRock (~6 months) I worked in Java on a Spark-backed portfolio-management platform, validating a re-architecture against the legacy system and building services behind a multi-user console.",
     groups: [
       {
-        heading: "MORGAN STANLEY · FRAUD HUB (~18 MONTHS)",
+        heading: "MORGAN STANLEY · FRAUD TECHNOLOGY (~18 MONTHS)",
         items: [
-          "Embedded as a software engineer in Morgan Stanley's fraud-technology team; owned 3 production Scala services (core enrichment, additional enrichment, persistence) in Fraud Hub, a real-time fraud-screening pipeline on IBM MQ, Kafka and Redis.",
-          "Cut end-to-end transaction screening time from 5,000 ms to under 500 ms (10x) by caching inbound transactions in Redis and taking database round-trips off the SLA path.",
-          "Helped expand Fraud Hub from 1 to 5 payment rails (P2P, ACH, branch ACH, wire, branch wire), delivering changes across enrichment, rules and persistence with design documents.",
-          "Contributed to triage automation (auto-routing, pre-filled evidence, auto-clearing low-risk cases) that cut analysts' manual review time by 75%.",
+          "Embedded as a software engineer in Morgan Stanley's fraud-technology team; owned 3 production Scala services (enrichment and persistence) in a real-time fraud-screening pipeline on IBM MQ, Kafka and Redis.",
+          "Cut end-to-end transaction screening time from 5,000 ms to under 500 ms (10x) by adding Redis caching and taking database round-trips off the critical path.",
+          "Helped expand screening from 1 to 5 payment types, delivering changes across enrichment, rules and persistence with design documents.",
+          "Contributed to triage automation that cut analysts' manual review time by 75%.",
         ],
       },
       {
@@ -83,25 +83,25 @@ const ROLES: Role[] = [
     title: "Senior Systems Engineer (promoted from Systems Engineer)",
     scope: "Client engagement: USAA (Consumer Lending)",
     summary:
-      "Started my career on USAA's Consumer Lending team, working across a 6-service Spring Boot pipeline for personal and auto loans: IBM MQ intake, cross-team enrichment (credit bureau, credit card, LDAP directory), risk checks, rule-based decisioning, MySQL and Couchbase persistence and Kafka publishing, alongside on-call production support.",
+      "Started my career on USAA's Consumer Lending team, working across a 6-service Spring Boot pipeline for personal and auto loans: IBM MQ intake, enrichment from other teams' services, risk checks, rule-based decisioning, MySQL and Couchbase persistence and Kafka publishing, alongside on-call production support.",
     groups: [
       {
         heading: "LENDING PIPELINE AND DATA",
         items: [
-          "Built and maintained Spring Boot microservices in USAA's 6-service consumer-lending pipeline (personal and auto loans), consuming applications from IBM MQ, enriching them through 3 cross-team integrations (credit bureau, credit card, LDAP directory) and routing each to auto-approval, underwriter review or a risk flag.",
-          "Implemented features across retrieval, risk-check and decision services, where Java rules combined with credit-bureau scores to auto-approve, refer to underwriters or flag risk.",
-          "Built the Kafka producer integration that published each persisted application record to downstream teams, and added timeouts, retries and MQ backout-queue reprocessing across services on MySQL and Couchbase.",
+          "Built and maintained Spring Boot microservices in USAA's 6-service consumer-lending pipeline (personal and auto loans), consuming applications from IBM MQ and enriching them through 3 cross-team service integrations.",
+          "Implemented features across retrieval, risk-check and decision services, including rule-based decisioning in Java.",
+          "Built the Kafka producer integration that published each persisted application record to downstream teams, and added timeouts, retries and failed-message reprocessing across services on MySQL and Couchbase.",
         ],
       },
       {
         heading: "DELIVERY AND ON-CALL SUPPORT",
         items: [
-          "Resolved recurring production incidents on call (dependency slowdowns, malformed input, release regressions) using Prometheus and Grafana; root-caused, shipped fixes, replayed backout-queue messages and wrote RCAs.",
+          "Resolved recurring production incidents on call (dependency slowdowns, malformed input, release regressions) using Prometheus and Grafana; root-caused, shipped fixes, replayed failed messages and wrote RCAs.",
           "Released through UrbanCode Deploy across dev, QA and prod, running containerized services with Docker on OpenShift.",
         ],
       },
     ],
-    tech: "Java · Spring Boot · REST · IBM MQ · Kafka · MySQL · Couchbase · LDAP · Docker · OpenShift · UrbanCode Deploy · Prometheus · Grafana",
+    tech: "Java · Spring Boot · REST · IBM MQ · Kafka · MySQL · Couchbase · Docker · OpenShift · UrbanCode Deploy · Prometheus · Grafana",
   },
   {
     key: "infosys",
@@ -115,7 +115,7 @@ const SKILLS: { tier: string; where: string; list: ReactNode }[] = [
   {
     tier: "Production",
     where: "EY and TCS, in live systems",
-    list: "Java, Scala, Spring Boot, REST, IBM MQ, Kafka, Redis, MySQL, Couchbase, NoSQL, LDAP, Docker, OpenShift, Jenkins, UrbanCode Deploy, Prometheus, Grafana",
+    list: "Java, Scala, Spring Boot, REST, IBM MQ, Kafka, Redis, MySQL, Couchbase, NoSQL, Docker, OpenShift, Jenkins, UrbanCode Deploy, Prometheus, Grafana",
   },
   {
     tier: "Recently shipped",

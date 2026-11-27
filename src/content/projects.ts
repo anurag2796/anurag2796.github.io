@@ -45,7 +45,7 @@ export const PROJECTS: Project[] = [
     owner: "EY Senior Technology Consultant (Software Engineering) and TCS Senior Systems Engineer",
     desc: "Real-time fraud decisioning, portfolio data and consumer-lending services, built and supported in production for financial-services clients.",
     evidence:
-      "End-to-end screening SLA cut from 5,000 ms to under 500 ms via Redis · contributed to 75% lower manual-review time · Fraud Hub expanded from 1 to 5 payment rails · BlackRock data accuracy +15%.",
+      "End-to-end screening SLA cut from 5,000 ms to under 500 ms via Redis · contributed to 75% lower manual-review time · screening expanded from 1 to 5 payment types · BlackRock data accuracy +15%.",
     tech: "Java · Scala · Spring Boot · Kafka · IBM MQ · Redis · MySQL · Couchbase · OpenShift",
     href: ROUTES.finserv,
     cta: "Read the case study",
